@@ -6,6 +6,7 @@ import {
   Button,
   IconButton,
   Card,
+  Collapse,
 } from "@material-tailwind/react";
  
 export default function StickyNavbar() {
@@ -122,12 +123,12 @@ export default function StickyNavbar() {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav}>
+        <Collapse open={openNav}>
           {navList}
           <Button variant="gradient" size="sm" fullWidth className="mb-2">
             <span>Buy Now</span>
           </Button>
-        </MobileNav>
+        </Collapse>
       </Navbar>
     </div>
   );

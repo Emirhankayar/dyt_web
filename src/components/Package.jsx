@@ -42,7 +42,7 @@ export default function PricingCard() {
             color="white"
             className="font-normal uppercase"
           >
-            standard
+            standarda
           </Typography>
           <Typography
             variant="h1"
@@ -101,6 +101,7 @@ export default function PricingCard() {
           </Button>
         </CardFooter>
       </Card>
+      
     </div>
   );
 }

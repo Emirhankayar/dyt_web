@@ -4,7 +4,7 @@ import { ThemeProvider } from '@material-tailwind/react';
 const Navbar = React.lazy(() => import('./components/Navbar'));
 const Hero = React.lazy(() => import('./components/Hero'));
 const Blog = React.lazy(() => import('./components/Blog'));
-const Pack = React.lazy(() => import('./components/Package'));
+//const Pack = React.lazy(() => import('./components/Package'));
 
 const Footer = React.lazy(() => import('./components/Footer'));
 
@@ -19,7 +19,7 @@ export default function App() {
           <Navbar />
           <Hero />
           <Blog />
-          <Pack />
+
 
           <Footer />
         </Suspense>
