@@ -1,16 +1,5 @@
 # Dietitian Website with React, Vite, Tailwind CSS, and Material UI
 
-Table of Contents
-
-Introduction
-Features
-Technologies Used
-Installation
-Usage
-Contributing
-License
-Introduction
-
 Welcome to the Dietitian Website repository! This is a modern website designed for dietitians, nutritionists, and health enthusiasts to showcase their services, provide valuable content, and engage with their audience. The website is built using React, Vite, Tailwind CSS, and Material UI to ensure a responsive, fast, and visually appealing user experience.
 
 Features
