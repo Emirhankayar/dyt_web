@@ -1,31 +1,46 @@
 import React from "react";
 import {
   Navbar,
-  MobileNav,
   Typography,
-  Button,
   IconButton,
-  Card,
-  Collapse,
+  Drawer,
 } from "@material-tailwind/react";
- 
+
 export default function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
- 
+  const [openRight, setOpenRight] = React.useState(false);
+
+  const openDrawerRight = () => setOpenRight(true);
+  const closeDrawerRight = () => setOpenRight(false);
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
- 
+
+  const closeDrawerOnLgScreen = () => {
+    if (window.innerWidth >= 960) {
+      closeDrawerRight();
+    }
+  };
+
+  React.useEffect(() => {
+    window.addEventListener("resize", closeDrawerOnLgScreen);
+    return () => {
+      window.removeEventListener("resize", closeDrawerOnLgScreen);
+    };
+  }, []);
+
+
   const navList = (
-    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="mb-10 mt-10 flex flex-col items-start gap-10 lg:mb-0 lg:mt-0 lg:h-max lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
-        variant="small"
+        variant="medium"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-2 font-normal"
       >
         <a href="#" className="flex items-center">
           Pages
@@ -33,9 +48,9 @@ export default function StickyNavbar() {
       </Typography>
       <Typography
         as="li"
-        variant="small"
+        variant="medium"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-2 font-normal"
       >
         <a href="#" className="flex items-center">
           Account
@@ -43,9 +58,9 @@ export default function StickyNavbar() {
       </Typography>
       <Typography
         as="li"
-        variant="small"
+        variant="medium"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-2 font-normal"
       >
         <a href="#" className="flex items-center">
           Blocks
@@ -53,9 +68,9 @@ export default function StickyNavbar() {
       </Typography>
       <Typography
         as="li"
-        variant="small"
+        variant="medium"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-2 font-normal"
       >
         <a href="#" className="flex items-center">
           Docs
@@ -63,11 +78,14 @@ export default function StickyNavbar() {
       </Typography>
     </ul>
   );
- 
+
   return (
-    <div className="h-full top-0 left-0 sticky z-10 min-w-full overflow-hidden shadow-lg">
-      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
+    <>
+      <Navbar
+        className="fixed top-0 left-0 max-w-full rounded-none py-2 px-8 z-40 lg:px-8 lg:py-2"
+      >
         <div className="flex items-center justify-between text-blue-gray-900">
+
           <Typography
             as="a"
             href="#"
@@ -75,14 +93,17 @@ export default function StickyNavbar() {
           >
             Dyt. Zeynep
           </Typography>
+
           <div className="flex items-center gap-4">
+
+
             <div className="mr-4 hidden lg:block">{navList}</div>
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent 
-              active:bg-transparent lg:hidden"
+            active:bg-transparent lg:hidden"
               ripple={false}
-              onClick={() => setOpenNav(!openNav)}
+              onClick={openDrawerRight}
             >
               {openNav ? (
                 <svg
@@ -117,10 +138,47 @@ export default function StickyNavbar() {
             </IconButton>
           </div>
         </div>
-        <Collapse open={openNav}>
-          {navList}
-        </Collapse>
       </Navbar>
-    </div>
+
+      <Drawer
+        placement="right"
+        overlay={true}
+        open={openRight}
+        onClose={closeDrawerRight}
+        className="p-8"
+        overlayProps={{
+          className: "fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm",
+        }}
+      >
+        <div className="mb-6 flex flex-row items-center justify-between">
+          <Typography variant="h5" color="blue-gray">
+            Menu
+          </Typography>
+          <IconButton
+            variant="text"
+            color="blue-gray"
+            onClick={closeDrawerRight}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="h-5 w-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </IconButton>
+        </div>
+        {navList}
+      </Drawer>
+
+    </>
+
   );
 }

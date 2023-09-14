@@ -1,20 +1,21 @@
 import React from "react";
 import { Carousel } from "@material-tailwind/react";
+const DUMMY_IMAGE_URL = import.meta.env.VITE_DUMMY_IMG;
 
 const images = [
   {
     src:
-         "https://images.pexels.com/photos/2407409/pexels-photo-2407409.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        `${DUMMY_IMAGE_URL}`,
     alt: "image 1",
   },
   {
     src:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+        `${DUMMY_IMAGE_URL}`,
     alt: "image 2",
   },
   {
     src:
-      "https://images.pexels.com/photos/2724241/pexels-photo-2724241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        `${DUMMY_IMAGE_URL}`,
     alt: "image 3",
   },
 ];
@@ -25,8 +26,10 @@ export default function CarouselCustomNavigation() {
       <Carousel
         loop={true}
         autoplay={500}
+        prevArrow={false}
+        nextArrow={false}
         navigation={({ setActiveIndex, activeIndex, length }) => (
-          <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+          <div className="absolute bottom-4 left-2/4 flex -translate-x-2/4 gap-2">
             {new Array(length).fill("").map((_, i) => (
               <span
                 key={i}
