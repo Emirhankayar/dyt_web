@@ -65,28 +65,22 @@ export default function StickyNavbar() {
   );
  
   return (
-    <div className="h-full top-0 left-0 sticky z-10 min-w-full overflow-hidden">
+    <div className="h-full top-0 left-0 sticky z-10 min-w-full overflow-hidden shadow-lg">
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
             as="a"
             href="#"
-            className="mr-4 cursor-pointer py-1.5 font-medium"
+            className="mr-4 cursor-pointer py-1.5 font-bold"
           >
-            Material Tailwind
+            Dyt. Zeynep
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
-            <Button
-              variant="gradient"
-              size="sm"
-              className="hidden lg:inline-block"
-            >
-              <span>Buy Now</span>
-            </Button>
             <IconButton
               variant="text"
-              className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+              className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent 
+              active:bg-transparent lg:hidden"
               ripple={false}
               onClick={() => setOpenNav(!openNav)}
             >
@@ -125,9 +119,6 @@ export default function StickyNavbar() {
         </div>
         <Collapse open={openNav}>
           {navList}
-          <Button variant="gradient" size="sm" fullWidth className="mb-2">
-            <span>Buy Now</span>
-          </Button>
         </Collapse>
       </Navbar>
     </div>

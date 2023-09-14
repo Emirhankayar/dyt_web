@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <div className='bg-black'>
+      <div className='bg-white'>
         <Suspense fallback={<Spinner/>}>
           <Navbar />
           <Hero />
