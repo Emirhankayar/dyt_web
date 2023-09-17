@@ -6,13 +6,11 @@ const Hero = React.lazy(() => import('./components/Hero'));
 const About = React.lazy(() => import('./components/About'));
 const Blog = React.lazy(() => import('./components/Blog'));
 const Recipe = React.lazy(() => import('./components/Recipes'));
-const R = React.lazy(() => import('./components/Package'));
 
 
 
 
-const Contact = React.lazy(() => import('./components/Contact'));
-
+const Switch = React.lazy(() => import('./components/Switcher'));
 const Footer = React.lazy(() => import('./components/Footer'));
 
 import Spinner from './components/Spinner'
@@ -31,8 +29,7 @@ export default function App() {
           <About />
           <Blog />
           <Recipe />
-          <R/>
-          <Contact />
+          <Switch/>
 
           <Footer />
           

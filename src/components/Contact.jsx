@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import emailjs from 'emailjs-com';
-import { Button, Typography } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
+
 
 const siteKey = import.meta.env.VITE_APP_SITE;
+
 const serviceID = import.meta.env.VITE_SERVICE;
 const templateID = import.meta.env.VITE_TEMPLATE;
 const userID = import.meta.env.VITE_USER;
@@ -70,21 +72,11 @@ const ContactForm = () => {
     return (
 
         <>
-            <div className="container flex flex-wrap justify-between w-5/6 items-center mx-auto">
-                <Typography className="text-2xl font-bold">İletişime Geçin</Typography>
-                <a href="https://diyetzamanidostum.blogspot.com/search/label/Advise" target="_blank" rel="noopener noreferrer">
-                    <Button className="h-10 shadow-xl capitalize">
-                        Randevu Oluştur
-                    </Button>
-                </a>
-            </div>
 
             <div id='contact' className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col flex justify-center">
                 <div className='container rounded-lg p-6 bg-gray-100 shadow-xl'>
-                    <div className="w-full flex h-9 text-left items-center">
-                    </div>
                     <form onSubmit={handleSubmit}>
-                        <div className="mb-4">
+                        <div className="mb-4 mt-4">
                             <label htmlFor="name" className="block text-sm font-medium ">
                                 İsim Soyisim:
                             </label>
@@ -125,13 +117,6 @@ const ContactForm = () => {
                                 className="w-full px-3 py-2 mt-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                             />
                         </div>
-
-
-
-
-
-
-
                         <div className="mb-4">
                             <label htmlFor="description" className="block text-sm font-medium ">
                                 Açıklama:

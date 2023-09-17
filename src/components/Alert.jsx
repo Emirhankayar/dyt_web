@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Button } from "@material-tailwind/react";
+import { Alert } from "@material-tailwind/react";
  
 export default function AlertCustomAnimation() {
   const [open, setOpen] = React.useState(true);

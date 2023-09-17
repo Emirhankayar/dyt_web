@@ -100,8 +100,8 @@ export default function StickyNavbar() {
             <div className="mr-4 hidden lg:block">{navList}</div>
             <IconButton
               variant="text"
-              className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent 
-            active:bg-transparent lg:hidden"
+              color="black"
+              className="ml-auto h-6 w-6 text-inherit lg:hidden"
               ripple={false}
               onClick={openDrawerRight}
             >
@@ -156,7 +156,7 @@ export default function StickyNavbar() {
           </Typography>
           <IconButton
             variant="text"
-            color="blue-gray"
+            color="black"
             onClick={closeDrawerRight}
           >
             <svg
