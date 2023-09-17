@@ -11,6 +11,7 @@ export default function HorizontalCard() {
     return (
         <>
         <div className="flex flex-row justify-center items-center mx-auto p-8 w-full mb-40">
+
             <Card className="lg:w-3/4 md:w-4/5 w-5/6 flex-row md:h-[30rem] lg:h-[40rem]">
                 <CardHeader
                     shadow={false}

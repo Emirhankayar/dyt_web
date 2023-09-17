@@ -6,7 +6,12 @@ const Hero = React.lazy(() => import('./components/Hero'));
 const About = React.lazy(() => import('./components/About'));
 const Blog = React.lazy(() => import('./components/Blog'));
 const Recipe = React.lazy(() => import('./components/Recipes'));
-//const Pack = React.lazy(() => import('./components/Package'));
+const R = React.lazy(() => import('./components/Package'));
+
+
+
+
+const Contact = React.lazy(() => import('./components/Contact'));
 
 const Footer = React.lazy(() => import('./components/Footer'));
 
@@ -26,6 +31,9 @@ export default function App() {
           <About />
           <Blog />
           <Recipe />
+          <R/>
+          <Contact />
+
           <Footer />
           
         </Suspense>
