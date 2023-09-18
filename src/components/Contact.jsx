@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import Recaptcha from './Recaptcha';
 import emailjs from 'emailjs-com';
 import { Button } from "@material-tailwind/react";
 
 
-const siteKey = import.meta.env.VITE_APP_SITE;
+
 
 const serviceID = import.meta.env.VITE_SERVICE;
 const templateID = import.meta.env.VITE_TEMPLATE;
@@ -133,11 +133,8 @@ const ContactForm = () => {
                         </div>
 
                         <div className="mb-4">
-                            <ReCAPTCHA
-                                hl='tr'
-                                sitekey={siteKey}
-                                onChange={handleRecaptchaChange}
-                            />
+                            <Recaptcha onRecaptchaChange={handleRecaptchaChange} />
+
                         </div>
                         <div className="mb-4">
                             <Button

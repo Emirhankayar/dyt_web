@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PhoneInput from 'react-phone-number-input';
@@ -9,11 +8,16 @@ import Alert from './Alert';
 import { Button, Typography } from "@material-tailwind/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faEye, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-// TODO IMPLEMENT ERROR SPANS
-const siteKey = import.meta.env.VITE_APP_SITE
+import Recaptcha from './Recaptcha';
+import { registerLocale, setDefaultLocale } from 'react-datepicker';
+import tr from 'date-fns/locale/tr';
 
+// TODO IMPLEMENT ERROR SPANS
 
 export default function Booking() {
+  registerLocale('tr', tr);
+  setDefaultLocale('tr', tr);
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -22,7 +26,7 @@ export default function Booking() {
   const [alertMessage, setAlertMessage] = useState('');
   const pdfFileName = 'Danisan_Bilgi_Formu.pdf';
   const pdfFilePath = '/src/assets/';
-  const [formData, setFormData] = useState({ // Handle If Recaptcha is Empty
+  const [formData, setFormData] = useState({
     recaptchaValue: null,
   });
 
@@ -82,7 +86,7 @@ export default function Booking() {
   };
 
   return (
-    <div id='contact' className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col flex justify-center">
+    <div id='book' className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col flex justify-center">
       <div className='container rounded-lg p-6 bg-gray-100 shadow-xl'>
         <form onSubmit={handleBooking}>
 
@@ -140,10 +144,11 @@ export default function Booking() {
               timeFormat="HH:mm"
               timeIntervals={60}
               dateFormat="dd/MM/yyyy H:mm"
+              locale="tr"
             />
           </div>
 
-          <div className="mb-4 flex flex-row justify-between items-center mx-14">
+          <div className="mb-4 flex flex-row justify-between items-center">
             {pdfFileName}
             <div className='flex flex-row justify-center items-center'>
               <Button
@@ -165,7 +170,7 @@ export default function Booking() {
           </div>
 
 
-          <div className='mb-8 mt-4 w-full h-16 px-4'>
+          <div className='mb-16 sm:mb-10 md:mb-12 lg:mb-8 mt-4 w-full h-16 px-4'>
             <Typography className='text-sm italic text-red-300 text-justify'>
               <FontAwesomeIcon icon={faCircleInfo} className='mr-1' />
               Bu form, danışanların danışmanlık hizmeti öncesinde veya
@@ -177,11 +182,8 @@ export default function Booking() {
 
 
           <div className="mb-4">
-            <ReCAPTCHA
-              hl='tr'
-              sitekey={siteKey}
-              onChange={handleRecaptchaChange}
-            />
+            <Recaptcha onRecaptchaChange={handleRecaptchaChange} />
+
           </div>
           <div className="mb-4">
             <Button onClick={handleBooking}

@@ -23,12 +23,14 @@ export default function Switcher() {
           <Button
             className="h-10 shadow-xl capitalize"
             onClick={toggleComponent}
-          >
+            >
             {showContact ? "Randevu Oluştur" : "  İletişime Geçin  "}
           </Button>
         </div>
+      <div className="p-6">
 
         {showContact ? <Contact /> : <Book />}
+      </div>
       </Suspense>
     </>
   );
