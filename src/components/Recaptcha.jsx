@@ -15,7 +15,7 @@ const Recaptcha = ({ onRecaptchaChange }) => {
   }, [onRecaptchaChange]);
 
   return (
-    <div className="mb-4">
+    <div className="mt-12 mb-4 sm:mt-0 md:mt-0 lg:mt-0">
       <ReCAPTCHA
         hl="tr"
         sitekey={siteKey}

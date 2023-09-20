@@ -62,9 +62,22 @@ export default function Booking() {
     return `${window.location.origin}${pdfFilePath}${fileName}`;
   };
 
-  const supabase_url = import.meta.env.VITE_SUPABASE_URL;
-  const supabase_key = import.meta.env.VITE_SUPABASE;
+  const supabase_url = import.meta.env.VITE_SUPABASE_URL
+  const supabase_key = import.meta.env.VITE_SUPABASE
   const supabase = createClient(supabase_url, supabase_key);
+  const getPdfUrlFromSupabase = async (fileName) => {
+    const pdfUrl = `${supabase_url}/storage/v1/object/public/pdf/${fileName}`;
+
+    // Check if the PDF file exists in the Supabase bucket
+    const response = await fetch(pdfUrl);
+
+    if (response.ok) {
+      return pdfUrl;
+    } else {
+      console.error('PDF not found in database.');
+      return null;
+    }
+  };
 
   const handleOpenPdf = async () => {
     const pdfUrl = await getPdfUrlFromSupabase(pdfFileName);
@@ -228,7 +241,7 @@ export default function Booking() {
   
 
   return (
-    <div className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col flex justify-center">
+    <div className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col flex justify-center mt-12">
       <div className='container rounded-lg p-6 bg-gray-100 shadow-xl'>
         <form id='booking' onSubmit={handleBooking}>
 
@@ -258,7 +271,7 @@ export default function Booking() {
               type="email"
               id="email"
               name="email"
-              placeholder="Email"
+              placeholder="email@ornek.com"
               value={formData.email}
               onChange={handleChange}
               required
@@ -274,7 +287,7 @@ export default function Booking() {
               type="tel"
               id="phoneNumber"
               name="phoneNumber"
-              placeholder="Telefon Numarası"
+              placeholder="000-000-00-00"
               required
               value={phoneNumber}
               onChange={setPhoneNumber}
@@ -323,9 +336,9 @@ export default function Booking() {
 
           </div>
 
-          <div className="mb-4 flex flex-row justify-between items-center">
+          <div className="mb-4 flex flex-col sm:flex-row md:flex-row lg:flex-row justify-between items-center">
             {pdfFileName}
-            <div className='flex flex-row justify-center items-center'>
+            <div className='flex flex-row p-2 justify-center items-center'>
               <Button
                 onClick={handleDownloadPdf}
                 className=" rounded-full p-4 shadow-md flex flex-col justify-center items-center"
@@ -342,17 +355,17 @@ export default function Booking() {
             </div>
           </div>
 
-          <div className='mb-16 sm:mb-10 md:mb-12 lg:mb-8 mt-4 w-full h-16 px-4'>
+          <div className='block mb-20 sm:mb-10 md:mb-12 lg:mb-8 mt-4 w-full h-16 px-4 pb-12'>
             <Typography className='text-sm italic text-red-300 text-justify'>
               <FontAwesomeIcon icon={faCircleInfo} className='mr-1' />
               Bu form, danışanların danışmanlık hizmeti öncesinde veya
-              danışmanlık süreci sırasında doldurmaları gereken bir belgedir.
+              sırasında doldurmaları gereken bir belgedir.
               Sorununuzu daha iyi anlamamıza yardımcı olur ve size daha ileri
               düzeyde hizmet sunmamıza imkan tanır.
             </Typography>
           </div>
 
-          <div className="mb-4">
+          <div className="my-4">
             <Recaptcha onRecaptchaChange={handleRecaptchaChange} />
           </div>
 

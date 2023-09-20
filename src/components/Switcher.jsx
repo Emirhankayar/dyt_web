@@ -21,7 +21,7 @@ export default function Switcher() {
             {showContact ? "İletişime Geçin" : "Randevu Oluştur"}
           </Typography>
           <Button
-            className="h-10 shadow-xl capitalize"
+            className="h-10 px-2 sm:px-4 md:px-4 lg:px-4 shadow-xl capitalize"
             onClick={toggleComponent}
             >
             {showContact ? "Randevu Oluştur" : "  İletişime Geçin  "}

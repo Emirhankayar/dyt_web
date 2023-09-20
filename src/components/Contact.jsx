@@ -81,6 +81,7 @@ const ContactForm = () => {
                                 type="text"
                                 id="name"
                                 name="name"
+                                placeholder="İsim Soyisim"
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
@@ -96,6 +97,7 @@ const ContactForm = () => {
                                 type="text"
                                 id="subject"
                                 name="subject"
+                                placeholder='Konu'
                                 value={formData.subject}
                                 onChange={handleChange}
                                 className="w-full px-3 py-2 mt-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
@@ -110,6 +112,7 @@ const ContactForm = () => {
                                 type="email"
                                 id="email"
                                 name="email"
+                                placeholder='email@ornek.com'
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
@@ -123,6 +126,7 @@ const ContactForm = () => {
                             <textarea
                                 id="description"
                                 name="description"
+                                placeholder='Açıklama...'
                                 value={formData.description}
                                 onChange={handleChange}
                                 rows="4"
