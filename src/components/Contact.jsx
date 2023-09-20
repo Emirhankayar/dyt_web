@@ -7,6 +7,8 @@ const serviceID = import.meta.env.VITE_SERVICE;
 const templateID = import.meta.env.VITE_TEMPLATE;
 const userID = import.meta.env.VITE_USER;
 
+// TODO LOCALISE ERROR MESSAGES
+
 const ContactForm = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -29,7 +31,7 @@ const ContactForm = () => {
         e.preventDefault();
 
         if (!formData.recaptchaValue) {
-            alert('Please complete the reCAPTCHA verification.');
+            alert('Lütfen reCAPTCHA doğrulamasını tamamlayın.');
             return;
         }
 
@@ -57,10 +59,10 @@ const ContactForm = () => {
                 recaptchaValue: null,
             });
 
-            alert('Email sent successfully!');
+            alert('Email başarıyla gönderildi!');
         } catch (error) {
             console.error('Error sending email:', error);
-            alert('Failed to send email. Please try again later.');
+            alert('Email gönderilemei, lütfen daha sonra tekrar deneyiniz.');
         }
     };
 

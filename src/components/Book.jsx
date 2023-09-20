@@ -9,11 +9,31 @@ import { faDownload, faEye, faCircleInfo } from "@fortawesome/free-solid-svg-ico
 import Recaptcha from './Recaptcha';
 import { registerLocale, setDefaultLocale } from 'react-datepicker';
 import tr from 'date-fns/locale/tr';
+import emailjs from 'emailjs-com';
 import { createClient } from '@supabase/supabase-js';
+import { format } from 'date-fns';
+
+// TODO LOCALISE ERROR MESSAGES
+
+const generateGoogleMeetLink = (selectedDate, durationInMinutes) => {
+  // Format the date and time as required by Google Meet
+  const formattedDate = selectedDate.toISOString().replace(/-|:|\.\d+/g, '');
+
+  // Construct the Google Meet link
+  const meetLink = `https://meet.google.com/virtual/${formattedDate}`;
+  
+  return meetLink;
+};
+
 
 export default function Booking() {
+  const serviceID = import.meta.env.VITE_SERVICE;
+  const templateID = import.meta.env.VITE_TEMPLATE;
+  const userID = import.meta.env.VITE_USER;
+  
   registerLocale('tr', tr);
   setDefaultLocale('tr', tr);
+  
   const [bookedHours, setBookedHours] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -25,8 +45,7 @@ export default function Booking() {
     phoneNumber: '',
     recaptchaValue: null,
   });
-  const [excludedTimes, setExcludedTimes] = useState([]); // Add this state variable
-
+  const [excludedTimes, setExcludedTimes] = useState([]);
 
   const handleChange = (e) => {
     if (e && e.target) {
@@ -43,22 +62,9 @@ export default function Booking() {
     return `${window.location.origin}${pdfFilePath}${fileName}`;
   };
 
-  const supabase_url = import.meta.env.VITE_SUPABASE_URL
-  const supabase_key = import.meta.env.VITE_SUPABASE
+  const supabase_url = import.meta.env.VITE_SUPABASE_URL;
+  const supabase_key = import.meta.env.VITE_SUPABASE;
   const supabase = createClient(supabase_url, supabase_key);
-  const getPdfUrlFromSupabase = async (fileName) => {
-    const pdfUrl = `${supabase_url}/storage/v1/object/public/pdf/${fileName}`;
-
-    // Check if the PDF file exists in the Supabase bucket
-    const response = await fetch(pdfUrl);
-
-    if (response.ok) {
-      return pdfUrl;
-    } else {
-      console.error('PDF not found in database.');
-      return null;
-    }
-  };
 
   const handleOpenPdf = async () => {
     const pdfUrl = await getPdfUrlFromSupabase(pdfFileName);
@@ -74,7 +80,6 @@ export default function Booking() {
       console.error('PDF not found in database.');
     }
   };
-
 
   const handleDownloadPdf = async () => {
     const pdfUrl = await getPdfUrlFromSupabase(pdfFileName);
@@ -107,16 +112,16 @@ export default function Booking() {
     }
   };
 
-
   const handleBooking = async (e) => {
     e.preventDefault();
-
+  
     if (!formData.recaptchaValue) {
-      alert('Please complete the reCAPTCHA verification.');
+      alert('Lütfen reCAPTCHA doğrulamasını tamamlayın.');
       return;
     }
-
+  
     try {
+      // Insert booking data into Supabase
       const { data, error } = await supabase.from('appointment').insert([
         {
           created_at: selectedDate.toISOString(),
@@ -125,20 +130,53 @@ export default function Booking() {
           phone: phoneNumber,
         },
       ]);
-
+  
       if (error) {
         console.error('Error inserting booking:', error);
-        alert('Booking failed. Please try again.');
+        alert('Rezervasyonunuz oluşturulamadı.');
+        return; // Return early if there's an error with the Supabase insert
       } else {
         console.log('Booking inserted successfully:', data);
-        alert('Booking successful!');
+        alert('Rezervasyonunuz başarıyla oluşturuldu!');
       }
+      // Format the date
+      const formattedDate = format(selectedDate, 'dd/MM/yyyy HH:mm');
+      // Generate a Google Meet link
+      const meetLink = generateGoogleMeetLink(selectedDate, 40); // Adjust duration as needed
+  
+      // Include a message with the Google Meet link
+      const meetLinkMessage = `Bu Google Meet linki ile randevu günü ve saatiniz geldiğinde görüşmeye katılabilirsiniz:\n ${meetLink}`;
+  
+      // Send confirmation email to the user
+      const emailParamsUser = {
+        to_email: formData.email, // User's email from the form
+        user_name: formData.name,
+        appointment_date: formattedDate,
+        message: `Saygıdeğer Danışanımız ${formData.name},\nRandevunuz, "${formattedDate}" tarihi için başarıyla oluşturuldu!\n${meetLinkMessage}\n\n UYARI: FORMU ÖNCEDEN DOLDURMANIZI TAVSİYE EDERİZ...`,
+      };
+    
+
+      await emailjs.send(serviceID, templateID, emailParamsUser, userID);
+  
+      // Send confirmation email to the owner of the website (similar to user email)
+      const emailParamsOwner = {
+        //to_email: 'your@email.com',
+        user_name: formData.name,
+        user_email: formData.email, 
+        user_phone: phoneNumber,
+        appointment_date: formattedDate,
+        meet_link: meetLink,
+        message: `Bir yeni rezervasyonunuz var.\nDetaylar:\nİsim: ${formData.name}\nEmail: ${formData.email}\nTel No:${phoneNumber}\nRandevu Tarihi: ${formattedDate}\nMeet Link: ${meetLink}`,
+      };
+
+      await emailjs.send(serviceID, templateID, emailParamsOwner, userID);
+
     } catch (error) {
-      console.error('Error inserting booking:', error);
-      alert('Booking failed. Please try again.');
+      console.error('Error inserting booking or sending emails:', error);
+      alert('Rezervasyonunuz oluşturulamadı.');
     }
   };
-
+  
 
   useEffect(() => {
     const fetchBookedAppointments = async () => {
@@ -152,7 +190,6 @@ export default function Booking() {
           return;
         }
   
-        // Extract booked hours for the selected date from the data
         const selectedDateHours = data
           .map((appointment) => new Date(appointment.created_at))
           .filter((date) => {
@@ -178,28 +215,22 @@ export default function Booking() {
   
 
   useEffect(() => {
-    // Extract the year, month, and day components from the selected date
     const selectedYear = selectedDate.getFullYear();
     const selectedMonth = selectedDate.getMonth();
     const selectedDay = selectedDate.getDate();
 
-    // Create an array to hold the timestamps of excluded times
     const excludeTimes = bookedHours.map((hour) =>
       new Date(selectedYear, selectedMonth, selectedDay, hour)
     );
 
-    // Set the excluded times in the state
     setExcludedTimes(excludeTimes);
   }, [selectedDate, bookedHours]);
-
   
-
-
 
   return (
     <div className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col flex justify-center">
       <div className='container rounded-lg p-6 bg-gray-100 shadow-xl'>
-        <form onSubmit={handleBooking}>
+        <form id='booking' onSubmit={handleBooking}>
 
           <div className="mb-4">
             <label htmlFor="name" className="block text-sm font-medium ">
@@ -215,6 +246,7 @@ export default function Booking() {
               value={formData.name}
               onChange={handleChange}
             />
+
           </div>
 
           <div className="mb-4">
@@ -263,14 +295,14 @@ export default function Booking() {
                 setSelectedDate(date);
                 handleChange({ target: { name: 'date', value: date } });
               }}
+              locale="tr"
               showTimeSelect
               timeFormat="HH:mm"
               timeIntervals={60}
               dateFormat="dd/MM/yyyy HH:mm"
-              locale="tr"
-              minDate={new Date()} // Disable dates before today
-              minTime={new Date(selectedDate).setHours(8, 0, 0)} // Set the minimum time to 8:00 AM
-              maxTime={new Date(selectedDate).setHours(18, 0, 0)} // Set the maximum time to 6:00 PM
+              minDate={new Date()} 
+              minTime={new Date(selectedDate).setHours(8, 0, 0)} 
+              maxTime={new Date(selectedDate).setHours(17, 0, 0)}
               excludeTimes={excludedTimes}
               filterDate={(date) => {
                 // Get all working hours for the selected day (8 am to 6 pm)
