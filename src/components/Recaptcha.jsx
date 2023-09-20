@@ -9,11 +9,7 @@ const Recaptcha = ({ onRecaptchaChange }) => {
   useEffect(() => {
     if (recaptchaRef.current) {
       window.grecaptcha.ready(() => {
-        // You can set the reCAPTCHA parameters here
-        // For example:
-        // window.grecaptcha.execute("YOUR_RECAPTCHA_SITE_KEY", { action: "submit" }).then((token) => {
-        //   onRecaptchaChange(token);
-        // });
+
       });
     }
   }, [onRecaptchaChange]);

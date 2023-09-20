@@ -3,9 +3,6 @@ import Recaptcha from './Recaptcha';
 import emailjs from 'emailjs-com';
 import { Button } from "@material-tailwind/react";
 
-
-
-
 const serviceID = import.meta.env.VITE_SERVICE;
 const templateID = import.meta.env.VITE_TEMPLATE;
 const userID = import.meta.env.VITE_USER;
@@ -16,7 +13,6 @@ const ContactForm = () => {
         subject: '',
         email: '',
         description: '',
-        date: '',
         recaptchaValue: null,
     });
 
@@ -58,7 +54,6 @@ const ContactForm = () => {
                 subject: '',
                 email: '',
                 description: '',
-                date: '',
                 recaptchaValue: null,
             });
 
@@ -90,6 +85,7 @@ const ContactForm = () => {
                                 className="w-full px-3 py-2 mt-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                             />
                         </div>
+                        
                         <div className="mb-4">
                             <label htmlFor="subject" className="block text-sm font-medium ">
                                 Konu:
@@ -103,6 +99,7 @@ const ContactForm = () => {
                                 className="w-full px-3 py-2 mt-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                             />
                         </div>
+
                         <div className="mb-4">
                             <label htmlFor="email" className="block text-sm font-medium ">
                                 Email:
@@ -134,7 +131,6 @@ const ContactForm = () => {
 
                         <div className="mb-4">
                             <Recaptcha onRecaptchaChange={handleRecaptchaChange} />
-
                         </div>
                         <div className="mb-4">
                             <Button
