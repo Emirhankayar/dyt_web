@@ -281,8 +281,11 @@ export default function Booking() {
                   bookedHours.includes(hour)
                 );
 
-                // If all working hours are booked, disable the day; otherwise, enable it
+              // If all working hours are booked, disable the day; otherwise, enable it
+              if (date.getDate() === selectedDate.getDate()) {
                 return !allWorkingHoursBooked;
+              }
+              return true;
               }}
             />
 
