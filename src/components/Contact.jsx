@@ -4,7 +4,7 @@ import emailjs from 'emailjs-com';
 import { Button } from "@material-tailwind/react";
 
 const serviceID = import.meta.env.VITE_SERVICE;
-const templateID = import.meta.env.VITE_TEMPLATE;
+const templateID = import.meta.env.VITE_TEMPLATEE;
 const userID = import.meta.env.VITE_USER;
 
 // TODO LOCALISE ERROR MESSAGES
@@ -62,7 +62,7 @@ const ContactForm = () => {
             alert('Email başarıyla gönderildi!');
         } catch (error) {
             console.error('Error sending email:', error);
-            alert('Email gönderilemei, lütfen daha sonra tekrar deneyiniz.');
+            alert('Email gönderilemedi, lütfen daha sonra tekrar deneyiniz.');
         }
     };
 

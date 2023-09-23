@@ -159,27 +159,17 @@ export default function Booking() {
   
       // Include a message with the Google Meet link
       const meetLinkMessage = `Bu Google Meet linki ile randevu günü ve saatiniz geldiğinde görüşmeye katılabilirsiniz:\n ${meetLink}`;
-  
-      // Send confirmation email to the user
-      const emailParamsUser = {
-        to_email: formData.email, // User's email from the form
-        user_name: formData.name,
-        appointment_date: formattedDate,
-        message: `Saygıdeğer Danışanımız ${formData.name},\nRandevunuz, "${formattedDate}" tarihi için başarıyla oluşturuldu!\n${meetLinkMessage}\n\n UYARI: FORMU ÖNCEDEN DOLDURMANIZI TAVSİYE EDERİZ...`,
-      };
-    
-
-      await emailjs.send(serviceID, templateID, emailParamsUser, userID);
-  
-      // Send confirmation email to the owner of the website (similar to user email)
+      
       const emailParamsOwner = {
-        //to_email: 'your@email.com',
         user_name: formData.name,
-        user_email: formData.email, 
+        user_email: formData.email,
         user_phone: phoneNumber,
         appointment_date: formattedDate,
         meet_link: meetLink,
-        message: `Bir yeni rezervasyonunuz var.\nDetaylar:\nİsim: ${formData.name}\nEmail: ${formData.email}\nTel No:${phoneNumber}\nRandevu Tarihi: ${formattedDate}\nMeet Link: ${meetLink}`,
+        message: `Bir yeni rezervasyonunuz var.\n\nDetaylar:\n\nİsim: ${formData.name}\n\nEmail: ${formData.email}\n\nTel No:${phoneNumber}\n\nRandevu Tarihi: ${formattedDate}\n\nMeet Link: ${meetLink}`,
+        
+        message_user: `Saygıdeğer Danışanımız ${formData.name},\n\nRandevunuz, "${formattedDate}" tarihi için başarıyla oluşturuldu!\n\n${meetLinkMessage}\n\n\nUYARI: FORMU ÖNCEDEN DOLDURMANIZI TAVSİYE EDERİZ...`,
+
       };
 
       await emailjs.send(serviceID, templateID, emailParamsOwner, userID);
