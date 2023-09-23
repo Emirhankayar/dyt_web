@@ -159,7 +159,7 @@ export default function Booking() {
   
       // Include a message with the Google Meet link
       const meetLinkMessage = `Bu Google Meet linki ile randevu günü ve saatiniz geldiğinde görüşmeye katılabilirsiniz:\n ${meetLink}`;
-      
+
       const emailParamsOwner = {
         user_name: formData.name,
         user_email: formData.email,
@@ -173,6 +173,19 @@ export default function Booking() {
       };
 
       await emailjs.send(serviceID, templateID, emailParamsOwner, userID);
+
+      setFormData({
+        name: '',
+        email: '',
+        phoneNumber: '',
+        recaptchaValue: null,
+      });
+
+      setPhoneNumber(''); // Reset phoneNumber to an empty string
+
+      // Reset the selectedDate or other related state variables if needed
+      setSelectedDate(new Date()); // Reset selectedDate to the initial value or another appropriate value
+  
 
     } catch (error) {
       console.error('Error inserting booking or sending emails:', error);
