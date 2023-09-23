@@ -5,6 +5,20 @@ import {
   IconButton,
   Drawer,
 } from "@material-tailwind/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTwitter,
+  faFacebook,
+  faYoutube,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
+
+const socialMediaIcons = {
+  Twitter: faTwitter,
+  Facebook: faFacebook,
+  Youtube: faYoutube,
+  Instagram: faInstagram,
+};
 
 export default function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -33,6 +47,21 @@ export default function StickyNavbar() {
     };
   }, []);
 
+  const socialMediaLinks = (
+    <div className="flex gap-2">
+      {Object.keys(socialMediaIcons).map((socialMedia) => (
+        <IconButton
+          key={socialMedia}
+          variant="icon"
+          color="blue-gray"
+          ripple="light"
+          onClick={() => window.open(socialMediaLinks[socialMedia], "_blank")}
+        >
+          <FontAwesomeIcon icon={socialMediaIcons[socialMedia]} />
+        </IconButton>
+      ))}
+    </div>
+  );
 
   const navList = (
     <ul className="mb-10 mt-10 flex flex-col items-start gap-10 lg:mb-0 lg:mt-0 lg:h-max lg:flex-row lg:items-center lg:gap-6">
@@ -43,7 +72,7 @@ export default function StickyNavbar() {
         className="p-2 font-normal"
       >
         <a href="#" className="flex items-center">
-          Pages
+          Hakkımda
         </a>
       </Typography>
       <Typography
@@ -53,7 +82,7 @@ export default function StickyNavbar() {
         className="p-2 font-normal"
       >
         <a href="#" className="flex items-center">
-          Account
+          Bloglar
         </a>
       </Typography>
       <Typography
@@ -63,7 +92,7 @@ export default function StickyNavbar() {
         className="p-2 font-normal"
       >
         <a href="#" className="flex items-center">
-          Blocks
+          Tarifler
         </a>
       </Typography>
       <Typography
@@ -73,8 +102,21 @@ export default function StickyNavbar() {
         className="p-2 font-normal"
       >
         <a href="#" className="flex items-center">
-          Docs
+          Bana Ulaşın
         </a>
+      </Typography>
+      <Typography
+        as="li"
+        variant="medium"
+        color="blue-gray"
+        className="p-2 font-normal block lg:hidden "
+      >
+        <div className="flex-col">
+          <a href="#" className="flex items-center mb-2">
+            Sosyal Medya
+          </a>
+          {socialMediaLinks}
+        </div>
       </Typography>
     </ul>
   );
@@ -85,7 +127,6 @@ export default function StickyNavbar() {
         className="fixed top-0 left-0 max-w-full rounded-none py-2 px-8 z-40 lg:px-8 lg:py-2"
       >
         <div className="flex items-center justify-between text-blue-gray-900">
-
           <Typography
             as="a"
             href="#"
@@ -93,10 +134,7 @@ export default function StickyNavbar() {
           >
             Dyt. Zeynep
           </Typography>
-
           <div className="flex items-center gap-4">
-
-
             <div className="mr-4 hidden lg:block">{navList}</div>
             <IconButton
               variant="text"
@@ -177,8 +215,6 @@ export default function StickyNavbar() {
         </div>
         {navList}
       </Drawer>
-
     </>
-
   );
 }

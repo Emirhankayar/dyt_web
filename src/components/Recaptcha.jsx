@@ -22,6 +22,7 @@ const Recaptcha = ({ onRecaptchaChange }) => {
         onChange={(value) => onRecaptchaChange(value)}
         ref={recaptchaRef}
       />
+      
     </div>
   );
 };
