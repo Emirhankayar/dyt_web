@@ -16,14 +16,21 @@ import { format } from 'date-fns';
 // TODO LOCALISE ERROR MESSAGES
 
 const generateGoogleMeetLink = (selectedDate, durationInMinutes) => {
-  // Format the date and time as required by Google Meet
-  const formattedDate = selectedDate.toISOString().replace(/-|:|\.\d+/g, '');
+  // Format the date as required by Google Meet
+  const year = selectedDate.getFullYear();
+  const month = String(selectedDate.getMonth() + 1).padStart(2, '0'); // Month is zero-based, so add 1
+  const day = String(selectedDate.getDate()).padStart(2, '0');
+  const hours = String(selectedDate.getHours()).padStart(2, '0');
+  const minutes = String(selectedDate.getMinutes()).padStart(2, '0');
+  const seconds = '00'; // Google Meet doesn't require seconds
 
   // Construct the Google Meet link
+  const formattedDate = `${year}${month}${day}T${hours}${minutes}${seconds}`;
   const meetLink = `https://meet.google.com/virtual/${formattedDate}`;
   
   return meetLink;
 };
+
 
 
 export default function Booking() {
