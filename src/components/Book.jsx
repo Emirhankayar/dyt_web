@@ -164,7 +164,7 @@ export default function Booking() {
         user_name: formData.name,
         user_email: formData.email,
         user_phone: phoneNumber,
-        appointment_date: date,
+        appointment_date: selectedDate,
         meet_link: meetLink,
         message: `Bir yeni rezervasyonunuz var.\n\nDetaylar:\n\nİsim: ${formData.name}\n\nEmail: ${formData.email}\n\nTel No:${phoneNumber}\n\nRandevu Tarihi: ${formattedDate}\n\nMeet Link: ${meetLink}`,
         
