@@ -168,7 +168,7 @@ export default function Booking() {
         meet_link: meetLink,
         message: `Bir yeni rezervasyonunuz var.\n\nDetaylar:\n\nİsim: ${formData.name}\n\nEmail: ${formData.email}\n\nTel No:${phoneNumber}\n\nRandevu Tarihi: ${formattedDate}\n\nMeet Link: ${meetLink}`,
         
-        message_user: `Saygıdeğer Danışanımız ${formData.name},\n\nRandevunuz, "${date}" tarihi için başarıyla oluşturuldu!\n\n${meetLinkMessage}\n\n\nUYARI: FORMU ÖNCEDEN DOLDURMANIZI TAVSİYE EDERİZ...`,
+        message_user: `Saygıdeğer Danışanımız ${formData.name},\n\nRandevunuz, "${selectedDate}" tarihi için başarıyla oluşturuldu!\n\n${meetLinkMessage}\n\n\nUYARI: FORMU ÖNCEDEN DOLDURMANIZI TAVSİYE EDERİZ...`,
 
       };
 
