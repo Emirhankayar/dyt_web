@@ -10,7 +10,7 @@ import {
 const LINKS = [
   {
     title: "Bölümler",
-    items: ["Hakkımda", "Bloglar", "Tarifler", "Bana Ulaşın"],
+    items: ["Hakkımda", "Bloglar", "Tarifler", "Bize Ulaşın"],
   },
   {
     title: "Sosyal Medya",

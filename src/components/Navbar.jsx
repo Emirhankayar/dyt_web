@@ -102,7 +102,7 @@ export default function StickyNavbar() {
         className="p-2 font-normal"
       >
         <a href="#" className="flex items-center">
-          Bana Ulaşın
+          Bize Ulaşın
         </a>
       </Typography>
       <Typography

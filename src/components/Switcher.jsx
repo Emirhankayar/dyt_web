@@ -18,13 +18,13 @@ export default function Switcher() {
 
         <div className="container flex flex-wrap justify-between w-5/6 items-center mx-auto">
           <Typography className="text-2xl font-bold">
-            {showContact ? "İletişime Geçin" : "Randevu Oluştur"}
+            {showContact ? "Bize Ulaşın" : "Randevu Oluştur"}
           </Typography>
           <Button
             className="h-10 px-2 sm:px-4 md:px-4 lg:px-4 shadow-xl capitalize"
             onClick={toggleComponent}
             >
-            {showContact ? "Randevu Oluştur" : "  İletişime Geçin  "}
+            {showContact ? "Randevu Oluştur" : "Bize Ulaşın"}
           </Button>
         </div>
       <div className="p-6">

@@ -11,20 +11,13 @@ import { registerLocale, setDefaultLocale } from 'react-datepicker';
 import tr from 'date-fns/locale/tr';
 import emailjs from 'emailjs-com';
 import { createClient } from '@supabase/supabase-js';
-import { format } from 'date-fns';
+import { format,addDays } from 'date-fns';
 
-// TODO LOCALISE ERROR MESSAGES
-
-const generateGoogleMeetLink = (selectedDate, durationInMinutes) => {
-  // Format the date and time as required by Google Meet
-  const formattedDate = selectedDate.toISOString().replace(/-|:|\.\d+/g, '');
-
-  // Construct the Google Meet link
-  const meetLink = `https://meet.google.com/virtual/${formattedDate}`;
-  
-  return meetLink;
-};
-
+// TODO CHANGE DEFAULT DATE TO FIRST AVAILABLE DATE PROBABLY WITH MIN DATE??
+// TODO FIX ERROR MESSAGE LANGUAGES 
+// TODO FIX NAMING 
+// TODO DISABLE HOURS BEFORE TODAY TO PREVENT BUGS
+// TODO DEBUG PORTAL SIZE
 
 export default function Booking() {
   const serviceID = import.meta.env.VITE_SERVICE;
@@ -34,8 +27,10 @@ export default function Booking() {
   registerLocale('tr', tr);
   setDefaultLocale('tr', tr);
   
-  const [bookedHours, setBookedHours] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [fullyBookedDates, setFullyBookedDates] = useState([]); 
+  const [selectedDateHours, setSelectedDateHours] = useState([]);
+  const [disabledTimes, setDisabledTimes] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(addDays(new Date(), 1)); 
   const [phoneNumber, setPhoneNumber] = useState('');
   const pdfFileName = 'Danisan_Bilgi_Formu.pdf';
   const pdfFilePath = '/src/assets/';
@@ -45,7 +40,7 @@ export default function Booking() {
     phoneNumber: '',
     recaptchaValue: null,
   });
-  const [excludedTimes, setExcludedTimes] = useState([]);
+  
 
   const handleChange = (e) => {
     if (e && e.target) {
@@ -134,7 +129,6 @@ export default function Booking() {
     }
   
     try {
-      // Insert booking data into Supabase
       const { data, error } = await supabase.from('appointment').insert([
         {
           created_at: selectedDate.toISOString(),
@@ -147,28 +141,21 @@ export default function Booking() {
       if (error) {
         console.error('Error inserting booking:', error);
         alert('Rezervasyonunuz oluşturulamadı.');
-        return; // Return early if there's an error with the Supabase insert
+        return; 
       } else {
         console.log('Booking inserted successfully:', data);
         alert('Rezervasyonunuz başarıyla oluşturuldu!');
       }
-      // Format the date
+
       const formattedDate = format(selectedDate, 'dd/MM/yyyy HH:mm');
-      // Generate a Google Meet link
-      const meetLink = generateGoogleMeetLink(selectedDate, 40); // Adjust duration as needed
-  
-      // Include a message with the Google Meet link
-      const meetLinkMessage = `Bu Google Meet linki ile randevu günü ve saatiniz geldiğinde görüşmeye katılabilirsiniz:\n ${meetLink}`;
 
       const emailParamsOwner = {
         user_name: formData.name,
         user_email: formData.email,
         user_phone: phoneNumber,
-        appointment_date: formattedDate,
-        meet_link: meetLink,
-        message: `Bir yeni rezervasyonunuz var.\n\nDetaylar:\n\nİsim: ${formData.name}\n\nEmail: ${formData.email}\n\nTel No:${phoneNumber}\n\nRandevu Tarihi: ${formattedDate}\n\nMeet Link: ${meetLink}`,
-        
-        message_user: `Saygıdeğer Danışanımız ${formData.name},\n\nRandevunuz, "${formattedDate}" tarihi için başarıyla oluşturuldu!\n\n${meetLinkMessage}\n\n\nUYARI: FORMU ÖNCEDEN DOLDURMANIZI TAVSİYE EDERİZ...`,
+        appointment_date: selectedDate,
+        message: `Bir yeni rezervasyonunuz var.\n\nDetaylar:\n\nİsim: ${formData.name}\n\nEmail: ${formData.email}\n\nTel No:${phoneNumber}\n\nRandevu Tarihi: ${formattedDate}\n\n`,
+        message_user: `Saygıdeğer Danışanımız ${formData.name},\n\nRandevunuz, "${formattedDate}" tarihi için başarıyla oluşturuldu!\n\n\nUYARI: FORMU ÖNCEDEN DOLDURMANIZI TAVSİYE EDERİZ...`,
 
       };
 
@@ -193,7 +180,6 @@ export default function Booking() {
     }
   };
   
-
   useEffect(() => {
     const fetchBookedAppointments = async () => {
       try {
@@ -220,7 +206,26 @@ export default function Booking() {
           })
           .map((date) => date.getHours());
   
-        setBookedHours(selectedDateHours);
+        console.log('Selected Date Hours:', selectedDateHours);
+  
+        const fullyBookedDates = {};
+  
+        data.forEach((appointment) => {
+          const date = new Date(appointment.created_at).toDateString();
+          if (!fullyBookedDates[date]) {
+            fullyBookedDates[date] = 0;
+          }
+          fullyBookedDates[date]++;
+        });
+  
+        const fullyBookedDatesArray = Object.keys(fullyBookedDates).filter(
+          (date) => fullyBookedDates[date] >= 10
+        );
+  
+        console.log('Fully Booked Dates:', fullyBookedDatesArray);
+  
+        setFullyBookedDates(fullyBookedDatesArray);
+        setSelectedDateHours(selectedDateHours); 
       } catch (error) {
         console.error('Error fetching booked appointments:', error);
       }
@@ -229,19 +234,33 @@ export default function Booking() {
     fetchBookedAppointments();
   }, [selectedDate]);
   
+  // Use useMemo to memoize the values
+  //const memoizedBookedHours = useMemo(() => bookedHours, []);
+  //const memoizedFullyBookedDates = useMemo(() => fullyBookedDates, []);
+
+
+  const fullyBookedDatesArray = fullyBookedDates.map((dateString) => new Date(dateString));
 
   useEffect(() => {
-    const selectedYear = selectedDate.getFullYear();
-    const selectedMonth = selectedDate.getMonth();
-    const selectedDay = selectedDate.getDate();
+    if (selectedDateHours && selectedDateHours.length > 0) {
+      const disabledTimesArray = selectedDateHours.map((hour) => {
+        return new Date(
+          selectedDate.getFullYear(),
+          selectedDate.getMonth(),
+          selectedDate.getDate(),
+          hour
+        );
+      });
 
-    const excludeTimes = bookedHours.map((hour) =>
-      new Date(selectedYear, selectedMonth, selectedDay, hour)
-    );
+      setDisabledTimes(disabledTimesArray);
+    } else {
+      setDisabledTimes([]);
+    }
+  }, [selectedDate, selectedDateHours]); 
 
-    setExcludedTimes(excludeTimes);
-  }, [selectedDate, bookedHours]);
-  
+
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 10);
 
   return (
     <div className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col flex justify-center mt-12">
@@ -302,11 +321,11 @@ export default function Booking() {
               Tarih:
             </label>
             <DatePicker
-              className="w-full px-3 py-2 mt-2 border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
+               className="w-full px-3 py-2 mt-2 border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
               id='date'
               name='date'
               required
-              selected={selectedDate}
+              placeholderText='Bir tarih seciniz'
               onChange={(date) => {
                 setSelectedDate(date);
                 handleChange({ target: { name: 'date', value: date } });
@@ -315,26 +334,16 @@ export default function Booking() {
               showTimeSelect
               timeFormat="HH:mm"
               timeIntervals={60}
+              timeCaption="Saat"
               dateFormat="dd/MM/yyyy HH:mm"
-              minDate={new Date()} 
+              prevMonthButtonDisabled
+              minDate={tomorrow}
+              selected={selectedDate}
               minTime={new Date(selectedDate).setHours(8, 0, 0)} 
               maxTime={new Date(selectedDate).setHours(17, 0, 0)}
-              excludeTimes={excludedTimes}
-              filterDate={(date) => {
-                // Get all working hours for the selected day (8 am to 6 pm)
-                const workingHours = Array.from({ length: 10 }, (_, index) => index + 8);
-
-                // Check if all working hours are booked
-                const allWorkingHoursBooked = workingHours.every((hour) =>
-                  bookedHours.includes(hour)
-                );
-
-              // If all working hours are booked, disable the day; otherwise, enable it
-              if (date.getDate() === selectedDate.getDate()) {
-                return !allWorkingHoursBooked;
-              }
-              return true;
-              }}
+              excludeTimes={disabledTimes}
+              excludeDates={fullyBookedDatesArray}
+              withPortal
             />
 
           </div>
