@@ -261,7 +261,7 @@ export default function Booking() {
 
 
   const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 10);
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
   return (
     <div className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col flex justify-center mt-12">
