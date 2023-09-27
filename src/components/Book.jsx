@@ -19,6 +19,7 @@ import { format,addDays } from 'date-fns';
 // TODO DISABLE HOURS BEFORE TODAY TO PREVENT BUGS
 // TODO DEBUG PORTAL SIZE
 
+
 export default function Booking() {
   const serviceID = import.meta.env.VITE_SERVICE;
   const templateID = import.meta.env.VITE_TEMPLATE;
