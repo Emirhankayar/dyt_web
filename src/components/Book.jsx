@@ -19,7 +19,6 @@ import { format,addDays } from 'date-fns';
 // TODO DISABLE HOURS BEFORE TODAY TO PREVENT BUGS
 // TODO DEBUG PORTAL SIZE
 
-
 export default function Booking() {
   const serviceID = import.meta.env.VITE_SERVICE;
   const templateID = import.meta.env.VITE_TEMPLATE;
@@ -30,7 +29,6 @@ export default function Booking() {
   
   const [fullyBookedDates, setFullyBookedDates] = useState([]); 
   const [selectedDateHours, setSelectedDateHours] = useState([]);
-  const [disabledTimes, setDisabledTimes] = useState([]);
   const [selectedDate, setSelectedDate] = useState(addDays(new Date(), 1)); 
   const [phoneNumber, setPhoneNumber] = useState('');
   const pdfFileName = 'Danisan_Bilgi_Formu.pdf';
@@ -223,10 +221,13 @@ export default function Booking() {
           (date) => fullyBookedDates[date] >= 10
         );
   
-        console.log('Fully Booked Dates:', fullyBookedDatesArray);
-  
+        // Set the fullyBookedDates and selectedDateHours
         setFullyBookedDates(fullyBookedDatesArray);
-        setSelectedDateHours(selectedDateHours); 
+        setSelectedDateHours(selectedDateHours);
+  
+        // Now, call calculateStartDate with the populated fullyBookedDatesArray
+        const calculatedFinalDate = calculateStartDate(fullyBookedDatesArray);
+        setFinalDate(calculatedFinalDate);
       } catch (error) {
         console.error('Error fetching booked appointments:', error);
       }
@@ -239,30 +240,72 @@ export default function Booking() {
   //const memoizedBookedHours = useMemo(() => bookedHours, []);
   //const memoizedFullyBookedDates = useMemo(() => fullyBookedDates, []);
 
-
   const fullyBookedDatesArray = fullyBookedDates.map((dateString) => new Date(dateString));
 
-  useEffect(() => {
-    if (selectedDateHours && selectedDateHours.length > 0) {
-      const disabledTimesArray = selectedDateHours.map((hour) => {
-        return new Date(
-          selectedDate.getFullYear(),
-          selectedDate.getMonth(),
-          selectedDate.getDate(),
-          hour
-        );
-      });
-
-      setDisabledTimes(disabledTimesArray);
-    } else {
-      setDisabledTimes([]);
+  const calculateStartDate = (fullyBookedDatesArray) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+  
+    let startDate = new Date(tomorrow);
+  
+    // Create a copy of the fullyBookedDatesArray to avoid overwriting
+    const sortedBookedDates = [...fullyBookedDatesArray]
+      .map((date) => new Date(date))
+      .sort((a, b) => a - b);
+  
+    console.log('Fully Booked Dates Array:', sortedBookedDates);
+  
+    for (let i = 0; i < sortedBookedDates.length; i++) {
+      const fullyBookedDate = sortedBookedDates[i];
+  
+      console.log('Starting from:', startDate);
+      console.log('Checking date:', fullyBookedDate);
+  
+      // Check if fully booked date is the same as the current startDate
+      if (fullyBookedDate.getTime() === startDate.getTime()) {
+        // Date is fully booked, check the next day
+        startDate.setDate(startDate.getDate() + 1);
+        console.log('Date is fully booked, checking the next day:', startDate);
+      } else if (fullyBookedDate > startDate) {
+        // Found a fully booked day after tomorrow, setting startDate to that day
+        startDate = fullyBookedDate;
+        console.log('Found a fully booked day after tomorrow, setting startDate to that day:', startDate);
+        break; // Exit the loop once the first available day is found
+      }
     }
-  }, [selectedDate, selectedDateHours]); 
+  
+    console.log('Final startDate:', startDate);
+  
+    return startDate;
+  };
+  
+  
+  const [finalDate, setFinalDate] = useState(null);
+  
+  // Use the useEffect hook to call the calculation function once when the component mounts
+  useEffect(() => {
+    const calculatedFinalDate = calculateStartDate(fullyBookedDatesArray);
+    setFinalDate(calculatedFinalDate);
+  }, []);
 
+  const getHoursInRange = () => {
+    const hours = [];
+    
+    for (let i = 8; i <= 17; i++) {
+        // Convert single-digit hours to a string with leading zero (e.g., "08", "09")
+        const hourString = i < 10 ? `0${i}` : `${i}`;
+        
+        // Push the formatted hour to the array
+        hours.push(`${hourString}:00`);
+    }
+    
+    return hours;
+};
 
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-
+  
   return (
     <div className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col flex justify-center mt-12">
       <div className='container rounded-lg p-6 bg-gray-100 shadow-xl'>
@@ -298,6 +341,7 @@ export default function Booking() {
               value={formData.email}
               onChange={handleChange}
               required
+              filterTimes={getHoursInRange}
             />
           </div>
 
@@ -328,8 +372,7 @@ export default function Booking() {
               required
               placeholderText='Bir tarih seciniz'
               onChange={(date) => {
-                setSelectedDate(date);
-                handleChange({ target: { name: 'date', value: date } });
+                setSelectedDate(date); // Update the selectedDate state
               }}
               locale="tr"
               showTimeSelect
@@ -338,11 +381,13 @@ export default function Booking() {
               timeCaption="Saat"
               dateFormat="dd/MM/yyyy HH:mm"
               prevMonthButtonDisabled
-              minDate={tomorrow}
-              selected={selectedDate}
+              selected={false}
+              openToDate={finalDate}
+              startDate={finalDate}
+              minDate={finalDate}
               minTime={new Date(selectedDate).setHours(8, 0, 0)} 
               maxTime={new Date(selectedDate).setHours(17, 0, 0)}
-              excludeTimes={disabledTimes}
+              excludeTimes={selectedDateHours.map((hour) => new Date(selectedDate).setHours(hour, 0, 0, 0))}
               excludeDates={fullyBookedDatesArray}
               withPortal
             />
