@@ -13,14 +13,23 @@ import { Button, Typography } from "@material-tailwind/react";
 import Recaptcha from './Recaptcha';
 import { supabaseClient as supabase, downloadPDF, viewPDF } from '../utils/utils';
 import { useFetchAppointments } from '../services/services';
-
+import { SkeletonBook } from './Skeleton';
 import { format, addDays } from 'date-fns';
 
 export default function Booking() {
   const serviceID = import.meta.env.VITE_SERVICE;
   const templateID = import.meta.env.VITE_TEMPLATE;
   const userID = import.meta.env.VITE_USER;
+  
+  
+  const [isLoading, setIsLoading] = useState(true); // State to track loading status
 
+  useEffect(() => {
+    // Simulate loading delay
+    setTimeout(() => {
+      setIsLoading(false); // Set isLoading to false when content is loaded
+    }, 1500); // Adjust the delay time as needed
+  }, []);
 
   registerLocale('tr', tr);
   setDefaultLocale('tr', tr);
@@ -156,9 +165,16 @@ export default function Booking() {
     return excludedTimes;
   };
 
-  return (
-    <div className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col flex justify-center mt-12">
-      <div className='container rounded-lg p-6 bg-gray-100 shadow-xl'>
+  return (   
+    <>
+
+    <div className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col justify-center mt-12">
+
+      <div className='container h-4/5 sm:h-3/4 md:h-3/4 lg:h-3/4 rounded-lg p-4 md:p-6 sm:p-6 lg:p-6 bg-gray-100 shadow-xl'>
+    {isLoading ? ( 
+    <SkeletonBook/>
+    ) : (
+
         <form id='booking' onSubmit={handleBooking}>
 
           <div className="mb-4">
@@ -290,7 +306,10 @@ export default function Booking() {
             </Button>
           </div>
         </form>
+      )}
       </div>
     </div>
-  );
+
+  </>   
+);
 }

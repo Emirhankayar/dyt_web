@@ -13,6 +13,15 @@ module.exports = withMT({
       },
       animation: {
 
+          "keyframes": {
+            "shimmer": {
+              "100%": {
+                "transform": "translateX(100%)",
+              },
+            },
+          }
+        
+
       },
       keyframes: {
 
@@ -20,6 +29,7 @@ module.exports = withMT({
       colors: {
 
       },
+      
     },
   },
   plugins: [],

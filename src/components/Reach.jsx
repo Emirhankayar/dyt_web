@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Recaptcha from './Recaptcha';
 import emailjs from 'emailjs-com';
+import { SkeletonReach } from './Skeleton';
 import { Button } from "@material-tailwind/react";
 
 const serviceID = import.meta.env.VITE_SERVICE;
@@ -10,6 +11,15 @@ const userID = import.meta.env.VITE_USER;
 // TODO LOCALISE ERROR MESSAGES
 
 const ContactForm = () => {
+    const [isLoading, setIsLoading] = useState(true); // State to track loading status
+
+    useEffect(() => {
+      // Simulate loading delay
+      setTimeout(() => {
+        setIsLoading(false); // Set isLoading to false when content is loaded
+      }, 1500); // Adjust the delay time as needed
+    }, []);
+
     const [formData, setFormData] = useState({
         name: '',
         subject: '',
@@ -70,8 +80,11 @@ const ContactForm = () => {
 
         <>
 
-            <div id='contact' className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col flex justify-center">
-                <div className='container rounded-lg p-6 bg-gray-100 shadow-xl'>
+            <div className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col justify-center mt-12">
+            <div className='container h-2/3 sm:h-2/3 md:h-2/3 lg:h-3/4 rounded-lg p-4 md:p-6 sm:p-6 lg:p-6 bg-gray-100 shadow-xl'>
+            {isLoading ? ( 
+    <SkeletonReach/>
+    ) : (
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4 mt-4">
                             <label htmlFor="name" className="block text-sm font-medium ">
@@ -147,6 +160,7 @@ const ContactForm = () => {
                             </Button>
                         </div>
                     </form>
+                          )}
                 </div>
             </div>
 
