@@ -1,7 +1,10 @@
+// Blog.jsx
 import React, { useState, useEffect } from "react";
 import Spinner from '../components/Spinner'
-import { fetchBlogPosts } from '../services/services'; 
-import { extractImageAndDate } from '../utils/utils'; 
+import { fetchBlogPosts } from '../services/services';
+import { extractImageAndDate, getNumCols, handleResize, useToggleShowAll } from '../utils/utils';
+import ExpandingButton from "../components/Expand";
+import { SkeletonBlog } from '../components/Skeleton';
 
 import {
   Card,
@@ -14,10 +17,30 @@ import {
 
 const DUMMY_IMAGE_URL = import.meta.env.VITE_DUMMY_IMG;
 
-
 export default function CardDefault() {
+  const [isLoading, setIsLoading] = useState(true); // State to track loading status
+
+  useEffect(() => {
+    // Simulate loading delay
+    setTimeout(() => {
+      setIsLoading(false); // Set isLoading to false when content is loaded
+    }, 1500); // Adjust the delay time as needed
+  }, []);
+
   const [advisePosts, setAdvisePosts] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
+  const [numCols, setNumCols] = useState(getNumCols());
+  const { showAll, expanded, toggleShowAll } = useToggleShowAll(false); // Use the custom hook
+
+  
+  useEffect(() => {
+    const removeResizeListener = handleResize(setNumCols);
+
+    return () => {
+
+      removeResizeListener();
+    };
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -25,7 +48,7 @@ export default function CardDefault() {
         const advisePostsData = await fetchBlogPosts('Advise');
         setAdvisePosts(advisePostsData);
       } finally {
-        // Set loading to false when data fetching is complete (even if there's an error)
+
         setLoading(false);
       }
     };
@@ -34,78 +57,70 @@ export default function CardDefault() {
   }, []);
 
   if (loading) {
-    return <Spinner />; // Render the loading spinner while data is being fetched
+    return <Spinner />;
   }
-
-
+  const displayedPosts = showAll ? advisePosts : advisePosts.slice(0, expanded ? advisePosts.length : numCols);
 
   return (
-
     <>
-      <div className="container flex flex-wrap justify-between w-5/6 items-center mb-10 mx-auto">
+      <div className="container flex flex-wrap justify-between w-5/6 items-center mb-10 mt-40 mx-auto">
         <Typography className="text-2xl font-bold">En Yeni Bloglar</Typography>
-        <a href="https://diyetzamanidostum.blogspot.com/search/label/Advise" target="_blank" rel="noopener noreferrer">
-          <Button className="h-10 shadow-xl capitalize">
-            Tüm Bloglar
-          </Button>
+  
+        <a
+          href="https://diyetzamanidostum.blogspot.com/search/label/Advise"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button className="h-10 shadow-xl capitalize">Tüm Bloglar</Button>
         </a>
       </div>
-      <section className="font-jet flex flex-col items-center justify-center">
-
-        <div className="container mx-auto">
-
-          <div className="container flex flex-wrap justify-center lg:w-3/4 w-full mx-auto">
-            {advisePosts.map((post, index) => {
-
-            const { image, text } = extractImageAndDate(post.content);
-
+  
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {isLoading ? (
+            Array.from({ length: numCols }).map((_, index) => (
+              <SkeletonBlog key={index} />
+            ))
+          ) : (
+            displayedPosts.map((post, index) => {
+              const { image, text } = extractImageAndDate(post.content);
               return (
-
-                <Card key={index} className="bg-transparent p-4 w-max md:w-3/6 lg:w-1/2 shadow-none">
-
-                  <div className="h-full bg-gray-100 max-w-sm w-5/6 md:w-full lg:w-full rounded-xl mx-auto shadow-xl">
-                    <div className="flex flex-col items-center text-center">
+                <Card key={index} className="bg-transparent p-4 h-full shadow-none">
+                  <div className="h-full max-w-sm rounded-xl mx-auto shadow-xl">
+                    <div className="block w-76 items-center ">
                       <a href={post.url} target="_blank" rel="noopener noreferrer">
-
                         <img
                           src={image ? image : DUMMY_IMAGE_URL}
+                          role="presentation"
+                          sizes="(max-width: 800px) 100vw, 50vw"
+                          decoding="async"
+                          fetchpriority="high"
                           alt="card-image"
+                          loading="lazy"
                           className="w-full h-52 object-cover rounded-t-lg select-none hover:brightness-110 transition-all duration-500"
-                        /></a>
-
-                      <CardHeader className="flex flex-row w-full bg-transparent h-9 items-center mt-4 shadow-none 
-                    ">
-                        <div className="w-11/12 flex ml-8 text-xl text-blue-500 font-bold">
-                          {post.title}
-                        </div>
-                        <div className="w-1/2 flex justify-end mr-8 font-regular text-l">
-                          {post.formattedDate}
-                        </div>
+                        />
+                      </a>
+                      <CardHeader className="bg-transparent h-9 mt-4 shadow-none">
+                        <div className="text-xl text-gray-500 font-bold text-center">{post.title}</div>
                       </CardHeader>
-                      <CardBody className="-mt-4">
-                        <Typography className="text-justify leading-normal">
-                          {text.substring(0, 200)}...
-                        </Typography>
+                      <CardBody>
+                        <Typography className="text-justify leading-normal -mt-6">{text.substring(0, 100)}...</Typography>
+                        <div className="font-regular text-center text-l">{post.formattedDate}</div>
                       </CardBody>
-                      <CardFooter className="flex items-center justify-center -mt-8">
+                      <CardFooter className="text-center -mt-8">
                         <a href={post.url} target="_blank" rel="noopener noreferrer">
-                          <Button className="bg-blue-500 shadow-xl capitalize">
-                            Daha Fazla
-                          </Button>
+                          <Button className="bg-gray-500 shadow-xl capitalize">Daha Fazla</Button>
                         </a>
-
                       </CardFooter>
                     </div>
                   </div>
                 </Card>
               );
-            })}
-
-          </div>
+            })
+          )}
         </div>
-      </section>
+        <ExpandingButton expanded={expanded} onClick={toggleShowAll} />
+      </div>
     </>
-
   );
-
-}
+}  

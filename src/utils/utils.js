@@ -1,6 +1,7 @@
 // utils.js
 import { createClient } from '@supabase/supabase-js';
 import he from "he";
+import { useState, useCallback } from 'react';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE;
@@ -83,5 +84,44 @@ const extractImageAndDate = (html) => {
   };
 };
 
+// Function to calculate the number of columns based on screen width
+function getNumCols() {
+  const screenWidth = window.innerWidth;
+  if (screenWidth >= 1024) {
+    return 3; // On large screens, show 3 columns
+  } else if (screenWidth >= 768) {
+    return 2; // On medium screens, show 2 columns
+  } else {
+    return 1; // On small screens, show 1 column
+  }
+}
 
-export { supabaseClient, downloadPDF, viewPDF, extractImageAndDate };
+// Function to handle window resize and update numCols
+function handleResize(setNumCols) {
+  function resizeHandler() {
+    const numCols = getNumCols();
+    setNumCols(numCols);
+  }
+
+  // Attach the event listener
+  window.addEventListener("resize", resizeHandler);
+
+  // Remove the event listener when the component unmounts
+  return () => {
+    window.removeEventListener("resize", resizeHandler);
+  };
+}
+
+function useToggleShowAll(initialValue = false) {
+  const [showAll, setShowAll] = useState(initialValue);
+  const [expanded, setExpanded] = useState(initialValue);
+
+  const toggleShowAll = useCallback(() => {
+    setShowAll((prevShowAll) => !prevShowAll);
+    setExpanded((prevExpanded) => !prevExpanded);
+  }, []);
+
+  return { showAll, expanded, toggleShowAll };
+}
+
+export { supabaseClient, downloadPDF, viewPDF, extractImageAndDate, getNumCols, handleResize, useToggleShowAll };

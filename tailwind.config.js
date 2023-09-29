@@ -7,6 +7,7 @@ module.exports = withMT({
   ],
   theme: {
     extend: {
+      
       fontFamily: {
         //'jet': ['"JetBrains Mono"'],
         //'orbitron': ["Orbitron"],
@@ -20,6 +21,7 @@ module.exports = withMT({
               },
             },
           }
+          
         
 
       },
