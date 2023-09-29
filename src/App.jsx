@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { ThemeProvider } from '@material-tailwind/react';
 const Navbar = React.lazy(() => import('./components/Navbar'));
 const Hero = React.lazy(() => import('./sections/Hero'));
-const About = React.lazy(() => import('./sections/About'));
+//const About = React.lazy(() => import('./sections/About'));
 const Blog = React.lazy(() => import('./sections/Blog'));
 const Recipe = React.lazy(() => import('./sections/Recipes'));
 const Contact = React.lazy(() => import('./sections/Contact'));
@@ -24,11 +24,11 @@ export default function App() {
           <Navbar />
 
           <Hero />
-          <About />
+
           <Blog />
           <Recipe />
           <Contact/>
-
+          
           <Footer />
           
         </Suspense>

@@ -1,5 +1,6 @@
 // utils.js
 import { createClient } from '@supabase/supabase-js';
+import he from "he";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE;
@@ -68,4 +69,19 @@ const viewPDF = async (pdfFileName) => {
   }
 };
 
-export { supabaseClient, downloadPDF, viewPDF };
+const extractImageAndDate = (html) => {
+  const text = he.decode(html);
+  const imgRegex = /<img.*?src=["'](.*?)["'].*?>/; // Regular expression to match image source
+  const dateRegex = /<span[^>]*class=["']published["'][^>]*>(.*?)<\/span>/; // Regular expression to match date
+  const imageMatch = imgRegex.exec(html);
+  const dateMatch = dateRegex.exec(html);
+
+  return {
+    image: imageMatch ? imageMatch[1] : null,
+    date: dateMatch ? dateMatch[1] : null,
+    text: text.replace(/(<([^>]+)>)/gi, ""), // Remove HTML tags
+  };
+};
+
+
+export { supabaseClient, downloadPDF, viewPDF, extractImageAndDate };

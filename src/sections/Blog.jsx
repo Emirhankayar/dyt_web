@@ -1,6 +1,7 @@
-import React, { useState, useEffect, Suspense } from "react";
-import he from "he";
+import React, { useState, useEffect } from "react";
 import Spinner from '../components/Spinner'
+import { fetchBlogPosts } from '../services/services'; 
+import { extractImageAndDate } from '../utils/utils'; 
 
 import {
   Card,
@@ -11,31 +12,8 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-const API_KEY = import.meta.env.VITE_BLOG_KEY;
-const BLOG_URL = import.meta.env.VITE_BLOG_URL;
 const DUMMY_IMAGE_URL = import.meta.env.VITE_DUMMY_IMG;
 
-const fetchBlogPosts = async (tag) => {
-  try {
-    const response = await fetch(`${BLOG_URL}?key=${API_KEY}&labels=${tag}&orderBy=published&maxResults=4`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
-    const data = await response.json();
-    const formattedData = data.items.map((post) => {
-      const publishedDate = new Date(post.published);
-      const formattedDate = `${String(publishedDate.getDate()).padStart(2, '0')}.${String(publishedDate.getMonth() + 1).padStart(2, '0')}.${publishedDate.getFullYear()}`;
-      return {
-        ...post,
-        formattedDate,
-      };
-    });
-    return formattedData;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
 
 export default function CardDefault() {
   const [advisePosts, setAdvisePosts] = useState([]);
@@ -59,20 +37,6 @@ export default function CardDefault() {
     return <Spinner />; // Render the loading spinner while data is being fetched
   }
 
-  // Function to extract image source and date from HTML content
-  const extractImageAndDate = (html) => {
-    const text = he.decode(html);
-    const imgRegex = /<img.*?src=["'](.*?)["'].*?>/; // Regular expression to match image source
-    const dateRegex = /<span[^>]*class=["']published["'][^>]*>(.*?)<\/span>/; // Regular expression to match date
-    const imageMatch = imgRegex.exec(html);
-    const dateMatch = dateRegex.exec(html);
-
-    return {
-      image: imageMatch ? imageMatch[1] : null,
-      date: dateMatch ? dateMatch[1] : null,
-      text: text.replace(/(<([^>]+)>)/gi, ""), // Remove HTML tags
-    };
-  };
 
 
   return (
@@ -93,7 +57,8 @@ export default function CardDefault() {
           <div className="container flex flex-wrap justify-center lg:w-3/4 w-full mx-auto">
             {advisePosts.map((post, index) => {
 
-              const { image, text } = extractImageAndDate(post.content);
+            const { image, text } = extractImageAndDate(post.content);
+
               return (
 
                 <Card key={index} className="bg-transparent p-4 w-max md:w-3/6 lg:w-1/2 shadow-none">

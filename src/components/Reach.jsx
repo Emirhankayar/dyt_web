@@ -81,7 +81,7 @@ const ContactForm = () => {
         <>
 
             <div className="container max-w-lg mx-auto p-1 bg-transparent rounded font-jet h-screen flex-col justify-center mt-12">
-            <div className='container h-2/3 sm:h-2/3 md:h-2/3 lg:h-3/4 rounded-lg p-4 md:p-6 sm:p-6 lg:p-6 bg-gray-100 shadow-xl'>
+            <div className='container h-2/3 rounded-lg p-4 md:p-6 sm:p-6 lg:p-6 bg-gray-100 shadow-xl'>
             {isLoading ? ( 
     <SkeletonReach/>
     ) : (
