@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Suspense } from "react";
 import he from "he";
-import Spinner from './Spinner'
+import Spinner from '../components/Spinner'
 
 import {
   Card,

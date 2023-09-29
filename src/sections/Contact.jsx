@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Contact from "./Contact";
-import Book from "./Book";
+import Contact from "../components/Reach";
+import Book from "../components/Book";
 import { Typography, Button } from "@material-tailwind/react";
-import Spinner from './Spinner'
+import Spinner from '../components/Spinner'
 import { Suspense } from "react";
 
 export default function Switcher() {

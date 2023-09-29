@@ -1,7 +1,7 @@
+// Book.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import DatePicker from 'react-datepicker';
 import PhoneInput from 'react-phone-number-input';
-import ReCAPTCHA from 'react-google-recaptcha';
 import tr from 'date-fns/locale/tr';
 import emailjs from 'emailjs-com';
 import 'react-phone-number-input/style.css';
@@ -10,10 +10,9 @@ import { registerLocale, setDefaultLocale } from 'react-datepicker';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faEye, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { Button, Typography } from "@material-tailwind/react";
-import { supabaseClient as supabase, downloadPDF, viewPDF, useRecaptcha } from '../utils/utils';
-
-
-
+import Recaptcha from './Recaptcha';
+import { supabaseClient as supabase, downloadPDF, viewPDF } from '../utils/utils';
+import { useFetchAppointments } from '../services/services';
 
 import { format, addDays } from 'date-fns';
 
@@ -21,7 +20,6 @@ export default function Booking() {
   const serviceID = import.meta.env.VITE_SERVICE;
   const templateID = import.meta.env.VITE_TEMPLATE;
   const userID = import.meta.env.VITE_USER;
-  const siteKey = import.meta.env.VITE_APP_SITE;
 
 
   registerLocale('tr', tr);
@@ -52,15 +50,12 @@ export default function Booking() {
     setFormData({ ...formData, recaptchaValue: value });
   };
 
-  const recaptchaRef = useRecaptcha(handleRecaptchaChange); // Use the Recaptcha hook
 
-    // Example usage of downloadPDF
   async function handleDownloadPdf() {
     const pdfFileName = 'example.pdf';
     await downloadPDF(pdfFileName);
   }
 
-  // Example usage of viewPDF
   async function handleOpenPdf() {
     const pdfFileName = 'example.pdf';
     await viewPDF(pdfFileName);
@@ -122,58 +117,16 @@ export default function Booking() {
       alert('Rezervasyonunuz oluşturulamadı.');
     }
   };
-
-  useEffect(() => {
-    const fetchAllAppointments = async () => {
-      try {
-        const { data, error } = await supabase.from('appointment').select('created_at');
-
-        if (error) {
-          console.error('Error fetching appointments:', error);
-          return;
-        }
-
-        // Store all appointments in an array
-        const allAppointments = data.map((appointment) => ({
-          date: new Date(appointment.created_at),
-          hours: new Date(appointment.created_at).getHours(),
-        }));
-
-        // Set fully booked dates
-        const fullyBookedDates = {};
-        allAppointments.forEach((appointment) => {
-          const date = appointment.date.toDateString();
-          if (!fullyBookedDates[date]) {
-            fullyBookedDates[date] = 0;
-          }
-          fullyBookedDates[date]++;
-        });
-
-        const fullyBookedDatesArray = Object.keys(fullyBookedDates).filter(
-          (date) => fullyBookedDates[date] >= 10
-        );
-
-        setFullyBookedDates(fullyBookedDatesArray);
-
-        // Now, call calculateStartDate with the populated fullyBookedDatesArray
-        const calculatedFinalDate = calculateStartDate(fullyBookedDatesArray);
-        setFinalDate(calculatedFinalDate);
-
-        // Set the selected date to the calculated final date
-        setSelectedDate(calculatedFinalDate);
-
-        // Set all appointments
-        setAllAppointments(allAppointments);
-
-        // Indicate that appointments have been loaded
-        setAppointmentsLoaded(true);
-      } catch (error) {
-        console.error('Error fetching appointments:', error);
-      }
-    };
-
-    fetchAllAppointments();
-  }, []);
+  
+  const [finalDate, setFinalDate] = useState(null);
+  useFetchAppointments(
+    setAppointmentsLoaded,
+    setExcludedTimes,
+    setFullyBookedDates,
+    setAllAppointments,
+    setSelectedDate,
+    setFinalDate 
+  );
 
   useEffect(() => {
     if (appointmentsLoaded) {
@@ -183,39 +136,8 @@ export default function Booking() {
   }, [selectedDate, allAppointments, appointmentsLoaded]);
 
   const fullyBookedDatesArray = useMemo(() => fullyBookedDates.map((dateString) => new Date(dateString)), [fullyBookedDates]);
-
-  const calculateStartDate = (fullyBookedDatesArray) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
-    let startDate = new Date(tomorrow);
-
-    // Create a copy of the fullyBookedDatesArray to avoid overwriting
-    const sortedBookedDates = [...fullyBookedDatesArray]
-      .map((date) => new Date(date))
-      .sort((a, b) => a - b);
-
-    for (let i = 0; i < sortedBookedDates.length; i++) {
-      const fullyBookedDate = sortedBookedDates[i];
-      // Check if fully booked date is the same as the current startDate
-      if (fullyBookedDate.getTime() === startDate.getTime()) {
-        // Date is fully booked, check the next day
-        startDate.setDate(startDate.getDate() + 1);
-      } else if (fullyBookedDate > startDate) {
-        // Found a fully booked day after tomorrow, setting startDate to that day
-        startDate = fullyBookedDate;
-        break; 
-      }
-    }
-
-    return startDate;
-  };
   
 
-  const [finalDate, setFinalDate] = useState(null);
 
   const generateExcludedTimes = (date, allAppointments) => {
     const selectedDateDateString = date.toDateString();
@@ -355,12 +277,7 @@ export default function Booking() {
 
           <div className="my-4">
             <div className="mt-12 mb-4 sm:mt-0 md:mt-0 lg:mt-0">
-            <ReCAPTCHA
-                hl="tr"
-                sitekey={siteKey}
-                onChange={(value) => handleRecaptchaChange(value)}
-                ref={recaptchaRef}
-              />
+              <Recaptcha onRecaptchaChange={handleRecaptchaChange} />
             </div>
           </div>
 

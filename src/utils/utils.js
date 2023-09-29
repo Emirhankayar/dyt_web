@@ -1,25 +1,10 @@
+// utils.js
 import { createClient } from '@supabase/supabase-js';
-import { useRef, useEffect } from 'react';
 
-// Define Supabase client
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE;
 const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
-const useRecaptcha = (onRecaptchaChange) => {
-    const recaptchaRef = useRef(null);
-  
-    useEffect(() => {
-      if (recaptchaRef.current) {
-        window.grecaptcha.ready(() => {
-
-        });
-      }
-    }, [onRecaptchaChange]);
-  
-    return recaptchaRef;
-  };
-  
 // Function to get the PDF URL from Supabase
 const getPdfUrlFromSupabase = async (fileName) => {
   const pdfUrl = `${supabaseUrl}/storage/v1/object/public/pdf/${fileName}`;
@@ -83,4 +68,4 @@ const viewPDF = async (pdfFileName) => {
   }
 };
 
-export { supabaseClient, downloadPDF, viewPDF, useRecaptcha };
+export { supabaseClient, downloadPDF, viewPDF };
