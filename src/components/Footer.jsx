@@ -10,7 +10,7 @@ import {
 const LINKS = [
   {
     title: "Bölümler",
-    items: ["Hakkımda", "Bloglar", "Tarifler", "Bize Ulaşın"],
+    items: ["Anasayfa", "Bloglar", "Bize Ulaşın"],
   },
   {
     title: "Sosyal Medya",
@@ -32,12 +32,15 @@ const currentYear = new Date().getFullYear();
  
 export default function FooterWithSocialLinks() {
   return (
-    <footer className="relative w-full bg-gray-200 pt-10 mt-40 border-t-2 border-gray-300">
+    <footer className="relative w-full bg-gray-200 pt-10 border-t-2 border-gray-300">
       <div className="mx-auto w-full max-w-7xl px-8">
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
+          <a href="/">
           <Typography variant="h5" className="mb-6">
             Dyt. Zeynep
           </Typography>
+
+          </a>
           <div className="grid grid-cols-3 justify-between gap-4">
             {LINKS.map(({ title, items }) => (
               <ul key={title}>

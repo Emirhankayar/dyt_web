@@ -15,7 +15,7 @@ import { useFetchAppointments } from '../services/services';
 import { SkeletonBook } from './Skeleton';
 import { format, addDays } from 'date-fns';
 import { supabaseClient as supabase, downloadPDF, viewPDF } from '../utils/utils';
-
+import '../index.css'
 export default function Booking() {
   const serviceID = import.meta.env.VITE_SERVICE;
   const templateID = import.meta.env.VITE_TEMPLATE;
@@ -61,12 +61,12 @@ export default function Booking() {
 
 
   async function handleDownloadPdf() {
-    const pdfFileName = 'example.pdf';
+    const pdfFileName = 'Danisan_Bilgi_Formu.pdf';
     await downloadPDF(pdfFileName);
   }
 
   async function handleOpenPdf() {
-    const pdfFileName = 'example.pdf';
+    const pdfFileName = 'Danisan_Bilgi_Formu.pdf';
     await viewPDF(pdfFileName);
   }
 
@@ -167,7 +167,7 @@ export default function Booking() {
       <div className="container mx-auto">
 
 
-      <div className="grid grid-rows-auto max-w-sm lg:max-w-md bg-gray-100 shadow-xl p-6 rounded-lg mx-auto">
+       <div className="container grid grid-rows-auto max-w-sm lg:max-w-md bg-gray-100 shadow-xl p-6 rounded-lg mx-auto">
 
 
           {isLoading ? (
@@ -176,7 +176,7 @@ export default function Booking() {
 
             <form id='booking' onSubmit={handleBooking}>
 
-              <div className="mb-4">
+              <div className="mb-4 ">
                 <label htmlFor="name" className="block text-sm font-medium ">
                   İsim Soyisim:
                 </label>
@@ -263,7 +263,7 @@ export default function Booking() {
 
               <div className="mb-4 flex flex-col sm:flex-row md:flex-row lg:flex-row justify-between items-center">
                 {pdfFileName}
-                <div className='flex flex-row p-2 justify-center items-center'>
+                <div className='flex flex-row px-4 py-2 justify-center items-center'>
                   <Button
                     onClick={handleDownloadPdf}
                     className=" rounded-full p-4 shadow-md flex flex-col justify-center items-center"
@@ -280,8 +280,8 @@ export default function Booking() {
                 </div>
               </div>
 
-              <div className='block mb-20 sm:mb-10 md:mb-12 lg:mb-8 mt-4 w-full h-16 px-4 pb-12'>
-                <Typography className='text-sm italic text-red-300 text-justify'>
+              <div className='sm:mb-10 md:mb-12 lg:mb-8 mt-4 w-full h-16 pb-12'>
+                <Typography className='text-sm italic text-red-300 text-justify px-4'>
                   <FontAwesomeIcon icon={faCircleInfo} className='mr-1' />
                   Bu form, danışmanlık hizmeti öncesinde veya
                   sırasında doldurmaları gereken bir belgedir.
@@ -305,9 +305,12 @@ export default function Booking() {
                 </Button>
               </div>
             </form>
+
           )}
         </div>
+        
       </div>
+      
     </>
   );
 }

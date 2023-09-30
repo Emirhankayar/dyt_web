@@ -119,7 +119,6 @@ function useToggleShowAll(initialValue = false) {
     setExpanded((prevExpanded) => !prevExpanded);
   }, []);
 
-  console.log("showAll:", showAll, "expanded:", expanded); // Add this line
 
   return { showAll, expanded, toggleShowAll };
 }

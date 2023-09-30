@@ -1,13 +1,11 @@
 // Blog.jsx
 import React, { useState, useEffect } from "react";
-import Spinner from '../components/Spinner'
 import { fetchBlogPosts } from '../services/services';
-import { SkeletonBlog } from '../components/Skeleton';
+import { SkeletonBlog } from './Skeleton';
 import { extractImageAndDate, getNumCols, handleResize, useToggleShowAll } from '../utils/utils';
-import ExpandingButton from "../components/Expand";
+import ExpandingButton from "./Expand";
 
-import {
-  Card,
+import {  Card,
   CardHeader,
   CardBody,
   CardFooter,
@@ -28,7 +26,7 @@ export default function CardDefault() {
   const [advisePosts, setAdvisePosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [numCols, setNumCols] = useState(getNumCols());
-  const { showAll, expanded, toggleShowAll } = useToggleShowAll(false); // Use the custom hook
+  const { showAll, expanded, toggleShowAll } = useToggleShowAll(false);
 
 
   useEffect(() => {
@@ -56,22 +54,19 @@ export default function CardDefault() {
 
 
   const displayedPosts = showAll ? advisePosts : advisePosts.slice(0, expanded ? advisePosts.length : numCols);
-
+  
   return (
     <>
-      <div className="container flex flex-wrap justify-between w-5/6 items-center mb-10 mt-40 mx-auto">
+      <div className="container flex flex-wrap justify-between w-5/6 items-center mb-10 mx-auto">
         <Typography className="text-2xl font-bold">En Yeni Bloglar</Typography>
 
-        <a
-          href="https://diyetzamanidostum.blogspot.com/search/label/Advise"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Button className="h-10 shadow-xl capitalize">Tüm Bloglar</Button>
-        </a>
+          <a href="/posts">
+            <Button className="h-10 shadow-xl capitalize">Tüm Bloglar</Button>
+          </a>
+
       </div>
 
-      <div className="container mx-auto">
+      <div className="container mx-auto h-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {isLoading ? (
             Array.from({ length: numCols }).map((_, index) => (
@@ -86,18 +81,14 @@ export default function CardDefault() {
                     <div className="block w-76 items-center ">
                       <a href={post.url} target="_blank" rel="noopener noreferrer">
                       <img
-                        src={image}
-                        {...(post.webpImageURL
-                          ? {
-                              srcSet: `${post.webpImageURL} 1200w, ${post.webpImageURL} 800w, ${image || DUMMY_IMAGE_URL} 400w`,
-                            }
-                          : {})}
-                        sizes="(max-width: 800px) 100vw, (max-width: 1200px) 50vw, 33.3vw"
+                        srcSet={`${image}?width=100 100w, ${image}?width=200 200w, ${image}?width=300 300w`}
+                        sizes="(max-width: 300px) 50vw, 25vw"
                         decoding="async"
                         fetchpriority="high"
                         alt="card-image"
                         loading="lazy"
                         className="w-full h-52 object-cover rounded-t-lg select-none hover:brightness-110 transition-all duration-500"
+                        src={image}
                       />
                       </a>
                       <CardHeader className="bg-transparent h-9 mt-4 shadow-none">

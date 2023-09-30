@@ -33,7 +33,7 @@
     "react-google-recaptcha": "^3.1.0",
     "react-international-phone": "^3.1.2",
     "react-phone-number-input": "^3.3.6",
-    "react-router-dom": "^6.15.0",
+    "react-router-dom": "^6.16.0",
     "sharp": "^0.32.6"
   },
   "devDependencies": {

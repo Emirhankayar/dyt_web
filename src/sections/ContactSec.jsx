@@ -12,7 +12,7 @@ export default function Switcher() {
 
   return (
     <>
-        <div className="container flex flex-wrap justify-between w-5/6 items-center mx-auto">
+        <div id="contactSection" className="container flex flex-wrap justify-between w-5/6 items-center mx-auto mb-10 mt-40">
           <Typography className="text-2xl font-bold">
             {showContact ? "Bize Ulaşın" : "Randevu Oluştur"}
           </Typography>

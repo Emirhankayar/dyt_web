@@ -53,35 +53,42 @@ export function SkeletonReach() {
 
 export function SkeletonBlog() {
   return (
-<div className="w-full h-full flex-col items-center justify-center space-y-5 rounded-lg animate-pulse p-4 mb-40">
-  <div className="h-full max-w-sm">
-    <div className="w-full h-2/3 rounded-t-lg bg-gray-400"></div>
-    <div className="flex-col flex items-center justify-center rounded-lg space-y-4 bg-gray-300">
 
-      <div className="w-full h-5/6 object-cover rounded-t-lg bg-gray-400"></div>
-      <div className="w-1/3 h-6 bg-gray-400 rounded-lg"></div>
+    <div className='w-full h-[66vh]'>
+    <div className="w-full h-80 flex-col items-center justify-center space-y-5 rounded-lg animate-pulse p-4">
+      <div className="h-full max-w-sm">
+        <div className="w-full h-2/3 rounded-t-lg bg-gray-400"></div>
+        <div className="flex-col flex items-center justify-center rounded-lg space-y-4 bg-gray-300">
 
-      <div className="flex flex-col justify-center items-start w-full space-y-2 p-4">
-        <div className="w-full h-4 bg-gray-400 rounded-lg"></div>
-        <div className="w-2/3 h-4 bg-gray-400 rounded-lg"></div>
-        <div className="w-1/3 h-4 bg-gray-400 rounded-lg"></div>
+          <div className="w-full h-5/6 object-cover rounded-t-lg bg-gray-400"></div>
+          <div className="w-1/3 h-6 bg-gray-400 rounded-lg"></div>
+
+          <div className="flex flex-col justify-center items-start w-full space-y-2 p-4">
+            <div className="w-full h-4 bg-gray-400 rounded-lg"></div>
+            <div className="w-2/3 h-4 bg-gray-400 rounded-lg"></div>
+            <div className="w-1/3 h-4 bg-gray-400 rounded-lg"></div>
+          </div>
+
+          <div className="w-1/3 h-4 bg-gray-400 rounded-lg"></div>
+          <div className="w-1/3 h-8 bg-gray-400 rounded-lg" style={{ marginBottom: '20px' }}></div>
+        </div>
       </div>
-
-      <div className="w-1/3 h-4 bg-gray-400 rounded-lg"></div>
-      <div className="w-1/3 h-8 bg-gray-400 rounded-lg" style={{ marginBottom: '20px' }}></div> 
     </div>
-  </div>
-</div>
+    </div>
+
   );
 }
 
 export function SkeletonRecipe() {
   return (
-<div className="w-full h-full space-y-5 rounded-lg animate-pulse p-4">
-  <div className="h-52 max-w-sm bg-gray-400 rounded-lg">
+    <div className='w-full h-[40vh]'>
 
+    <div className="w-full h-full space-y-5 rounded-lg animate-pulse p-4">
+      <div className="h-52 max-w-sm bg-gray-400 rounded-lg">
+
+      </div>
     </div>
-  </div>
+    </div>
 
   );
 }

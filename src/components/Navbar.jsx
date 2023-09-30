@@ -71,8 +71,8 @@ export default function StickyNavbar() {
         color="blue-gray"
         className="p-2 font-normal"
       >
-        <a href="#" className="flex items-center">
-          Hakkımda
+        <a href="/" className="flex items-center">
+          Anasayfa
         </a>
       </Typography>
       <Typography
@@ -81,7 +81,7 @@ export default function StickyNavbar() {
         color="blue-gray"
         className="p-2 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <a href="/posts" className="flex items-center">
           Bloglar
         </a>
       </Typography>
@@ -91,17 +91,7 @@ export default function StickyNavbar() {
         color="blue-gray"
         className="p-2 font-normal"
       >
-        <a href="#" className="flex items-center">
-          Tarifler
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="medium"
-        color="blue-gray"
-        className="p-2 font-normal"
-      >
-        <a href="#" className="flex items-center">
+        <a href="#contactSection" className="flex items-center">
           Bize Ulaşın
         </a>
       </Typography>
@@ -129,7 +119,7 @@ export default function StickyNavbar() {
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
             as="a"
-            href="#"
+            href="/"
             className="mr-4 cursor-pointer py-1.5 font-bold"
           >
             Dyt. Zeynep

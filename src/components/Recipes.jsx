@@ -1,18 +1,11 @@
 // Recipes.jsx
 import React, { useState, useEffect } from "react";
-import Spinner from "../components/Spinner";
+import Spinner from "./Spinner";
 import { fetchBlogPosts } from "../services/services";
+import ExpandingButton from "./Expand";
+import { SkeletonRecipe } from './Skeleton';
+import { Card, CardFooter, Typography, Button } from "@material-tailwind/react";
 import { extractImageAndDate, getNumCols, handleResize, useToggleShowAll } from '../utils/utils';
-import ExpandingButton from "../components/Expand";
-import { SkeletonRecipe } from '../components/Skeleton';
-
-
-import {
-  Card,
-  CardFooter,
-  Typography,
-  Button,
-} from "@material-tailwind/react";
 
 export default function RecipeCard() {
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
@@ -63,19 +56,14 @@ export default function RecipeCard() {
 
   return (
     <>
-      <div className="container flex flex-wrap justify-between w-5/6 items-center mb-10 mt-40 mx-auto">
+      <div className="container flex flex-wrap justify-between w-5/6 items-center mt-40 mb-10 mx-auto">
         <Typography className="text-2xl font-bold">Fit Tarifler</Typography>
-
-        <a
-          href="https://diyetzamanidostum.blogspot.com/search/label/Recipe"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="/posts">
           <Button className="h-10 shadow-xl capitalize">Tüm Tarifler</Button>
         </a>
       </div>
 
-      <div className="container mx-auto">
+      <div className="container mx-auto grid grid-cols-1">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {isLoading ? (
             Array.from({ length: numCols }).map((_, index) => (
@@ -98,13 +86,13 @@ export default function RecipeCard() {
                     >
                       <img
                         src={image}
-                        alt="card-image"
-                        role="presentation"
-                        sizes="(max-width: 800px) 100vw, 50vw"
+                        srcSet={`${image}?width=100 100w, ${image}?width=200 200w, ${image}?width=400 400w`}
+                        sizes="(max-width: 400px) 100vh, (max-width: 200px) 50vh, 33.3vh"
                         decoding="async"
                         fetchpriority="high"
+                        alt="card-image"
                         loading="lazy"
-                        className="w-full h-52 object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 shadow-xl"
+                        className="w-full h-52 object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500"
                       />
                     </a>
                     <CardFooter className="w-full flex flex-row mt-1 p-1 justify-start text-sm">
