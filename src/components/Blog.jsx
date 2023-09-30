@@ -60,7 +60,7 @@ export default function CardDefault() {
       <div className="container flex flex-wrap justify-between w-5/6 items-center mb-10 mx-auto">
         <Typography className="text-2xl font-bold">En Yeni Bloglar</Typography>
 
-          <a href="/posts">
+          <a href="/bloglar">
             <Button className="h-10 shadow-xl capitalize">Tüm Bloglar</Button>
           </a>
 

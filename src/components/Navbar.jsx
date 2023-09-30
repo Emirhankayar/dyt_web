@@ -81,8 +81,18 @@ export default function StickyNavbar() {
         color="blue-gray"
         className="p-2 font-normal"
       >
-        <a href="/posts" className="flex items-center">
+        <a href="/bloglar" className="flex items-center">
           Bloglar
+        </a>
+      </Typography>
+      <Typography
+        as="li"
+        variant="medium"
+        color="blue-gray"
+        className="p-2 font-normal"
+      >
+        <a href="/tarifler" className="flex items-center">
+          Tarifler
         </a>
       </Typography>
       <Typography

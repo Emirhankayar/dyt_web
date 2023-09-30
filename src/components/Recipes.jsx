@@ -58,7 +58,7 @@ export default function RecipeCard() {
     <>
       <div className="container flex flex-wrap justify-between w-5/6 items-center mt-40 mb-10 mx-auto">
         <Typography className="text-2xl font-bold">Fit Tarifler</Typography>
-        <a href="/posts">
+        <a href="/tarifler">
           <Button className="h-10 shadow-xl capitalize">Tüm Tarifler</Button>
         </a>
       </div>
