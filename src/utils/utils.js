@@ -103,10 +103,8 @@ function handleResize(setNumCols) {
     setNumCols(numCols);
   }
 
-  // Attach the event listener
   window.addEventListener("resize", resizeHandler);
 
-  // Remove the event listener when the component unmounts
   return () => {
     window.removeEventListener("resize", resizeHandler);
   };
@@ -120,6 +118,8 @@ function useToggleShowAll(initialValue = false) {
     setShowAll((prevShowAll) => !prevShowAll);
     setExpanded((prevExpanded) => !prevExpanded);
   }, []);
+
+  console.log("showAll:", showAll, "expanded:", expanded); // Add this line
 
   return { showAll, expanded, toggleShowAll };
 }

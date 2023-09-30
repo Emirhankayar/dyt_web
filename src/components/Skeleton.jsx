@@ -53,7 +53,7 @@ export function SkeletonReach() {
 
 export function SkeletonBlog() {
   return (
-<div className="w-full h-full flex-col items-center justify-center space-y-5 rounded-lg animate-pulse p-4">
+<div className="w-full h-full flex-col items-center justify-center space-y-5 rounded-lg animate-pulse p-4 mb-40">
   <div className="h-full max-w-sm">
     <div className="w-full h-2/3 rounded-t-lg bg-gray-400"></div>
     <div className="flex-col flex items-center justify-center rounded-lg space-y-4 bg-gray-300">
@@ -68,7 +68,7 @@ export function SkeletonBlog() {
       </div>
 
       <div className="w-1/3 h-4 bg-gray-400 rounded-lg"></div>
-      <div className="w-1/3 h-8 bg-gray-400 rounded-lg" style={{ marginBottom: '20px' }}></div> {/* Add margin using inline style */}
+      <div className="w-1/3 h-8 bg-gray-400 rounded-lg" style={{ marginBottom: '20px' }}></div> 
     </div>
   </div>
 </div>

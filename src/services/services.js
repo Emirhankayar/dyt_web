@@ -144,4 +144,4 @@ export function calculateStartDate(fullyBookedDatesArray) {
     }
   }
 
-export default{ useFetchAppointments, fetchBlogPosts }
+export default{ useFetchAppointments, fetchBlogPosts, fetchRecipes }

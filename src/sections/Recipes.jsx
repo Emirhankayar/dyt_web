@@ -14,8 +14,6 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-const DUMMY_IMAGE_URL = import.meta.env.VITE_DUMMY_IMG;
-
 export default function RecipeCard() {
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
 
@@ -99,7 +97,7 @@ export default function RecipeCard() {
                       rel="noopener noreferrer"
                     >
                       <img
-                        src={image ? image : DUMMY_IMAGE_URL}
+                        src={image}
                         alt="card-image"
                         role="presentation"
                         sizes="(max-width: 800px) 100vw, 50vw"
@@ -109,7 +107,6 @@ export default function RecipeCard() {
                         className="w-full h-52 object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 shadow-xl"
                       />
                     </a>
-
                     <CardFooter className="w-full flex flex-row mt-1 p-1 justify-start text-sm">
                       <div className="w-3/5 text-left font-bold">
                         {post.title.substring(0, 20)}
@@ -125,7 +122,9 @@ export default function RecipeCard() {
             })
           )}
         </div>
-            <ExpandingButton expanded={expanded} onClick={toggleShowAll} />
+        {!isLoading && (
+          <ExpandingButton expanded={expanded} onClick={toggleShowAll} />
+        )}
       </div>
     </>
   );

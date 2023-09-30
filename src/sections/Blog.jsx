@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from "react";
 import Spinner from '../components/Spinner'
 import { fetchBlogPosts } from '../services/services';
+import { SkeletonBlog } from '../components/Skeleton';
 import { extractImageAndDate, getNumCols, handleResize, useToggleShowAll } from '../utils/utils';
 import ExpandingButton from "../components/Expand";
-import { SkeletonBlog } from '../components/Skeleton';
 
 import {
   Card,
@@ -14,8 +14,6 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-
-const DUMMY_IMAGE_URL = import.meta.env.VITE_DUMMY_IMG;
 
 export default function CardDefault() {
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
@@ -32,7 +30,7 @@ export default function CardDefault() {
   const [numCols, setNumCols] = useState(getNumCols());
   const { showAll, expanded, toggleShowAll } = useToggleShowAll(false); // Use the custom hook
 
-  
+
   useEffect(() => {
     const removeResizeListener = handleResize(setNumCols);
 
@@ -56,16 +54,14 @@ export default function CardDefault() {
     fetchPosts();
   }, []);
 
-  if (loading) {
-    return <Spinner />;
-  }
+
   const displayedPosts = showAll ? advisePosts : advisePosts.slice(0, expanded ? advisePosts.length : numCols);
 
   return (
     <>
       <div className="container flex flex-wrap justify-between w-5/6 items-center mb-10 mt-40 mx-auto">
         <Typography className="text-2xl font-bold">En Yeni Bloglar</Typography>
-  
+
         <a
           href="https://diyetzamanidostum.blogspot.com/search/label/Advise"
           target="_blank"
@@ -74,10 +70,10 @@ export default function CardDefault() {
           <Button className="h-10 shadow-xl capitalize">Tüm Bloglar</Button>
         </a>
       </div>
-  
+
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {isLoading ? (
+          {isLoading ? (
             Array.from({ length: numCols }).map((_, index) => (
               <SkeletonBlog key={index} />
             ))
@@ -89,16 +85,20 @@ export default function CardDefault() {
                   <div className="h-full max-w-sm rounded-xl mx-auto shadow-xl">
                     <div className="block w-76 items-center ">
                       <a href={post.url} target="_blank" rel="noopener noreferrer">
-                        <img
-                          src={image ? image : DUMMY_IMAGE_URL}
-                          role="presentation"
-                          sizes="(max-width: 800px) 100vw, 50vw"
-                          decoding="async"
-                          fetchpriority="high"
-                          alt="card-image"
-                          loading="lazy"
-                          className="w-full h-52 object-cover rounded-t-lg select-none hover:brightness-110 transition-all duration-500"
-                        />
+                      <img
+                        src={image}
+                        {...(post.webpImageURL
+                          ? {
+                              srcSet: `${post.webpImageURL} 1200w, ${post.webpImageURL} 800w, ${image || DUMMY_IMAGE_URL} 400w`,
+                            }
+                          : {})}
+                        sizes="(max-width: 800px) 100vw, (max-width: 1200px) 50vw, 33.3vw"
+                        decoding="async"
+                        fetchpriority="high"
+                        alt="card-image"
+                        loading="lazy"
+                        className="w-full h-52 object-cover rounded-t-lg select-none hover:brightness-110 transition-all duration-500"
+                      />
                       </a>
                       <CardHeader className="bg-transparent h-9 mt-4 shadow-none">
                         <div className="text-xl text-gray-500 font-bold text-center">{post.title}</div>
@@ -109,7 +109,7 @@ export default function CardDefault() {
                       </CardBody>
                       <CardFooter className="text-center -mt-8">
                         <a href={post.url} target="_blank" rel="noopener noreferrer">
-                          <Button className="bg-gray-500 shadow-xl capitalize">Daha Fazla</Button>
+                          <Button className="bg-gray-500 shadow-xl capitalize">Devamını Oku</Button>
                         </a>
                       </CardFooter>
                     </div>
@@ -119,7 +119,9 @@ export default function CardDefault() {
             })
           )}
         </div>
-        <ExpandingButton expanded={expanded} onClick={toggleShowAll} />
+        {!isLoading && (
+          <ExpandingButton expanded={expanded} onClick={toggleShowAll} />
+        )}
       </div>
     </>
   );

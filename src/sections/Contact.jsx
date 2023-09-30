@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Contact from "../components/Reach";
 import Book from "../components/Book";
 import { Typography, Button } from "@material-tailwind/react";
-import Spinner from '../components/Spinner'
-import { Suspense } from "react";
 
 export default function Switcher() {
   const [showContact, setShowContact] = useState(true);
@@ -14,8 +12,6 @@ export default function Switcher() {
 
   return (
     <>
-      <Suspense fallback={<Spinner />}>
-
         <div className="container flex flex-wrap justify-between w-5/6 items-center mx-auto">
           <Typography className="text-2xl font-bold">
             {showContact ? "Bize Ulaşın" : "Randevu Oluştur"}
@@ -31,7 +27,7 @@ export default function Switcher() {
 
         {showContact ? <Contact /> : <Book />}
       </div>
-      </Suspense>
+
     </>
   );
 }
