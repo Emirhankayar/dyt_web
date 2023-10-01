@@ -9,13 +9,13 @@ const templateID = import.meta.env.VITE_TEMPLATEE;
 const userID = import.meta.env.VITE_USER;
 
 const ContactForm = () => {
-    const [isLoading, setIsLoading] = useState(true); // State to track loading status
+    const [Loading, setLoading] = useState(true); // State to track loading status
 
     useEffect(() => {
         // Simulate loading delay
         setTimeout(() => {
-            setIsLoading(false); // Set isLoading to false when content is loaded
-        }, 1500); // Adjust the delay time as needed
+            setLoading(false); // Set Loading to false when content is loaded
+        }, 1000); // Adjust the delay time as needed
     }, []);
 
     const [formData, setFormData] = useState({
@@ -82,7 +82,7 @@ const ContactForm = () => {
 
                 <div className="grid grid-rows-auto max-w-sm lg:max-w-md bg-gray-100 shadow-xl p-6 rounded-lg mx-auto">
                     
-                    {isLoading ? (
+                    {Loading ? (
                         <SkeletonReach />
                     ) : (
                         <form onSubmit={handleSubmit}>

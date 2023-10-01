@@ -10,17 +10,6 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function RecipeCard() {
-  const [isLoading, setIsLoading] = useState(true); // State to track loading status
-
-  useEffect(() => {
-      // Simulate loading delay
-    setTimeout(() => {
-      setIsLoading(false); // Set isLoading to false when content is loaded
-      }, 1500); // Adjust the delay time as needed
-    }, []);
-  
-  
-
   const [recipePosts, setRecipePosts] = useState([]);
   const [loading, setLoading] = useState(true); 
   const [numCols, setNumCols] = useState(getNumCols());
@@ -37,6 +26,7 @@ export default function RecipeCard() {
   }, []); 
 
   useEffect(() => {
+    setLoading(true);
     const fetchRecipes = async () => {
       try {
         const recipePostsData = await fetchBlogPosts("Recipe");
@@ -67,7 +57,7 @@ export default function RecipeCard() {
 
       <div className="container mx-auto grid grid-cols-1">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {isLoading ? (
+        {loading ? (
             Array.from({ length: numCols }).map((_, index) => (
               <SkeletonRecipe key={index} />
             ))
@@ -111,7 +101,7 @@ export default function RecipeCard() {
             })
           )}
         </div>
-        {!isLoading && (
+        {!loading && (
           <ExpandingButton expanded={expanded} onClick={toggleShowAll} />
         )}
       </div>

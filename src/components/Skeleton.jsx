@@ -79,6 +79,20 @@ export function SkeletonBlog() {
   );
 }
 
+export function SkeletonBlogSub() {
+  return (
+     <div className="p-4 w-screen h-full">
+    <div className=" h-[100px] animate-pulse rounded-lg grid grid-cols-1 place-center justify-center">
+      <div className='max-w-lg bg-gray-400 w-full rounded-lg mx-auto'>
+
+      </div>
+    </div>
+  </div>
+
+
+  );
+}
+
 export function SkeletonRecipe() {
   return (
     <div className='w-full h-[40vh]'>
@@ -95,4 +109,4 @@ export function SkeletonRecipe() {
 
 
 
-export default { SkeletonBook, SkeletonReach, SkeletonBlog, SkeletonRecipe };
+export default { SkeletonBook, SkeletonReach, SkeletonBlog, SkeletonRecipe, SkeletonBlogSub };

@@ -84,6 +84,18 @@ const extractImageAndDate = (html) => {
   };
 };
 
+const extractImage = (html) =>  {
+  const imgRegex = /<img.*?src=["'](.*?)["'].*?>/; // Regular expression to match image source
+  const dateRegex = /<span[^>]*class=["']published["'][^>]*>(.*?)<\/span>/; // Regular expression to match date
+  const imageMatch = imgRegex.exec(html);
+  const dateMatch = dateRegex.exec(html);
+
+  return {
+    image: imageMatch ? imageMatch[1] : null,
+    date: dateMatch ? dateMatch[1] : null,
+  };
+}
+
 // Function to calculate the number of columns based on screen width
 function getNumCols() {
   const screenWidth = window.innerWidth;

@@ -22,13 +22,13 @@ export default function Booking() {
   const userID = import.meta.env.VITE_USER;
 
 
-  const [isLoading, setIsLoading] = useState(true); // State to track loading status
+  const [loading, setLoading] = useState(true); // State to track loading status
 
   useEffect(() => {
     // Simulate loading delay
     setTimeout(() => {
-      setIsLoading(false); // Set isLoading to false when content is loaded
-    }, 1500); // Adjust the delay time as needed
+      setLoading(false); 
+    }, 1000); // Adjust the delay time as needed
   }, []);
 
   registerLocale('tr', tr);
@@ -72,7 +72,7 @@ export default function Booking() {
 
   const handleBooking = async (e) => {
     e.preventDefault();
-
+    
     if (!formData.recaptchaValue) {
       alert('Lütfen reCAPTCHA doğrulamasını tamamlayın.');
       return;
@@ -96,7 +96,6 @@ export default function Booking() {
         console.log('Booking inserted successfully:', data);
         alert('Rezervasyonunuz başarıyla oluşturuldu!');
       }
-
 
       const formattedDate = format(selectedDate, 'dd/MM/yyyy HH:mm');
 
@@ -138,6 +137,7 @@ export default function Booking() {
   );
 
   useEffect(() => {
+    setLoading
     if (appointmentsLoaded) {
       setExcludedTimes(generateExcludedTimes(selectedDate, allAppointments));
     }
@@ -170,7 +170,7 @@ export default function Booking() {
        <div className="container grid grid-rows-auto max-w-sm lg:max-w-md bg-gray-100 shadow-xl p-6 rounded-lg mx-auto">
 
 
-          {isLoading ? (
+          {loading ? (
             <SkeletonBook />
           ) : (
 

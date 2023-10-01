@@ -1,40 +1,19 @@
 // RecipeSub.jsx
 import React, { useState, useEffect } from "react";
 import { fetchBlogPosts } from "../services/services";
-import { SkeletonRecipe } from '../components/Skeleton';
+import { SkeletonBlogSub } from '../components/Skeleton';
 import { Typography, Button } from "@material-tailwind/react";
 import { extractImageAndDate, getNumCols, handleResize } from '../utils/utils';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function RecipeCard() {
-    const [isLoading, setIsLoading] = useState(true); // State to track loading status
-
-    useEffect(() => {
-        // Simulate loading delay
-        setTimeout(() => {
-            setIsLoading(false); // Set isLoading to false when content is loaded
-        }, 1500); // Adjust the delay time as needed
-    }, []);
-
-
-
     const [recipePosts, setRecipePosts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [numCols, setNumCols] = useState(getNumCols());
-
-
-    useEffect(() => {
-        const removeResizeListener = handleResize(setNumCols);
-
-        return () => {
-
-            removeResizeListener();
-        };
-    }, []);
 
     useEffect(() => {
         const fetchRecipes = async () => {
+          setLoading(true);
             try {
                 const recipePostsData = await fetchBlogPosts("Recipe");
                 setRecipePosts(recipePostsData);
@@ -47,7 +26,7 @@ export default function RecipeCard() {
         fetchRecipes();
     }, []);
 
-    const displayedPosts = recipePosts;
+    const numItemsToDisplay = loading ? 4 :  recipePosts.length;
 
     return (
         <>
@@ -59,16 +38,14 @@ export default function RecipeCard() {
                 </div>
 
                 <div className="container">
-                        <div className="grid grid-col-1 w-full justify-center ">
-                        {isLoading ? (
-                            Array.from({ length: numCols }).map((_, index) => (
-                                <SkeletonRecipe key={index} />
-                            ))
-                        ) : (
-
-                            displayedPosts.map((post, index) => {
+                <div className="grid grid-col-1 w-full justify-center">
+                {loading ? (
+                        Array.from({ length: numItemsToDisplay }).map((_, index) => (
+                            <SkeletonBlogSub key={index} />
+                        ))
+                    ) : (
+                        recipePosts.slice(0, numItemsToDisplay).map((post, index) => {
                                 const { image } = extractImageAndDate(post.content);
-                              
                                 return (
                                   <div key={index} className="p-4">
 
