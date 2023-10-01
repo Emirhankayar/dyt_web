@@ -32,6 +32,7 @@
     "react-dom": "^18.2.0",
     "react-google-recaptcha": "^3.1.0",
     "react-international-phone": "^3.1.2",
+    "react-lazy-load-image-component": "^1.6.0",
     "react-phone-number-input": "^3.3.6",
     "react-router-dom": "^6.16.0",
     "sharp": "^0.32.6"

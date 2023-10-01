@@ -6,6 +6,8 @@ import ExpandingButton from "./Expand";
 import { SkeletonRecipe } from './Skeleton';
 import { Card, CardFooter, Typography, Button } from "@material-tailwind/react";
 import { extractImageAndDate, getNumCols, handleResize, useToggleShowAll } from '../utils/utils';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function RecipeCard() {
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
@@ -84,15 +86,14 @@ export default function RecipeCard() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <img
-                        src={image}
-                        srcSet={`${image}?width=100 100w, ${image}?width=200 200w, ${image}?width=400 400w`}
-                        sizes="(max-width: 400px) 100vh, (max-width: 200px) 50vh, 33.3vh"
+                      <LazyLoadImage
                         decoding="async"
                         fetchpriority="high"
+                        useIntersectionObserver={true}
                         alt="card-image"
-                        loading="lazy"
                         className="w-full h-52 object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500"
+                        src={image}
+                        effect="blur"
                       />
                     </a>
                     <CardFooter className="w-full flex flex-row mt-1 p-1 justify-start text-sm">

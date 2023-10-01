@@ -4,6 +4,8 @@ import { fetchBlogPosts } from '../services/services';
 import { SkeletonBlog } from './Skeleton';
 import { extractImageAndDate, getNumCols, handleResize, useToggleShowAll } from '../utils/utils';
 import ExpandingButton from "./Expand";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import {  Card,
   CardHeader,
@@ -27,7 +29,6 @@ export default function CardDefault() {
   const [loading, setLoading] = useState(true);
   const [numCols, setNumCols] = useState(getNumCols());
   const { showAll, expanded, toggleShowAll } = useToggleShowAll(false);
-
 
   useEffect(() => {
     const removeResizeListener = handleResize(setNumCols);
@@ -80,15 +81,14 @@ export default function CardDefault() {
                   <div className="h-full max-w-sm rounded-xl mx-auto shadow-xl">
                     <div className="block w-76 items-center ">
                       <a href={post.url} target="_blank" rel="noopener noreferrer">
-                      <img
-                        srcSet={`${image}?width=100 100w, ${image}?width=200 200w, ${image}?width=300 300w`}
-                        sizes="(max-width: 300px) 50vw, 25vw"
+                      <LazyLoadImage
                         decoding="async"
                         fetchpriority="high"
+                        useIntersectionObserver={true}
                         alt="card-image"
-                        loading="lazy"
-                        className="w-full h-52 object-cover rounded-t-lg select-none hover:brightness-110 transition-all duration-500"
                         src={image}
+                        effect="blur"
+                        className="w-full h-52 object-cover rounded-t-lg select-none hover:brightness-110 transition-all duration-500"
                       />
                       </a>
                       <CardHeader className="bg-transparent h-9 mt-4 shadow-none">
