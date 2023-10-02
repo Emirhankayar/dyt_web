@@ -1,6 +1,5 @@
 // Recipes.jsx
 import React, { useState, useEffect } from "react";
-import Spinner from "./Spinner";
 import { fetchBlogPosts } from "../services/services";
 import ExpandingButton from "./Expand";
 import { SkeletonRecipe } from './Skeleton';
@@ -8,6 +7,7 @@ import { Card, CardFooter, Typography, Button } from "@material-tailwind/react";
 import { extractImageAndDate, getNumCols, handleResize, useToggleShowAll } from '../utils/utils';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { Link } from "react-router-dom";
 
 export default function RecipeCard() {
   const [recipePosts, setRecipePosts] = useState([]);
@@ -40,10 +40,6 @@ export default function RecipeCard() {
     fetchRecipes();
   }, []);
 
-  if (loading) {
-    return <Spinner />;
-  }
-
   const displayedPosts = showAll ? recipePosts : recipePosts.slice(0, expanded ? recipePosts.length : numCols);
 
   return (
@@ -71,11 +67,9 @@ export default function RecipeCard() {
               >
                 <div className="h-full max-w-sm rounded-xl mx-auto ">
                   <div className="block w-76 items-center ">
-                    <a
-                      href={post.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+
+                    <Link to={`/tarifler/${encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-'))}`}>
+
                       <LazyLoadImage
                         decoding="async"
                         fetchpriority="high"
@@ -85,7 +79,7 @@ export default function RecipeCard() {
                         src={image}
                         effect="blur"
                       />
-                    </a>
+                    </Link>
                     <CardFooter className="w-full flex flex-row mt-1 p-1 justify-start text-sm">
                       <div className="w-3/5 text-left font-bold">
                         {post.title.substring(0, 20)}

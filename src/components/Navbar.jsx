@@ -112,9 +112,9 @@ export default function StickyNavbar() {
         className="p-2 font-normal block lg:hidden "
       >
         <div className="flex-col">
-          <a href="#" className="flex items-center mb-2">
+          <div className="flex items-center mb-8">
             Sosyal Medya
-          </a>
+          </div>
           {socialMediaLinks}
         </div>
       </Typography>
@@ -189,9 +189,12 @@ export default function StickyNavbar() {
         }}
       >
         <div className="mb-6 flex flex-row items-center justify-between">
-          <Typography variant="h5" color="blue-gray">
-            Menu
+          <a href="/">
+
+          <Typography variant="h6" color="blue-gray">
+            Dyt. Zeynep
           </Typography>
+          </a>
           <IconButton
             variant="text"
             color="black"

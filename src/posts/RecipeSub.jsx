@@ -6,6 +6,7 @@ import { Typography, Button } from "@material-tailwind/react";
 import { extractImageAndDate, getNumCols, handleResize } from '../utils/utils';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { Link } from "react-router-dom";
 
 export default function RecipeCard() {
     const [recipePosts, setRecipePosts] = useState([]);
@@ -80,6 +81,8 @@ export default function RecipeCard() {
                                             </div>
                                           </div>
                                           <div className="flex items-center justify-end">
+                                          <Link to={`/tarifler/${encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-'))}`}>
+
                                             <Button
                                               variant="text"
                                               className="flex items-center gap-2 capitalize text-md text-gray-100"
@@ -100,6 +103,7 @@ export default function RecipeCard() {
                                                 />
                                               </svg>
                                             </Button>
+                                            </Link>
                                           </div>
 
                                         </div>

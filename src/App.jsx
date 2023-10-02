@@ -5,6 +5,8 @@ const MainPage = React.lazy(() => import('./pages/MainPage'));
 const PostsPage = React.lazy(() => import('./pages/PostsPage'));
 const RecipePage = React.lazy(() => import('./pages/RecipePage'));
 const PostDetail = React.lazy(() => import('./pages/PostDetail'));
+const RecipeDetail = React.lazy(() => import('./pages/RecipeDetail'));
+
 
 const Footer = React.lazy(() => import('./components/Footer'));
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -22,6 +24,7 @@ export default function App() {
           <Route path="/tavsiyeler" element={<PostsPage />} /> 
           <Route path="/tarifler" element={<RecipePage />} /> 
           <Route path="/tavsiyeler/:postTitle" element={<PostDetail />} /> {/* Post detail route */}
+          <Route path="/tarifler/:postTitle" element={<RecipeDetail />} /> {/* Post detail route */}
 
         </Routes>
         <Footer />

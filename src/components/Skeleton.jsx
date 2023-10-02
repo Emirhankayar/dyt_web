@@ -108,5 +108,4 @@ export function SkeletonRecipe() {
 }
 
 
-
 export default { SkeletonBook, SkeletonReach, SkeletonBlog, SkeletonRecipe, SkeletonBlogSub };

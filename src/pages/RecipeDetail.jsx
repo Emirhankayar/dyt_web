@@ -7,6 +7,8 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import Spinner from '../components/Spinner'
 
+
+
 export default function PostDetail() {
     const { postTitle } = useParams(); // Get the postTitle from the URL
     const [post, setPost] = useState(null);
@@ -16,10 +18,11 @@ export default function PostDetail() {
     const decodedPostTitle = decodeURIComponent(postTitle);
 
     useEffect(() => {
-        setLoading(true);
+
         const fetchPost = async () => {
+            setLoading(true)
             try {
-                const posts = await fetchBlogPosts("Advise"); // Assuming 'Advise' is the category
+                const posts = await fetchBlogPosts("Recipe"); // Assuming 'Advise' is the category
                 const foundPost = posts.find(post => post.title.toLowerCase().replace(/ /g, '-') === decodedPostTitle.toLowerCase().replace(/ /g, '-'));
 
                 if (foundPost) {
@@ -42,9 +45,7 @@ export default function PostDetail() {
     if (!post) {
         return <div>Post not found</div>;
     }
-
     const { image, text } = extractImageAndDate(post.content);
-
     return (
         <>
             <div className="bg-gray-300 w-screen flex flex-col items-center justify-center py-40">
