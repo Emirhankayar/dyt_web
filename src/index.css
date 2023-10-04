@@ -5,3 +5,7 @@
 :root{
     background-color: black;
 }
+
+.grecaptcha-badge { 
+    visibility: hidden;
+}

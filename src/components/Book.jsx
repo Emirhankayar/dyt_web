@@ -1,5 +1,5 @@
 // Book.jsx
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import DatePicker from 'react-datepicker';
 import PhoneInput from 'react-phone-number-input';
 import tr from 'date-fns/locale/tr';
@@ -10,25 +10,25 @@ import { registerLocale, setDefaultLocale } from 'react-datepicker';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faEye, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { Button, Typography } from "@material-tailwind/react";
-import Recaptcha from './Recaptcha';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { useFetchAppointments } from '../services/services';
 import { SkeletonBook } from './Skeleton';
 import { format, addDays } from 'date-fns';
 import { supabaseClient as supabase, downloadPDF, viewPDF } from '../utils/utils';
-import '../index.css'
+
 export default function Booking() {
   const serviceID = import.meta.env.VITE_SERVICE;
   const templateID = import.meta.env.VITE_TEMPLATE;
   const userID = import.meta.env.VITE_USER;
 
+  const siteKey = import.meta.env.VITE_APP_SITE;
 
-  const [loading, setLoading] = useState(true); // State to track loading status
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    // Simulate loading delay
     setTimeout(() => {
       setLoading(false); 
-    }, 1000); // Adjust the delay time as needed
+    }, 1000); 
   }, []);
 
   registerLocale('tr', tr);
@@ -36,6 +36,7 @@ export default function Booking() {
 
   const pdfFileName = 'Danisan_Bilgi_Formu.pdf';
   const [appointmentsLoaded, setAppointmentsLoaded] = useState(false);
+  const [recaptchaCompleted, setRecaptchaCompleted] = useState(false);
   const [excludedTimes, setExcludedTimes] = useState([]);
   const [fullyBookedDates, setFullyBookedDates] = useState([]);
   const [allAppointments, setAllAppointments] = useState([]);
@@ -47,6 +48,7 @@ export default function Booking() {
     phoneNumber: '',
     recaptchaValue: null,
   });
+  const recaptchaRef = useRef();
 
   const handleChange = (e) => {
     if (e && e.target) {
@@ -54,11 +56,6 @@ export default function Booking() {
       setFormData({ ...formData, [name]: value });
     }
   };
-
-  const handleRecaptchaChange = (value) => {
-    setFormData({ ...formData, recaptchaValue: value });
-  };
-
 
   async function handleDownloadPdf() {
     const pdfFileName = 'Danisan_Bilgi_Formu.pdf';
@@ -72,13 +69,18 @@ export default function Booking() {
 
   const handleBooking = async (e) => {
     e.preventDefault();
-    
-    if (!formData.recaptchaValue) {
-      alert('Lütfen reCAPTCHA doğrulamasını tamamlayın.');
-      return;
-    }
-
+  
     try {
+      // Execute the reCAPTCHA challenge and get the response value
+      const recaptchaValue = await recaptchaRef.current.executeAsync();
+  
+      // Check if recaptchaValue is truthy to ensure the challenge was completed
+      if (!recaptchaValue) {
+        console.log('reCAPTCHA challenge not completed');
+        return;
+      }
+  
+      // Continue with the form submission logic
       const { data, error } = await supabase.from('appointment').insert([
         {
           created_at: selectedDate.toISOString(),
@@ -87,7 +89,7 @@ export default function Booking() {
           phone: phoneNumber,
         },
       ]);
-
+  
       if (error) {
         console.error('Error inserting booking:', error);
         alert('Rezervasyonunuz oluşturulamadı.');
@@ -96,9 +98,9 @@ export default function Booking() {
         console.log('Booking inserted successfully:', data);
         alert('Rezervasyonunuz başarıyla oluşturuldu!');
       }
-
+  
       const formattedDate = format(selectedDate, 'dd/MM/yyyy HH:mm');
-
+  
       const emailParamsOwner = {
         user_name: formData.name,
         user_email: formData.email,
@@ -106,25 +108,24 @@ export default function Booking() {
         appointment_date: selectedDate,
         message: `Bir yeni rezervasyonunuz var.\n\nDetaylar:\n\nİsim: ${formData.name}\n\nEmail: ${formData.email}\n\nTel No:${phoneNumber}\n\nRandevu Tarihi: ${formattedDate}\n\n`,
         message_user: `Saygıdeğer Danışanımız ${formData.name},\n\nRandevunuz, "${formattedDate}" tarihi için başarıyla oluşturuldu!\n\n\nUYARI: FORMU ÖNCEDEN DOLDURMANIZI TAVSİYE EDERİZ...`,
-
       };
-
+  
       await emailjs.send(serviceID, templateID, emailParamsOwner, userID);
-
+  
       setFormData({
         name: '',
         email: '',
         phoneNumber: '',
         recaptchaValue: null,
       });
-
+  
       setPhoneNumber('');
-
     } catch (error) {
       console.error('Error inserting booking or sending emails:', error);
       alert('Rezervasyonunuz oluşturulamadı.');
     }
   };
+  
 
   const [finalDate, setFinalDate] = useState(null);
   useFetchAppointments(
@@ -167,14 +168,15 @@ export default function Booking() {
       <div className="container mx-auto">
 
 
-       <div className="container grid grid-rows-auto max-w-sm lg:max-w-md bg-gray-100 shadow-xl p-6 rounded-lg mx-auto">
-
+      <div className="w-full text-black ">
+                <div className="text-left flex flex-col-auto px-6">
+                    <div className="bg-gray-100 px-6 py-8 w-full max-w-sm rounded-lg shadow-xl mx-auto">
 
           {loading ? (
             <SkeletonBook />
           ) : (
 
-            <form id='booking' onSubmit={handleBooking}>
+            <form id='booking' onSubmit={(e) => handleBooking(e)}>
 
               <div className="mb-4 ">
                 <label htmlFor="name" className="block text-sm font-medium ">
@@ -290,13 +292,13 @@ export default function Booking() {
                 </Typography>
               </div>
 
-              <div className="my-4">
-                <div className="mt-12 mb-4 sm:mt-0 md:mt-0 lg:mt-0">
-                  <Recaptcha onRecaptchaChange={handleRecaptchaChange} />
-                </div>
-              </div>
 
               <div className="mb-4">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={siteKey}
+                    size="invisible"
+                  />
                 <Button
                   type="submit"
                   className="px-4 py-2 h-12 w-full rounded-xl focus:outline-1 shadow-md capitalize"
@@ -305,10 +307,12 @@ export default function Booking() {
                 </Button>
               </div>
             </form>
-
           )}
+
         </div>
         
+      </div>
+      </div>
       </div>
       
     </>

@@ -22,7 +22,7 @@ export function SkeletonBook() {
           <div className='w-2/4 h-4 bg-gray-400 rounded-lg'></div>
         </div>
 
-        <div className="w-2/3 h-20 rounded-lg bg-gray-400 rounded-lg"></div>
+
         <div className="w-full h-10 rounded-lg bg-gray-400 rounded-lg"></div>
 
 
@@ -40,7 +40,6 @@ export function SkeletonReach() {
         <div className="w-full h-10 rounded-lg bg-gray-400 rounded-lg"></div>
         <div className="w-full h-10 rounded-lg bg-gray-400 rounded-lg"></div>
         <div className="w-full h-32 rounded-lg bg-gray-400 rounded-lg"></div>
-        <div className="w-2/3 h-20 rounded-lg bg-gray-400 rounded-lg"></div>
 
       </div>
 
