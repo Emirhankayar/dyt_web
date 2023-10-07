@@ -79,6 +79,7 @@ export default function RecipeCard() {
                         src={image}
                         effect="blur"
                         className="w-full h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 overflow-hidden"
+                        style={{ objectFit: 'cover', height: '100%' }} // Add this style
                         />
                       
 
