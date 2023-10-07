@@ -46,29 +46,77 @@ export default function PostDetail() {
         return <div>Post not found</div>;
     }
     const { image, text } = extractImageAndDate(post.content);
+
+    const splitTextIntoColumns = (text) => {
+        const words = text.split(' ');
+        const midpoint = Math.ceil(words.length / 2);
+        const column1 = words.slice(0, midpoint).join(' ');
+        const column2 = words.slice(midpoint).join(' ');
+
+        return [column1, column2];
+    };
+
+    const [column1Text, column2Text] = splitTextIntoColumns(text);
+
     return (
         <>
             <div className="bg-gray-300 w-screen flex flex-col items-center justify-center py-40">
-
-                <div className="w-4/5 max-w-lg flex flex-col items-center justify-center text-justify text-center">
+                <div className="w-4/5 max-w-4xl flex flex-col items-center justify-center text-justify text-center">
                     <div className="w-full">
                         <div className="flex flex-row justify-center items-center">
                             <div className="p-4 w-full flex flex-col items-start text-xl font-bold">{post.title}</div>
                             <div className="p-4 w-full flex flex-col items-end">{post.formattedDate}</div>
                         </div>
-                        <LazyLoadImage
-                            src={image}
-                            decoding="async"
-                            useIntersectionObserver={true}
-                            fetchpriority="high"
-                            alt="card-image"
-                            effect="blur"
-                            className="rounded-lg shadow-xl my-10 w-lg max-h-md" />
-
-                        <p className="text-justify">{text}</p>
+    
+                        <div className="image-container rounded-lg shadow-xl my-10">
+                            <div className="cover-image" style={{ backgroundImage: `url(${image})` }}></div>
+                        </div>
+    
+                        <div className="columns flex flex-col md:flex-row justify-between gap-10">
+                            <div className="column md:w-1/2">
+                                <p className="text-justify leading-loose">{column1Text}</p>
+                            </div>
+                            <div className="column md:w-1/2">
+                                <p className="text-justify leading-loose">{column2Text}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <style>
+                {`
+                    .image-container {
+                        height: 400px; /* Set the desired fixed height for the image container */
+                        overflow: hidden; /* Ensure the image doesn't overflow the container */
+                    }
+    
+                    .cover-image {
+                        width: 100%; /* Make the image container full width */
+                        height: 100%; /* Make the image container full height */
+                        background-size: cover; /* Cover the container while maintaining aspect ratio */
+                        background-position: center; /* Center the image horizontally and vertically */
+                    }
+
+                    .columns {
+                        display: flex;
+                        flex-direction: column; /* Display as a single column by default */
+                    }
+
+                    .column {
+                        width: 100%; /* Default to full width for mobile */
+                    }
+
+                    @media (min-width: 768px) { /* Apply styles for medium (md) and larger screens */
+                        .columns {
+                            flex-direction: row; /* Display as two columns for md and larger screens */
+                        }
+
+                        .column {
+                            width: 48%; /* Adjust as needed to control the width of each column */
+                        }
+                    }
+                `}
+            </style>
         </>
     );
 }

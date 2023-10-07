@@ -2,7 +2,7 @@
 import React from 'react';
 import { ThemeProvider } from '@material-tailwind/react';
 const Hero = React.lazy(() => import('../sections/HeroSec'));
-//const About = React.lazy(() => import('../sections/About'));
+const About = React.lazy(() => import('../sections/AboutSec'));
 const BlogSec = React.lazy(() => import('../sections/BlogSec'));
 const RecipeSec = React.lazy(() => import('../sections/RecipeSec'));
 const Contact = React.lazy(() => import('../sections/ContactSec'));
@@ -16,6 +16,7 @@ export default function MainPage() {
       <div className='bg-gray-200 pb-20'>
 
           <Hero />
+          <About />
           <BlogSec />
           <RecipeSec />
           <Contact/>

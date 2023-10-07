@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import Recaptcha from './Recaptcha';
+import React, { useState, useEffect, useRef } from 'react';
 import emailjs from 'emailjs-com';
 import { SkeletonReach } from './Skeleton';
 import { Button } from "@material-tailwind/react";
-
+import ReCAPTCHA from 'react-google-recaptcha'
 const serviceID = import.meta.env.VITE_SERVICE;
 const templateID = import.meta.env.VITE_TEMPLATEE;
 const userID = import.meta.env.VITE_USER;
+
+const siteKey = import.meta.env.VITE_APP_SITE;
+
 
 const ContactForm = () => {
     const [Loading, setLoading] = useState(true); // State to track loading status
@@ -25,25 +27,27 @@ const ContactForm = () => {
         description: '',
         recaptchaValue: null,
     });
+    const recaptchaRef = useRef();
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleRecaptchaChange = (value) => {
-        setFormData({ ...formData, recaptchaValue: value });
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.recaptchaValue) {
-            alert('Lütfen reCAPTCHA doğrulamasını tamamlayın.');
-            return;
-        }
-
         try {
+            // Execute the reCAPTCHA challenge and get the response value
+            const recaptchaValue = await recaptchaRef.current.executeAsync();
+            
+            // Check if recaptchaValue is truthy to ensure the challenge was completed
+            if (!recaptchaValue) {
+                console.log('reCAPTCHA challenge not completed');
+                return;
+            }
+
             const emailParams = {
                 name: formData.name,
                 subject: formData.subject,
@@ -150,10 +154,12 @@ const ContactForm = () => {
                                 ></textarea>
                             </div>
 
-                            <div className="mb-4">
-                                <Recaptcha onRecaptchaChange={handleRecaptchaChange} />
-                            </div>
-                            <div className="mb-4">
+                            <div>
+                                            <ReCAPTCHA
+                                    ref={recaptchaRef}
+                                    sitekey={siteKey}
+                                    size="invisible"
+                                />
                                 <Button
                                     type="submit"
                                     className="px-4 py-2 h-12 w-full rounded-md focus:outline-1 shadow-md capitalize"

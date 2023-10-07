@@ -36,7 +36,6 @@ export default function Booking() {
 
   const pdfFileName = 'Danisan_Bilgi_Formu.pdf';
   const [appointmentsLoaded, setAppointmentsLoaded] = useState(false);
-  const [recaptchaCompleted, setRecaptchaCompleted] = useState(false);
   const [excludedTimes, setExcludedTimes] = useState([]);
   const [fullyBookedDates, setFullyBookedDates] = useState([]);
   const [allAppointments, setAllAppointments] = useState([]);
@@ -258,7 +257,8 @@ export default function Booking() {
                   maxTime={new Date(selectedDate).setHours(17, 0, 0)}
                   excludeTimes={excludedTimes}
                   excludeDates={fullyBookedDatesArray}
-                  withPortal
+                  disabledKeyboardNavigation
+                  onFocus={e => e.target.blur()} 
                 />
 
               </div>
@@ -282,7 +282,7 @@ export default function Booking() {
                 </div>
               </div>
 
-              <div className='sm:mb-10 md:mb-12 lg:mb-8 mt-4 w-full h-16 pb-12'>
+              <div className='mb-10 sm:mb-10 md:mb-12 lg:mb-8 mt-4 w-full h-16 pb-12'>
                 <Typography className='text-sm italic text-red-300 text-justify px-4'>
                   <FontAwesomeIcon icon={faCircleInfo} className='mr-1' />
                   Bu form, danışmanlık hizmeti öncesinde veya
@@ -293,7 +293,7 @@ export default function Booking() {
               </div>
 
 
-              <div className="mb-4">
+              <div>
                   <ReCAPTCHA
                     ref={recaptchaRef}
                     sitekey={siteKey}

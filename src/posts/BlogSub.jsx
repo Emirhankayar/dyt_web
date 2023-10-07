@@ -34,7 +34,7 @@ export default function PostCard() {
             <div className="container flex flex-col justify-between w-5/6 items-center mb-10 mt-10 mx-auto">
                 <div className="max-w-lg text-justify">
                     <Typography className="text-2xl font-bold">Tüm Tavsiyeler</Typography>
-                    <Typography className="text-md mt-2">Bu başlık altında, bir beslenme uzmanı olarak hazırladığım tavsiye bloglarını inceleyebilirsiniz. İçeriklerim, sağlıklı bir yaşam tarzına geçişinizi kolaylaştırmayı ve sağlık konularında size rehberlik etmeyi amaçlıyor. Dengeli beslenme, kilo kontrolü, besin takviyeleri ve sağlıklı yaşam hakkında güncel bilgileri burada bulabilirsiniz. Sağlığınızı iyileştirmek ve bilinçli beslenme alışkanlıkları geliştirmek için bu kaynakları keşfedin.</Typography>
+                    <Typography className="text-md mt-2 leading-loose">Bu başlık altında, bir beslenme uzmanı olarak hazırladığım tavsiye bloglarını inceleyebilirsiniz. İçeriklerim, sağlıklı bir yaşam tarzına geçişinizi kolaylaştırmayı ve sağlık konularında size rehberlik etmeyi amaçlıyor. Dengeli beslenme, kilo kontrolü, besin takviyeleri ve sağlıklı yaşam hakkında güncel bilgileri burada bulabilirsiniz. Sağlığınızı iyileştirmek ve bilinçli beslenme alışkanlıkları geliştirmek için bu kaynakları keşfedin.</Typography>
                 </div>
 
                 </div>

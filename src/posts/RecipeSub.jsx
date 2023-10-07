@@ -34,7 +34,7 @@ export default function RecipeCard() {
             <div className="container flex flex-col justify-between w-5/6 items-center mb-10 mt-10 mx-auto">
                 <div className="max-w-lg text-justify">
                     <Typography className="text-2xl font-bold">Tüm Tarifler</Typography>
-                    <Typography className="text-md mt-2">Bu başlık altında, tarafımdan özenle hazırlanmış olan tüm sağlıklı ve fit tariflere göz atabilirsiniz. Sağlıklı yaşam tarzınıza katkıda bulunacak bu tarifler, lezzet ve besin değeri açısından zengindir. Aradığınız sağlıklı yemek seçeneklerini burada bulabilir ve daha sağlıklı bir yaşam tarzına adım atabilirsiniz.</Typography>
+                    <Typography className="text-md mt-2 leading-loose">Bu başlık altında, tarafımdan özenle hazırlanmış olan tüm sağlıklı ve fit tariflere göz atabilirsiniz. Sağlıklı yaşam tarzınıza katkıda bulunacak bu tarifler, lezzet ve besin değeri açısından zengindir. Aradığınız sağlıklı yemek seçeneklerini burada bulabilir ve daha sağlıklı bir yaşam tarzına adım atabilirsiniz.</Typography>
                 </div>
                 </div>
 

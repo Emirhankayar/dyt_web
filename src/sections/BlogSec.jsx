@@ -4,7 +4,7 @@ export default function BlogComp() {
 
   return (
     <>
-        <div className="container mx-auto relative">
+        <div className="mx-auto relative">
             <Blog/>
         </div>
     </>
