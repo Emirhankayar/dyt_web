@@ -81,10 +81,10 @@ export default function RecipeCard() {
                         className="w-full h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 overflow-hidden"
                         style={{
                           objectFit: 'cover',
+                          overflow: 'hidden',
                           width: '100%',
-                          height: '100%',
                           display: 'block',
-                          margin: '0 auto', // Center the image horizontally
+                          margin: '0 auto', 
                         }}
                       />
 
