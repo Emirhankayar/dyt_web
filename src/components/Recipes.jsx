@@ -78,14 +78,7 @@ export default function RecipeCard() {
                         alt="card-image"
                         src={image}
                         effect="blur"
-                        className="w-full h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 overflow-hidden"
-                        style={{
-                          objectFit: 'cover',
-                          overflow: 'hidden',
-                          width: '100%',
-                          display: 'block',
-                          margin: '0 auto', 
-                        }}
+                        className="block mx-0 max-h-full overflow-hidden w-full h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 overflow-hidden"
                       />
 
                       
