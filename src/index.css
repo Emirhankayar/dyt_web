@@ -9,3 +9,10 @@
 .grecaptcha-badge { 
     visibility: hidden;
 }
+
+html, body {
+    overflow-x: hidden;
+  }
+body{
+  position: relative;
+}

@@ -4,7 +4,7 @@ import Hero from "../components/Hero"
 
 export default function HeroSec() {
   return (
-    <div className="container mx-auto">
+    <div className="mx-0">
         <Hero/>
     </div>
   );

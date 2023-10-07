@@ -7,7 +7,7 @@ const DUMMY_IMAGE_URL = 'https://images.pexels.com/photos/8845106/pexels-photo-8
 
 export default function Hero() {
   return (
-    <div className="relative w-screen h-[80vh] bg-black pointer-events-none">
+    <div className="relative w-full h-[80vh] bg-black pointer-events-none">
         <LazyLoadImage
             src={DUMMY_IMAGE_URL}
             className="object-cover overflow-hidden w-full h-full"
