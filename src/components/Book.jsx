@@ -143,8 +143,23 @@ export default function Booking() {
     }
   }, [selectedDate, allAppointments, appointmentsLoaded]);
 
-  const fullyBookedDatesArray = useMemo(() => fullyBookedDates.map((dateString) => new Date(dateString)), [fullyBookedDates]);
+  const fullyBookedDatesArray = useMemo(() => {
+    const bookedDates = fullyBookedDates.map((dateString) => new Date(dateString));
 
+    // Add weekends (Saturdays and Sundays) to the array
+    const startDate = new Date(); 
+    const endDate = new Date(new Date().getFullYear() + 1, 11, 31); // You can adjust the end date as needed.
+
+    while (startDate <= endDate) {
+        const dayOfWeek = startDate.getDay();
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+            bookedDates.push(new Date(startDate)); // Sunday (0) or Saturday (6)
+        }
+        startDate.setDate(startDate.getDate() + 1);
+    }
+
+    return bookedDates;
+}, [fullyBookedDates]);
 
 
   const generateExcludedTimes = (date, allAppointments) => {
@@ -292,8 +307,7 @@ export default function Booking() {
                 </Typography>
               </div>
 
-
-              <div>
+              <div className='pt-10 sm:pt-0'>
                   <ReCAPTCHA
                     ref={recaptchaRef}
                     sitekey={siteKey}

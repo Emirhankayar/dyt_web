@@ -63,22 +63,26 @@ export default function RecipeCard() {
             return (
               <Card
                 key={index}
-                className="p-4 h-full bg-transparent shadow-none"
+                className="p-4 h-full bg-transparent shadow-none mb-5"
               >
                 <div className="h-full max-w-sm rounded-xl mx-auto ">
-                  <div className="block w-76 items-center ">
+                  <div className="block w-full h-52 items-center justify-center">
 
                     <Link to={`/tarifler/${encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-'))}`}>
+
 
                       <LazyLoadImage
                         decoding="async"
                         fetchpriority="high"
                         useIntersectionObserver={true}
                         alt="card-image"
-                        className="w-full h-52 object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500"
                         src={image}
                         effect="blur"
-                      />
+                        className="w-full h-52 object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 overflow-hidden"
+                        />
+                      
+
+
                     </Link>
                     <CardFooter className="w-full flex flex-row mt-1 p-1 justify-start text-sm">
                       <div className="w-3/5 text-left font-bold">
@@ -96,7 +100,7 @@ export default function RecipeCard() {
           )}
         </div>
         {!loading && (
-          <ExpandingButton expanded={expanded} onClick={toggleShowAll} />
+          <ExpandingButton expanded={expanded} onClick={toggleShowAll}/>
         )}
       </div>
     </>

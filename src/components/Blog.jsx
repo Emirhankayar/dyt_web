@@ -52,7 +52,7 @@ export default function CardDefault() {
   return (
     <>
       <div className="container flex flex-wrap justify-between w-5/6 items-center mb-10 mx-auto">
-        <Typography className="text-2xl font-bold">En Yeni Tavsiyeler</Typography>
+        <Typography className="text-2xl font-bold">Tavsiyeler</Typography>
 
           <a href="/tavsiyeler">
             <Button className="h-10 shadow-xl capitalize">Tüm Tavsiyeler</Button>
