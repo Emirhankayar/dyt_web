@@ -71,7 +71,7 @@ export default function RecipeCard() {
                     <Link to={`/tarifler/${encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-'))}`}>
 
 
-                      <LazyLoadImage
+                    <LazyLoadImage
                         decoding="async"
                         fetchpriority="high"
                         useIntersectionObserver={true}
@@ -79,8 +79,15 @@ export default function RecipeCard() {
                         src={image}
                         effect="blur"
                         className="w-full h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 overflow-hidden"
-                        style={{ objectFit: 'cover', height: '100%' }} // Add this style
-                        />
+                        style={{
+                          objectFit: 'cover',
+                          width: '100%',
+                          height: '100%',
+                          display: 'block',
+                          margin: '0 auto', // Center the image horizontally
+                        }}
+                      />
+
                       
 
 
