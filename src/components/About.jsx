@@ -4,7 +4,7 @@ import { Typography, Button } from "@material-tailwind/react";
 export default function HorizontalCard() {
   return (
     <>
-      <div className="container flex flex-wrap justify-between w-5/6 items-center mt-10 mb-10 mx-auto">
+      <div className="container flex flex-wrap justify-between w-5/6 items-center mt-32 mb-10 mx-auto">
         <Typography className="text-2xl font-bold">Hakkımda</Typography>
       </div>
 

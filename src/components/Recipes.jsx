@@ -66,7 +66,7 @@ export default function RecipeCard() {
                 className="p-4 h-full bg-transparent shadow-none mb-5"
               >
                 <div className="h-full max-w-sm rounded-xl mx-auto ">
-                  <div className="block w-full h-52 items-center justify-center">
+                  <div className="block w-76 items-center justify-center">
 
                     <Link to={`/tarifler/${encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-'))}`}>
 
@@ -78,7 +78,7 @@ export default function RecipeCard() {
                         alt="card-image"
                         src={image}
                         effect="blur"
-                        className="w-full h-52 object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 overflow-hidden"
+                        className="w-full h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 overflow-hidden"
                         />
                       
 
