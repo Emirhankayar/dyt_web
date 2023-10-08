@@ -7,6 +7,8 @@ import ExpandingButton from "./Expand";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from "react-router-dom";
+import { setupIntersectionObserver, setupIntersectionObserverUP } from '../utils/utils'; // Import the utility function
+import './Animations.css'
 
 import {  Card,
   CardHeader,
@@ -21,6 +23,8 @@ export default function CardDefault() {
   const [loading, setLoading] = useState(true);
   const [numCols, setNumCols] = useState(getNumCols());
   const { showAll, expanded, toggleShowAll } = useToggleShowAll(false);
+  setupIntersectionObserver('.hidden-class');
+  setupIntersectionObserverUP('.hidden-class-up');
 
   useEffect(() => {
     const removeResizeListener = handleResize(setNumCols);
@@ -51,6 +55,8 @@ export default function CardDefault() {
   
   return (
     <>
+    <div className="hidden-class">
+
       <div className="container flex flex-wrap justify-between w-5/6 items-center mb-10 mx-auto">
         <Typography className="text-2xl font-bold">Tavsiyeler</Typography>
 
@@ -59,7 +65,9 @@ export default function CardDefault() {
           </a>
   
       </div>
+    </div>
 
+          <div className="hidden-class-up">
       <div className="container mx-auto h-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {loading ? (
@@ -70,6 +78,7 @@ export default function CardDefault() {
             displayedPosts.map((post, index) => {
               const { image, text } = extractImageAndDate(post.content);
               return (
+
                 <Card key={index} className="bg-transparent p-4 h-full shadow-none">
                   <div className="h-full max-w-sm rounded-xl mx-auto shadow-xl">
                     <div className="block w-76 items-center ">
@@ -108,7 +117,8 @@ export default function CardDefault() {
         {!loading && (
           <ExpandingButton expanded={expanded} onClick={toggleShowAll} />
           )}
-      </div>
-    </>
+          </div>
+          </div>
+          </>
   );
 }  

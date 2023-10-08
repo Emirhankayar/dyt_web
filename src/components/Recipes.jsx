@@ -8,6 +8,8 @@ import { extractImageAndDate, getNumCols, handleResize, useToggleShowAll } from 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from "react-router-dom";
+import { setupIntersectionObserver, setupIntersectionObserverUP } from '../utils/utils'; // Import the utility function
+import './Animations.css'
 
 export default function RecipeCard() {
   const [recipePosts, setRecipePosts] = useState([]);
@@ -15,6 +17,8 @@ export default function RecipeCard() {
   const [numCols, setNumCols] = useState(getNumCols());
   const { showAll, expanded, toggleShowAll } = useToggleShowAll(false); 
 
+  setupIntersectionObserver('.hidden-class');
+  setupIntersectionObserverUP('.hidden-class-up');
 
   useEffect(() => {
     const removeResizeListener = handleResize(setNumCols);
@@ -44,12 +48,17 @@ export default function RecipeCard() {
 
   return (
     <>
+    <div className="hidden-class">
+
       <div className="container flex flex-wrap justify-between w-5/6 items-center mt-40 mb-10 mx-auto">
         <Typography className="text-2xl font-bold">Fit Tarifler</Typography>
         <a href="/tarifler">
           <Button className="h-10 shadow-xl capitalize">Tüm Tarifler</Button>
         </a>
       </div>
+    </div>
+
+      <div className="hidden-class-up">
 
       <div className="container mx-auto grid grid-cols-1">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -103,7 +112,9 @@ export default function RecipeCard() {
         {!loading && (
           <ExpandingButton expanded={expanded} onClick={toggleShowAll}/>
         )}
+      </div>      
       </div>
+
     </>
   );
 }

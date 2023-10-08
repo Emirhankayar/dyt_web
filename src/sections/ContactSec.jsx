@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import Contact from "../components/Reach";
 import Book from "../components/Book";
 import { Typography, Button } from "@material-tailwind/react";
+import { setupIntersectionObserver, setupIntersectionObserverUP } from '../utils/utils'; // Import the utility function
+import '../components/Animations.css'
 
 export default function Switcher() {
   const [showContact, setShowContact] = useState(true);
+
+  setupIntersectionObserver('.hidden-class');
+  setupIntersectionObserverUP('.hidden-class-up');
 
   const toggleComponent = () => {
     setShowContact(!showContact);
@@ -12,6 +17,8 @@ export default function Switcher() {
 
   return (
     <>
+    <div className="hidden-class">
+
         <div id="contactSection" className="container flex flex-wrap justify-between w-5/6 items-center mx-auto mb-10 mt-40">
           <Typography className="text-2xl font-bold">
             {showContact ? "Bize Ulaşın" : "Randevu Oluştur"}
@@ -23,11 +30,16 @@ export default function Switcher() {
             {showContact ? "Randevu Oluştur" : "Bize Ulaşın"}
           </Button>
         </div>
+      </div>
+
+      <div className="hidden-class-up"> 
+
       <div className="p-6">
 
         {showContact ? <Contact /> : <Book />}
       </div>
 
+      </div>
     </>
   );
 }

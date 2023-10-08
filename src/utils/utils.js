@@ -1,7 +1,7 @@
 // utils.js
 import { createClient } from '@supabase/supabase-js';
 import he from "he";
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE;
@@ -133,6 +133,41 @@ function useToggleShowAll(initialValue = false) {
 
 
   return { showAll, expanded, toggleShowAll };
+
 }
 
-export { supabaseClient, downloadPDF, viewPDF, extractImageAndDate, getNumCols, handleResize, useToggleShowAll };
+function setupIntersectionObserver(className) {
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        } else {
+          entry.target.classList.remove('show');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll(className);
+    hiddenElements.forEach((el) => observer.observe(el));
+  }, [className]);
+}
+
+function setupIntersectionObserverUP(className) {
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show-up');
+        } else {
+          entry.target.classList.remove('show-up');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll(className);
+    hiddenElements.forEach((el) => observer.observe(el));
+  }, [className]);
+}
+
+export { supabaseClient, downloadPDF, viewPDF, extractImageAndDate, getNumCols, handleResize, useToggleShowAll, setupIntersectionObserver, setupIntersectionObserverUP };
