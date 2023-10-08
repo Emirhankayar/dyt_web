@@ -170,4 +170,21 @@ function setupIntersectionObserverUP(className) {
   }, [className]);
 }
 
-export { supabaseClient, downloadPDF, viewPDF, extractImageAndDate, getNumCols, handleResize, useToggleShowAll, setupIntersectionObserver, setupIntersectionObserverUP };
+function setupIntersectionObserverL(className) {
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show-l');
+        } else {
+          entry.target.classList.remove('show-l');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll(className);
+    hiddenElements.forEach((el) => observer.observe(el));
+  }, [className]);
+}
+
+export { supabaseClient, downloadPDF, viewPDF, extractImageAndDate, getNumCols, handleResize, useToggleShowAll, setupIntersectionObserver, setupIntersectionObserverUP, setupIntersectionObserverL };
