@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import emailjs from 'emailjs-com';
 import { SkeletonReach } from './Skeleton';
-import { Button } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import ReCAPTCHA from 'react-google-recaptcha'
 const serviceID = import.meta.env.VITE_SERVICE;
 const templateID = import.meta.env.VITE_TEMPLATEE;
@@ -92,6 +92,11 @@ const ContactForm = () => {
                         <SkeletonReach />
                     ) : (
                         <form onSubmit={handleSubmit}>
+                            <div className="mb-6 text-left">
+                                <Typography htmlFor="name" className="block text-lg font-bold ">
+                                    Soru Sor
+                                </Typography>
+                            </div>
                             <div className="mb-4">
                                 <label htmlFor="name" className="block text-sm font-medium ">
                                     İsim Soyisim:
@@ -148,7 +153,7 @@ const ContactForm = () => {
                                     placeholder='Açıklama...'
                                     value={formData.description}
                                     onChange={handleChange}
-                                    rows="4"
+                                    rows="8"
                                     required
                                     className="w-full px-3 py-2 mt-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                                 ></textarea>

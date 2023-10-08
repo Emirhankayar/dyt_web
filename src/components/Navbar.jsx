@@ -99,6 +99,16 @@ export default function StickyNavbar() {
         as="li"
         variant="medium"
         color="blue-gray"
+        className="p-2 font-normal"
+      >
+        <a href="/iletisim" className="flex items-center">
+          İletişim
+        </a>
+      </Typography>
+      <Typography
+        as="li"
+        variant="medium"
+        color="blue-gray"
         className="p-2 font-normal block lg:hidden "
       >
         <div className="flex-col">

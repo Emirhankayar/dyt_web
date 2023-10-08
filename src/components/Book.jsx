@@ -191,7 +191,11 @@ export default function Booking() {
           ) : (
 
             <form id='booking' onSubmit={(e) => handleBooking(e)}>
-
+                                          <div className="mb-6 text-left">
+                                <Typography htmlFor="name" className="block text-lg font-bold ">
+                                    Randevu Oluştur
+                                </Typography>
+                            </div>
               <div className="mb-4 ">
                 <label htmlFor="name" className="block text-sm font-medium ">
                   İsim Soyisim:

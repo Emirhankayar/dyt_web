@@ -2,6 +2,7 @@
 import React, { Suspense } from 'react';
 const Navbar = React.lazy(() => import('./components/Navbar'));
 const MainPage = React.lazy(() => import('./pages/MainPage'));
+const ContactPage = React.lazy(() => import('./pages/ContactPage'));
 const PostsPage = React.lazy(() => import('./pages/PostsPage'));
 const RecipePage = React.lazy(() => import('./pages/RecipePage'));
 const PostDetail = React.lazy(() => import('./pages/PostDetail'));
@@ -21,6 +22,7 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<MainPage />} /> 
+          <Route path="/iletisim" element={<ContactPage />} /> 
           <Route path="/tavsiyeler" element={<PostsPage />} /> 
           <Route path="/tarifler" element={<RecipePage />} /> 
           <Route path="/tavsiyeler/:postTitle" element={<PostDetail />} /> {/* Post detail route */}
