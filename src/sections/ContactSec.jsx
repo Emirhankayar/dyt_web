@@ -34,7 +34,7 @@ export default function Switcher() {
 
       <div className="hidden-class-up"> 
 
-      <div className="p-6">
+      <div className="p-6 mb-[40vh]">
 
         {showContact ? <Contact /> : <Book />}
       </div>

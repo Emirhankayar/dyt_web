@@ -15,7 +15,7 @@ export default function HorizontalCard() {
       </div>
     </div>
 
-      <div className="container mx-auto relative mb-40">
+      <div className="container mx-auto relative">
         <div className="w-full px-8">
           <div className="w-full flex flex-col">
             <div className="flex flex-col items-center">

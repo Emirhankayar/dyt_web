@@ -4,7 +4,7 @@ export default function BlogComp() {
 
   return (
     <>
-        <div className="mx-auto relative">
+        <div className="mx-auto relative mb-[40vh]">
             <Recipes/>
         </div>
     </>

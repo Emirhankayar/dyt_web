@@ -6,8 +6,8 @@ export default function DefaultSpinner() {
     <div className="flex items-center justify-center min-h-screen bg-gray-300 z-100000">
       <Spinner
         style={{
-          width: '40px', 
-          height: '40px', 
+          width: '60px', 
+          height: '60px', 
         }}
       />
     </div>

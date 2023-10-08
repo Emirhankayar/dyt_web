@@ -87,7 +87,7 @@ export default function RecipeCard() {
                         alt="card-image"
                         src={image}
                         effect="blur"
-                        className="block mx-0 h-[30vh] overflow-hidden w-screen h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 overflow-hidden"
+                        className="w-screen h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500"
                       />
 
                       

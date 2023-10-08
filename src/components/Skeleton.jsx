@@ -53,9 +53,9 @@ export function SkeletonReach() {
 export function SkeletonBlog() {
   return (
 
-    <div className='w-full h-[66vh]'>
-    <div className="w-full h-80 flex-col items-center justify-center space-y-5 rounded-lg animate-pulse p-4">
-      <div className="h-full max-w-sm">
+    <div className='w-full h-full flex flex-row items-center justify-center'>
+    <div className="w-full h-80 flex-col items-center justify-center space-y-5 rounded-lg animate-pulse mx-auto p-4">
+      <div className="h-full max-w-sm mx-auto">
         <div className="w-full h-2/3 rounded-t-lg bg-gray-400"></div>
         <div className="flex-col flex items-center justify-center rounded-lg space-y-4 bg-gray-300">
 
@@ -94,15 +94,13 @@ export function SkeletonBlogSub() {
 
 export function SkeletonRecipe() {
   return (
+<div className='h-full w-full'>
 
-    <div className='w-full h-[40vh] flex flex-col items-center justify-center '>
-
-    <div className="w-full h-full space-y-5 rounded-lg animate-pulse mb-10">
-      <div className="h-full max-w-sm bg-gray-400 rounded-lg">
-
-      </div>
+<div className="p-4 h-screen shadow-none relative">
+      <div className="h-[30vh] bg-gray-400 animate-pulse rounded-lg mx-auto max-w-sm"></div>
     </div>
-    </div>
+</div>
+
 
 
   );
