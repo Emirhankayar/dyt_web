@@ -72,12 +72,15 @@ export default function PostDetail() {
     
                         <div className="columns flex flex-col md:flex-row justify-between gap-10">
                             <div className="column md:w-1/2">
-                                <p className="text-justify leading-loose">{column1Text}</p>
+                                <p className="text-justify leading-loose hidden sm:hidden md:hidden lg:block">{column1Text}</p>
                             </div>
                             <div className="column md:w-1/2">
-                                <p className="text-justify leading-loose">{column2Text}</p>
+                                <p className="text-justify leading-loose hidden sm:hidden md:hidden lg:block">{column2Text}</p>
                             </div>
                         </div>
+                        
+                        <div className="text-justify leading-loose block sm:block md:block lg:hidden">{text}</div>
+
                     </div>
                 </div>
             </div>

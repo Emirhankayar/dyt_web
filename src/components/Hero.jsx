@@ -13,15 +13,19 @@ export default function Hero() {
             className="object-cover overflow-hidden w-full h-full"
             />
       <div>
-        <div className="absolute -top-10 left-0 w-full h-full flex items-center justify-center">
-          <div className="text-6xl font-bold text-center text-gray-100 animated-text animate-slide-in-left">
-            Placeholder
+        <div className="flex flex-col items-center justify-center">
+
+          <div className="absolute -top-10 left-0 w-full h-full flex items-center justify-center">
+            <div className="text-6xl font-bold text-center text-gray-100 animated-text animate-slide-in-left">
+              Placeholder
+            </div>
           </div>
-        </div>
-        <div className="absolute top-10 left-0 w-full h-full flex items-center justify-center">
-          <div className="text-6xl font-bold text-center text-gray-100 animated-text animate-slide-in-right">
-            For Hero
+          <div className="absolute top-10 left-0 w-full h-full flex items-center justify-center">
+            <div className="text-6xl font-bold text-center text-gray-100 animated-text animate-slide-in-right">
+              For Hero
+            </div>
           </div>
+          
         </div>
       </div>
     </div>

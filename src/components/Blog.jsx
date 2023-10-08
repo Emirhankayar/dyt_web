@@ -80,7 +80,7 @@ export default function CardDefault() {
                         fetchpriority="high"
                         useIntersectionObserver={true}
                         alt="card-image"
-                        className="w-full h-[30vh] object-cover rounded-t-lg select-none hover:brightness-110 transition-all duration-500"
+                        className="w-screen h-[30vh] object-cover rounded-t-lg select-none hover:brightness-110 transition-all duration-500"
                         src={image}
                         effect="blur"
                       />

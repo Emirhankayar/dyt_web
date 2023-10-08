@@ -94,14 +94,16 @@ export function SkeletonBlogSub() {
 
 export function SkeletonRecipe() {
   return (
-    <div className='w-full h-[40vh]'>
 
-    <div className="w-full h-full space-y-5 rounded-lg animate-pulse p-4">
-      <div className="h-52 max-w-sm bg-gray-400 rounded-lg">
+    <div className='w-full h-[40vh] flex flex-col items-center justify-center '>
+
+    <div className="w-full h-full space-y-5 rounded-lg animate-pulse mb-10">
+      <div className="h-full max-w-sm bg-gray-400 rounded-lg">
 
       </div>
     </div>
     </div>
+
 
   );
 }

@@ -99,16 +99,6 @@ export default function StickyNavbar() {
         as="li"
         variant="medium"
         color="blue-gray"
-        className="p-2 font-normal"
-      >
-        <a href="#contactSection" className="flex items-center">
-          Bize Ulaşın
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="medium"
-        color="blue-gray"
         className="p-2 font-normal block lg:hidden "
       >
         <div className="flex-col">

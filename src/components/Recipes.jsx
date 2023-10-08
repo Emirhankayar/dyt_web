@@ -63,7 +63,7 @@ export default function RecipeCard() {
             return (
               <Card
                 key={index}
-                className="p-4 h-full bg-transparent shadow-none mb-5"
+                className="p-4 h-full bg-transparent shadow-none"
               >
                 <div className="h-full max-w-sm rounded-xl mx-auto ">
                   <div className="block w-76 items-center justify-center">
@@ -78,7 +78,7 @@ export default function RecipeCard() {
                         alt="card-image"
                         src={image}
                         effect="blur"
-                        className="block mx-0 max-h-full overflow-hidden w-full h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 overflow-hidden"
+                        className="block mx-0 h-[30vh] overflow-hidden w-screen h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 overflow-hidden"
                       />
 
                       
