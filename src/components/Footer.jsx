@@ -10,17 +10,24 @@ import {
 const LINKS = [
   {
     title: "Bölümler",
-    items: ["Anasayfa", "Bloglar", "Bize Ulaşın"],
+    items: [
+      { text: "Anasayfa", link: "/" },
+      { text: "Tavsiyeler", link: "/tavsiyeler" },
+      { text: "Tarifler", link: "/tarifler" },
+      { text: "İletişim", link: "/iletisim" },
+    ],
   },
   {
     title: "Sosyal Medya",
-    items: ["Instagram", "Facebook", "Youtube", "Twitter"],
-  },
-  {
-    title: "Kaynaklar",
-    items: ["Blog", "Email Bülteni"],
+    items: [
+      { text: "Instagram", link: "https://www.instagram.com" },
+      { text: "Facebook", link: "https://www.facebook.com" },
+      { text: "Youtube", link: "https://www.youtube.com" },
+      { text: "Twitter", link: "https://www.twitter.com" },
+    ],
   },
 ];
+
 const socialMediaIcons = {
   Twitter: faTwitter,
   Facebook: faFacebook,
@@ -41,7 +48,7 @@ export default function FooterWithSocialLinks() {
           </Typography>
 
           </a>
-          <div className="grid grid-cols-3 justify-between gap-4">
+          <div className="grid grid-cols-2 justify-between gap-2">
             {LINKS.map(({ title, items }) => (
               <ul key={title}>
                 <Typography
@@ -52,29 +59,30 @@ export default function FooterWithSocialLinks() {
                   {title}
                 </Typography>
 
-                {items.map((link) => (
-                  <li key={link}>
-                    <Typography
-                      as="a"
-                      href="#"
-                      color="gray"
-                      className="py-1.5 font-normal transition-colors hover:text-blue-gray-900"
-                    >
-                      {/* Render the icon based on the social media name */}
-                      {socialMediaIcons[link] && (
-                        <>
-                          <FontAwesomeIcon
-                            icon={socialMediaIcons[link]}
-                            className="mr-2"
-                          />
-                          {link}
-                        </>
-                      )}
-                      {/* If the link doesn't match a known social media name, render it as text */}
-                      {!socialMediaIcons[link] && link}
-                    </Typography>
-                  </li>
-                ))}
+                {items.map(({ text, link }) => (
+  <li key={text}>
+    <Typography
+      as="a"
+      href={link} // Use the link from the object
+      color="gray"
+      className="py-1.5 font-normal transition-colors hover:text-blue-gray-900"
+    >
+      {/* Render the icon based on the social media name */}
+      {socialMediaIcons[text] && (
+        <>
+          <FontAwesomeIcon
+            icon={socialMediaIcons[text]}
+            className="mr-2"
+          />
+          {text}
+        </>
+      )}
+      {/* If the link doesn't match a known social media name, render it as text */}
+      {!socialMediaIcons[text] && text}
+    </Typography>
+  </li>
+))}
+
               </ul>
             ))}
           </div>
@@ -86,9 +94,6 @@ export default function FooterWithSocialLinks() {
           >
             &copy; {currentYear} <a href="#">Dyt. Zeynep</a>, Tüm Hakları Saklıdır.
           </Typography>
-          <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
-            {/* Your social media links here */}
-          </div>
         </div>
       </div>
     </footer>
