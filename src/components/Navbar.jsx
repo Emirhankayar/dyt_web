@@ -52,9 +52,9 @@ export default function StickyNavbar() {
       {Object.keys(socialMediaIcons).map((socialMedia) => (
         <IconButton
           key={socialMedia}
-          variant="icon"
+          variant="filled"
           color="blue-gray"
-          ripple="light"
+          ripple={false}
           onClick={() => window.open(socialMediaLinks[socialMedia], "_blank")}
         >
           <FontAwesomeIcon icon={socialMediaIcons[socialMedia]} />
@@ -67,7 +67,7 @@ export default function StickyNavbar() {
     <ul className="mb-10 mt-10 flex flex-col items-start gap-10 lg:mb-0 lg:mt-0 lg:h-max lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
-        variant="medium"
+        variant='h6'
         color="blue-gray"
         className="p-2 font-normal"
       >
@@ -77,7 +77,7 @@ export default function StickyNavbar() {
       </Typography>
       <Typography
         as="li"
-        variant="medium"
+        variant='h6'
         color="blue-gray"
         className="p-2 font-normal"
       >
@@ -87,7 +87,7 @@ export default function StickyNavbar() {
       </Typography>
       <Typography
         as="li"
-        variant="medium"
+        variant='h6'
         color="blue-gray"
         className="p-2 font-normal"
       >
@@ -97,7 +97,7 @@ export default function StickyNavbar() {
       </Typography>
       <Typography
         as="li"
-        variant="medium"
+        variant='h6'
         color="blue-gray"
         className="p-2 font-normal"
       >
@@ -107,7 +107,7 @@ export default function StickyNavbar() {
       </Typography>
       <Typography
         as="li"
-        variant="medium"
+        variant='h6'
         color="blue-gray"
         className="p-2 font-normal block lg:hidden "
       >
@@ -138,7 +138,7 @@ export default function StickyNavbar() {
             <div className="mr-4 hidden lg:block">{navList}</div>
             <IconButton
               variant="text"
-              color="black"
+              color="gray"
               className="ml-auto h-6 w-6 text-inherit lg:hidden"
               ripple={false}
               onClick={openDrawerRight}
@@ -185,7 +185,7 @@ export default function StickyNavbar() {
         onClose={closeDrawerRight}
         className="p-8"
         overlayProps={{
-          className: "fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm",
+          className: "fixed inset-0 bg-gray bg-opacity-60 backdrop-blur-sm",
         }}
       >
         <div className="mb-6 flex flex-row items-center justify-between">
@@ -197,7 +197,7 @@ export default function StickyNavbar() {
           </a>
           <IconButton
             variant="text"
-            color="black"
+            color="gray"
             onClick={closeDrawerRight}
           >
             <svg

@@ -22,7 +22,6 @@ const emailNewsForm = () => {
     const [formData, setFormData] = useState({
         emailNews: '',
     });
-    const recaptchaRef = useRef();
 
 
     const handleChange = (e) => {
