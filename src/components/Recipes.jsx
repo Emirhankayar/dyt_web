@@ -1,5 +1,5 @@
 // Recipes.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { fetchBlogPosts } from "../services/services";
 import ExpandingButton from "./Expand";
 import { SkeletonRecipe } from './Skeleton';
@@ -16,6 +16,8 @@ export default function RecipeCard() {
   const [loading, setLoading] = useState(true); 
   const [numCols, setNumCols] = useState(getNumCols());
   const { showAll, expanded, toggleShowAll } = useToggleShowAll(false); 
+  const [inViewport, setInViewport] = useState(false);
+  const cardRef = useRef(null);
 
   setupIntersectionObserver('.hidden-class');
   setupIntersectionObserverUP('.hidden-class-up');
@@ -27,22 +29,50 @@ export default function RecipeCard() {
 
       removeResizeListener();
     };
-  }, []); 
+  }, []);
 
   useEffect(() => {
-    setLoading(true);
-    const fetchRecipes = async () => {
-      try {
-        const recipePostsData = await fetchBlogPosts("Recipe");
-        setRecipePosts(recipePostsData);
-      } finally {
-
-        setLoading(false);
-      }
+    const options = {
+      root: null, // Use the viewport as the root
+      rootMargin: "0px", // No margin
+      threshold: 0.5, // Trigger when 50% of the element is in the viewport
     };
-
-    fetchRecipes();
+  
+    const observer = new IntersectionObserver(([entry]) => {
+      // Check if the entry is intersecting (in the viewport)
+      if (entry.isIntersecting) {
+        setInViewport(true);
+        // Disconnect the observer to stop observing once triggered
+        observer.disconnect();
+      }
+    }, options);
+  
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+  
+    return () => {
+      observer.disconnect(); // Clean up the observer when the component unmounts
+    };
   }, []);
+  
+
+  useEffect(() => {
+    if (inViewport) {
+      setLoading(true);
+      const fetchPosts = async () => {
+        try {
+          const recipePostsData = await fetchBlogPosts("Recipe");
+          setRecipePosts(recipePostsData);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchPosts();
+    }
+  }, [inViewport]);
+
 
   const displayedPosts = showAll ? recipePosts : recipePosts.slice(0, expanded ? recipePosts.length : numCols);
 
@@ -58,7 +88,7 @@ export default function RecipeCard() {
       </div>
     </div>
 
-      <div className="hidden-class-up">
+      <div className="hidden-class-up" ref={cardRef}>
 
       <div className="container mx-auto grid grid-cols-1">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -301,8 +301,8 @@ export default function Booking() {
                 </div>
               </div>
 
-              <div className='mb-10 sm:mb-10 md:mb-12 lg:mb-8 mt-4 w-full h-16 pb-12'>
-                <Typography className='text-sm italic text-red-300 text-justify px-4'>
+              <div className='mb-10 sm:mb-10 md:mb-12 lg:mb-9 mt-4 w-full h-16 pb-12'>
+                <Typography className='text-sm italic text-red-300 text-justify px-4 block'>
                   <FontAwesomeIcon icon={faCircleInfo} className='mr-1' />
                   Bu form, danışmanlık hizmeti öncesinde veya
                   sırasında doldurmaları gereken bir belgedir.

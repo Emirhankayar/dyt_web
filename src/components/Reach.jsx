@@ -84,8 +84,8 @@ const ContactForm = () => {
             <div className="container mx-auto">
 
 
-            <div class="w-full text-black ">
-                <div class="text-left flex flex-col-auto px-6">
+            <div className="w-full text-black ">
+                <div className="text-left flex flex-col-auto px-6">
                     <div className="bg-gray-100 px-6 py-8 w-full max-w-sm rounded-lg shadow-xl mx-auto">
                     
                     {Loading ? (

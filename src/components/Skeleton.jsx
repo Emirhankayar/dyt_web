@@ -39,7 +39,7 @@ export function SkeletonReach() {
         <div className="w-full h-10 rounded-lg bg-gray-400 rounded-lg"></div>
         <div className="w-full h-10 rounded-lg bg-gray-400 rounded-lg"></div>
         <div className="w-full h-10 rounded-lg bg-gray-400 rounded-lg"></div>
-        <div className="w-full h-32 rounded-lg bg-gray-400 rounded-lg"></div>
+        <div className="w-full h-56 rounded-lg bg-gray-400 rounded-lg"></div>
 
       </div>
 
@@ -49,6 +49,54 @@ export function SkeletonReach() {
     </div>
   );
 }
+
+
+export function SkeletonEmail() {
+  return (
+    <div className="w-full h-full space-y-5 rounded-lg p-4 animate-pulse">
+      <div className="space-y-10 mt-4">
+      <div className='space-y-2 -mt-8'>
+          <div className='w-1/4 h-4 bg-gray-400 rounded-lg'></div>
+          <div className='w-full h-4 bg-gray-400 rounded-lg'></div>
+          <div className='w-3/4 h-4 bg-gray-400 rounded-lg'></div>
+        </div>
+
+      </div>
+    <div className='w-full space-x-5 flex flex-row items-center justify-center'>
+      <div className="w-3/4 h-10 rounded-lg bg-gray-400 rounded-lg"></div>
+      <div className="w-1/4 h-10 rounded-lg bg-gray-400 rounded-lg"></div>
+    </div>
+    </div>
+  );
+}
+export function SkeletonSocial() {
+  return (
+    <div className="w-full h-full space-y-5 rounded-lg p-4 animate-pulse">
+      <div className="space-y-10 mt-4">
+      <div className='space-y-2 -mt-8'>
+          <div className='w-1/4 h-4 bg-gray-400 rounded-lg'></div>
+          <div className='w-full h-4 bg-gray-400 rounded-lg'></div>
+          <div className='w-3/4 h-4 bg-gray-400 rounded-lg'></div>
+        </div>
+
+      </div>
+    <div className='w-full space-x-5 flex flex-row items-center justify-center'>
+      <div className="w-1/6 h-10 rounded-xl bg-gray-400 rounded-lg"></div>
+      <div className="w-1/6 h-10 rounded-xl bg-gray-400 rounded-lg"></div>
+      <div className="w-1/6 h-10 rounded-xl bg-gray-400 rounded-lg"></div>
+    </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
 
 export function SkeletonBlog() {
   return (
@@ -107,4 +155,4 @@ export function SkeletonRecipe() {
 }
 
 
-export default { SkeletonBook, SkeletonReach, SkeletonBlog, SkeletonRecipe, SkeletonBlogSub };
+export default { SkeletonBook, SkeletonReach, SkeletonEmail, SkeletonSocial, SkeletonBlog, SkeletonRecipe, SkeletonBlogSub };

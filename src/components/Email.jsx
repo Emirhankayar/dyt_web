@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import emailjs from 'emailjs-com';
-import { SkeletonReach } from './Skeleton';
+import { SkeletonEmail } from './Skeleton';
 import { Button, Typography } from "@material-tailwind/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -68,6 +68,9 @@ const emailNewsForm = () => {
                 <div class="text-left flex flex-col-auto px-6">
                     <div className="bg-gray-100 px-6 py-8 w-full max-w-sm rounded-lg shadow-xl mx-auto">
                     
+                    {Loading ? (
+                        <SkeletonEmail />
+                    ) : (
 
                         <form onSubmit={handleSubmit}>
 
@@ -105,6 +108,8 @@ const emailNewsForm = () => {
                             </div>
 
                         </form>
+                                            )}
+
                 </div>
             </div>
             </div>
