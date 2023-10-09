@@ -1,27 +1,6 @@
 // utils.js
-import { createClient } from '@supabase/supabase-js';
-import he from "he";
 import { useState, useCallback, useEffect } from 'react';
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE;
-const supabaseClient = createClient(supabaseUrl, supabaseKey);
-
-// Function to get the PDF URL from Supabase
-const getPdfUrlFromSupabase = async (fileName) => {
-  const pdfUrl = `${supabaseUrl}/storage/v1/object/public/pdf/${fileName}`;
-
-  // Check if the PDF file exists in the Supabase bucket
-  const response = await fetch(pdfUrl);
-
-  if (response.ok) {
-    return pdfUrl;
-  } else {
-    console.error('PDF not found in database.');
-    return null;
-  }
-};
-
+import he from "he";
 
 const extractImageAndDate = (html) => {
   const text = he.decode(html);
@@ -127,4 +106,4 @@ function setupIntersectionObserverL(className) {
   }, [className]);
 }
 
-export { supabaseClient, extractImageAndDate, getNumCols, handleResize, useToggleShowAll, setupIntersectionObserver, setupIntersectionObserverUP, setupIntersectionObserverL };
+export { extractImageAndDate, getNumCols, handleResize, useToggleShowAll, setupIntersectionObserver, setupIntersectionObserverUP, setupIntersectionObserverL };

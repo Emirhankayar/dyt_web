@@ -63,8 +63,8 @@ const emailNewsForm = () => {
             <div className="container mx-auto">
 
 
-            <div class="w-full text-black ">
-                <div class="text-left flex flex-col-auto px-6">
+            <div className="w-full text-black ">
+                <div className="text-left flex flex-col-auto px-6">
                     <div className="bg-gray-100 px-6 py-8 w-full max-w-sm rounded-lg shadow-xl mx-auto">
                     
                     {Loading ? (
@@ -92,12 +92,15 @@ const emailNewsForm = () => {
                                     value={formData.emailNews}
                                     onChange={handleChange}
                                     required
+                                    aria-label='eposta'
+                                    autoComplete='on'
                                     className="w-full px-3 py-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                                 />
 
                                 <Button
                                 disabled
                                     type="submit"
+                                    aria-label='email bültenine üye ol'
                                     className="w-1/4 ml-2 rounded-md focus:outline-1 shadow-md"
                                 >
                                     <FontAwesomeIcon icon={faEnvelope}/>

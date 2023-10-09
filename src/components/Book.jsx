@@ -9,10 +9,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { registerLocale, setDefaultLocale } from 'react-datepicker';
 import { Button, Typography } from "@material-tailwind/react";
 import ReCAPTCHA from 'react-google-recaptcha';
-import { useFetchAppointments } from '../services/services';
 import { SkeletonBook } from './Skeleton';
 import { format, addDays } from 'date-fns';
-import { supabaseClient as supabase } from '../utils/utils';
+import { supabaseClient as supabase, useFetchAppointments } from '../utils/bookUtils';
+
+// TODO IMPLEMENT PDF SENDING LOGIC TO EMAIL
 
 export default function Booking() {
   const serviceID = import.meta.env.VITE_SERVICE;
@@ -198,6 +199,7 @@ export default function Booking() {
                   value={formData.name}
                   onChange={handleChange}
                   autoComplete='on'
+                  aria-label='isim soyisim'
 
                 />
 
@@ -217,6 +219,7 @@ export default function Booking() {
                   onChange={handleChange}
                   required
                   autoComplete='on'
+                  aria-label='eposta'
 
                 />
               </div>
@@ -236,6 +239,7 @@ export default function Booking() {
                   onChange={setPhoneNumber}
                   defaultCountry="TR"
                   autoComplete='on'
+                  aria-label='telefon'
                 />
               </div>
               <div className="my-4">
@@ -248,7 +252,6 @@ export default function Booking() {
                   name='date'
                   required
                   placeholderText='Bir tarih seciniz'
-
                   locale="tr"
                   onChange={(date) => {
                     setSelectedDate(date);
@@ -271,6 +274,7 @@ export default function Booking() {
                   excludeDates={fullyBookedDatesArray}
                   disabledKeyboardNavigation
                   onFocus={e => e.target.blur()} 
+
                 />
 
               </div>

@@ -55,6 +55,7 @@ const Social = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className='py-2 px-2'
+                        aria-label={socialMedia}
                       >
                         <FontAwesomeIcon
                           icon={socialMediaIcons[socialMedia].icon}

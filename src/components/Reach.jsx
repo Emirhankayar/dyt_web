@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import emailjs from 'emailjs-com';
+import ReCAPTCHA from 'react-google-recaptcha'
 import { SkeletonReach } from './Skeleton';
 import { Button, Typography } from "@material-tailwind/react";
-import ReCAPTCHA from 'react-google-recaptcha'
 
 const serviceID = import.meta.env.VITE_SERVICE;
 const templateID = import.meta.env.VITE_TEMPLATEE;
@@ -110,6 +110,7 @@ const ContactForm = () => {
                                     onChange={handleChange}
                                     required
                                     autoComplete="on"
+                                    aria-label='isim soyisim'
                                     className="w-full px-3 py-2 mt-2 border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                                     />
                             </div>
@@ -126,6 +127,7 @@ const ContactForm = () => {
                                     value={formData.subject}
                                     onChange={handleChange}
                                     autoComplete="on"
+                                    aria-label='konu'
                                     className="w-full px-3 py-2 mt-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                                 />
                             </div>
@@ -143,6 +145,7 @@ const ContactForm = () => {
                                     onChange={handleChange}
                                     required
                                     autoComplete="on"
+                                    aria-label='eposta'
                                     className="w-full px-3 py-2 mt-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                                 />
                             </div>
@@ -159,6 +162,7 @@ const ContactForm = () => {
                                     rows="3"
                                     required
                                     autoComplete="on"
+                                    aria-label='açıklama'
                                     className="w-full px-3 py-2 mt-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                                 ></textarea>
                             </div>
