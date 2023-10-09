@@ -25,8 +25,3 @@ for = "/Images/*"
 for = "/Fetches/*" 
   [headers.values]
   Cache-Control = "public, max-age=31536000"  
-
-[[headers]]
-for = "/*"
-  [headers.values]
-  Content-Encoding = "gzip"
