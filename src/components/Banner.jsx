@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { Typography, Button } from '@material-tailwind/react';
 import { SkeletonSocial } from './Skeleton';
-import { setupIntersectionObserver, setupIntersectionObserverUP } from '../utils/utils'; // Import the utility function
+import { setupIntersectionObserver, setupIntersectionObserverUP } from '../utils/utils'; 
 
 
 const DUMMY_IMAGE_URL = 'https://images.pexels.com/photos/821754/pexels-photo-821754.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&dpr=1'
@@ -85,7 +85,8 @@ const Banner = () => {
                     </div>
 
                     <a href="/iletisim" className='w-full lg:w-1/2'>
-                  <Button size='small' className="w-full lg:w-full">
+                  <Button size='small' className="w-full lg:w-full"
+                    aria-label='Bize Ulaşın'>
                     Bize Ulaşın
                   </Button>
                     </a>

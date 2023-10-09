@@ -7,14 +7,12 @@ import emailjs from 'emailjs-com';
 import 'react-phone-number-input/style.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import { registerLocale, setDefaultLocale } from 'react-datepicker';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faEye, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { Button, Typography } from "@material-tailwind/react";
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useFetchAppointments } from '../services/services';
 import { SkeletonBook } from './Skeleton';
 import { format, addDays } from 'date-fns';
-import { supabaseClient as supabase, downloadPDF, viewPDF } from '../utils/utils';
+import { supabaseClient as supabase } from '../utils/utils';
 
 export default function Booking() {
   const serviceID = import.meta.env.VITE_SERVICE;
@@ -55,16 +53,6 @@ export default function Booking() {
       setFormData({ ...formData, [name]: value });
     }
   };
-
-  async function handleDownloadPdf() {
-    const pdfFileName = 'Danisan_Bilgi_Formu.pdf';
-    await downloadPDF(pdfFileName);
-  }
-
-  async function handleOpenPdf() {
-    const pdfFileName = 'Danisan_Bilgi_Formu.pdf';
-    await viewPDF(pdfFileName);
-  }
 
   const handleBooking = async (e) => {
     e.preventDefault();
@@ -209,6 +197,8 @@ export default function Booking() {
                   required
                   value={formData.name}
                   onChange={handleChange}
+                  autoComplete='on'
+
                 />
 
               </div>
@@ -226,6 +216,8 @@ export default function Booking() {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  autoComplete='on'
+
                 />
               </div>
 
@@ -243,6 +235,7 @@ export default function Booking() {
                   value={phoneNumber}
                   onChange={setPhoneNumber}
                   defaultCountry="TR"
+                  autoComplete='on'
                 />
               </div>
               <div className="my-4">
@@ -250,7 +243,7 @@ export default function Booking() {
                   Tarih:
                 </label>
                 <DatePicker
-                  className="w-full px-3 py-2 mt-2 border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
+                  className="w-full px-3 py-2 mt-2 mb-12 border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                   id='date'
                   name='date'
                   required
@@ -282,36 +275,7 @@ export default function Booking() {
 
               </div>
 
-              <div className="mb-4 flex flex-col sm:flex-row md:flex-row lg:flex-row justify-between items-center">
-                {pdfFileName}
-                <div className='flex flex-row px-4 py-2 justify-center items-center'>
-                  <Button
-                    onClick={handleDownloadPdf}
-                    className=" rounded-full p-4 shadow-md flex flex-col justify-center items-center"
-                  >
-                    <FontAwesomeIcon icon={faDownload} />
-                  </Button>
-
-                  <Button
-                    className=" rounded-full p-4 shadow-md flex ml-4 flex-col items-center justify-center"
-                    onClick={handleOpenPdf}
-                  >
-                    <FontAwesomeIcon icon={faEye} />
-                  </Button>
-                </div>
-              </div>
-
-              <div className='mb-10 sm:mb-10 md:mb-12 lg:mb-9 mt-4 w-full h-16 pb-12'>
-                <Typography className='text-sm italic text-red-300 text-justify px-4 block'>
-                  <FontAwesomeIcon icon={faCircleInfo} className='mr-1' />
-                  Bu form, danışmanlık hizmeti öncesinde veya
-                  sırasında doldurmaları gereken bir belgedir.
-                  Sorununuzu daha iyi anlamamıza yardımcı olur ve ileri
-                  düzeyde hizmet sunmamıza imkan tanır.
-                </Typography>
-              </div>
-
-              <div className='pt-10 sm:pt-0'>
+              <div className='mt-6'>
                   <ReCAPTCHA
                     ref={recaptchaRef}
                     sitekey={siteKey}
@@ -319,7 +283,8 @@ export default function Booking() {
                   />
                 <Button
                   type="submit"
-                  className="px-4 py-2 h-12 w-full rounded-xl focus:outline-1 shadow-md capitalize"
+                  className="px-4 py-2 h-12 w-full rounded-lg focus:outline-1 shadow-md capitalize"
+                  aria-label="Randevu Oluştur"
                 >
                   Randevu Oluştur
                 </Button>

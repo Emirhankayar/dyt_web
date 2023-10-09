@@ -3,6 +3,7 @@ import emailjs from 'emailjs-com';
 import { SkeletonReach } from './Skeleton';
 import { Button, Typography } from "@material-tailwind/react";
 import ReCAPTCHA from 'react-google-recaptcha'
+
 const serviceID = import.meta.env.VITE_SERVICE;
 const templateID = import.meta.env.VITE_TEMPLATEE;
 const userID = import.meta.env.VITE_USER;
@@ -83,7 +84,6 @@ const ContactForm = () => {
         <>
             <div className="container mx-auto">
 
-
             <div className="w-full text-black ">
                 <div className="text-left flex flex-col-auto px-6">
                     <div className="bg-gray-100 px-6 py-8 w-full max-w-sm rounded-lg shadow-xl mx-auto">
@@ -109,6 +109,7 @@ const ContactForm = () => {
                                     value={formData.name}
                                     onChange={handleChange}
                                     required
+                                    autoComplete="on"
                                     className="w-full px-3 py-2 mt-2 border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                                     />
                             </div>
@@ -124,6 +125,7 @@ const ContactForm = () => {
                                     placeholder='Konu'
                                     value={formData.subject}
                                     onChange={handleChange}
+                                    autoComplete="on"
                                     className="w-full px-3 py-2 mt-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                                 />
                             </div>
@@ -140,6 +142,7 @@ const ContactForm = () => {
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
+                                    autoComplete="on"
                                     className="w-full px-3 py-2 mt-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                                 />
                             </div>
@@ -153,14 +156,15 @@ const ContactForm = () => {
                                     placeholder='Açıklama...'
                                     value={formData.description}
                                     onChange={handleChange}
-                                    rows="8"
+                                    rows="3"
                                     required
+                                    autoComplete="on"
                                     className="w-full px-3 py-2 mt-2  border-gray-600 bg-white rounded-lg focus:outline-1 focus:border-gray-700"
                                 ></textarea>
                             </div>
 
                             <div>
-                                            <ReCAPTCHA
+                                <ReCAPTCHA
                                     ref={recaptchaRef}
                                     sitekey={siteKey}
                                     size="invisible"
@@ -168,6 +172,7 @@ const ContactForm = () => {
                                 <Button
                                     type="submit"
                                     className="px-4 py-2 h-12 w-full rounded-md focus:outline-1 shadow-md capitalize"
+                                    aria-label="Gönder"
                                 >
                                     Gönder
                                 </Button>

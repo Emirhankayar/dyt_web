@@ -22,53 +22,6 @@ const getPdfUrlFromSupabase = async (fileName) => {
   }
 };
 
-// Function to download PDF
-const downloadPDF = async (pdfFileName) => {
-  const pdfUrl = await getPdfUrlFromSupabase(pdfFileName);
-  if (pdfUrl) {
-    try {
-      const response = await fetch(pdfUrl);
-      const blob = await response.blob();
-
-      // Create a temporary link and trigger the download
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', pdfFileName);
-
-      // Trigger a click event to initiate the download
-      const clickEvent = new MouseEvent('click', {
-        view: window,
-        bubbles: true,
-        cancelable: true,
-      });
-      link.dispatchEvent(clickEvent);
-
-      // Clean up the temporary URL object
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Error downloading PDF:', error);
-    }
-  } else {
-    console.error('PDF not found in database.');
-  }
-};
-
-// Function to view PDF
-const viewPDF = async (pdfFileName) => {
-  const pdfUrl = await getPdfUrlFromSupabase(pdfFileName);
-  if (pdfUrl) {
-    // Create an anchor element with the target="_blank" attribute
-    const link = document.createElement('a');
-    link.href = pdfUrl;
-    link.target = '_blank';
-
-    // Trigger a click event to open the PDF in a new tab
-    link.click();
-  } else {
-    console.error('PDF not found in database.');
-  }
-};
 
 const extractImageAndDate = (html) => {
   const text = he.decode(html);
@@ -83,18 +36,6 @@ const extractImageAndDate = (html) => {
     text: text.replace(/(<([^>]+)>)/gi, ""), // Remove HTML tags
   };
 };
-
-const extractImage = (html) =>  {
-  const imgRegex = /<img.*?src=["'](.*?)["'].*?>/; // Regular expression to match image source
-  const dateRegex = /<span[^>]*class=["']published["'][^>]*>(.*?)<\/span>/; // Regular expression to match date
-  const imageMatch = imgRegex.exec(html);
-  const dateMatch = dateRegex.exec(html);
-
-  return {
-    image: imageMatch ? imageMatch[1] : null,
-    date: dateMatch ? dateMatch[1] : null,
-  };
-}
 
 // Function to calculate the number of columns based on screen width
 function getNumCols() {
@@ -130,7 +71,6 @@ function useToggleShowAll(initialValue = false) {
     setShowAll((prevShowAll) => !prevShowAll);
     setExpanded((prevExpanded) => !prevExpanded);
   }, []);
-
 
   return { showAll, expanded, toggleShowAll };
 
@@ -187,4 +127,4 @@ function setupIntersectionObserverL(className) {
   }, [className]);
 }
 
-export { supabaseClient, downloadPDF, viewPDF, extractImageAndDate, getNumCols, handleResize, useToggleShowAll, setupIntersectionObserver, setupIntersectionObserverUP, setupIntersectionObserverL };
+export { supabaseClient, extractImageAndDate, getNumCols, handleResize, useToggleShowAll, setupIntersectionObserver, setupIntersectionObserverUP, setupIntersectionObserverL };

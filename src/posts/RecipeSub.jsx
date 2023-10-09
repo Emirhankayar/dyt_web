@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { fetchBlogPosts } from "../services/services";
 import { SkeletonBlogSub } from '../components/Skeleton';
 import { Typography, Button } from "@material-tailwind/react";
-import { extractImageAndDate, getNumCols, handleResize } from '../utils/utils';
+import { extractImageAndDate } from '../utils/utils';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from "react-router-dom";
