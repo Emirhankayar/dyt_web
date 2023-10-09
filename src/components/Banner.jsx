@@ -4,9 +4,9 @@ import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg
 import { Typography, Button } from '@material-tailwind/react';
 import { SkeletonSocial } from './Skeleton';
 import { setupIntersectionObserver, setupIntersectionObserverUP } from '../utils/utils'; 
+import images from '../images/banner.jpeg'
 
-
-const DUMMY_IMAGE_URL = 'https://images.pexels.com/photos/821754/pexels-photo-821754.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&dpr=1'
+const DUMMY_IMAGE_URL = images
 
 const Banner = () => {
     const [Loading, setLoading] = useState(true);
@@ -44,7 +44,7 @@ const Banner = () => {
             </div>
             </div>
 
-<div className='hidden-class-up'>
+        <div className='hidden-class-up'>
 
       <div className="container mx-auto">
         <div className="w-full text-black">

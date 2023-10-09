@@ -3,9 +3,9 @@ import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Helmet } from 'react-helmet';
+import images from '../images/hero.jpeg'
 
-
-const DUMMY_IMAGE_URL = 'https://images.pexels.com/photos/8845106/pexels-photo-8845106.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+const DUMMY_IMAGE_URL = images
 
 export default function Hero() {
   return (

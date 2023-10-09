@@ -2,6 +2,8 @@
   from = "/*"
   to = "/index.html"
   status = 200
+  headers = { "Cache-Control" = "public, max-age=604800" } # Cache static assets for 7 days (adjust as needed)
+
 [build]
   command = "npm run build"
   publish = "dist"
