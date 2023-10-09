@@ -102,12 +102,12 @@ export function SkeletonBlog() {
   return (
 
     <div className='w-full h-full flex flex-row items-center justify-center'>
-    <div className="w-full h-80 flex-col items-center justify-center space-y-5 rounded-lg animate-pulse mx-auto p-4">
+    <div className="w-full h-80 flex-col items-center justify-center space-y-5 rounded-t-lg animate-pulse mx-auto p-4">
       <div className="h-full max-w-sm mx-auto">
         <div className="w-full h-2/3 rounded-t-lg bg-gray-400"></div>
-        <div className="flex-col flex items-center justify-center rounded-lg space-y-4 bg-gray-300">
+        <div className="flex-col flex items-center justify-center rounded-b-lg space-y-4 bg-gray-300">
 
-          <div className="w-full h-5/6 object-cover rounded-t-lg bg-gray-400"></div>
+          <div className="w-full h-5/6 object-cover rounded-lg bg-gray-400"></div>
           <div className="w-1/3 h-6 bg-gray-400 rounded-lg"></div>
 
           <div className="flex flex-col justify-center items-start w-full space-y-2 p-4">

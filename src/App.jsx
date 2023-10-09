@@ -7,6 +7,7 @@ const PostsPage = React.lazy(() => import('./pages/PostsPage'));
 const RecipePage = React.lazy(() => import('./pages/RecipePage'));
 const PostDetail = React.lazy(() => import('./pages/PostDetail'));
 const RecipeDetail = React.lazy(() => import('./pages/RecipeDetail'));
+const Error = React.lazy(() => import('./pages/Error'));
 
 
 const Footer = React.lazy(() => import('./components/Footer'));
@@ -27,6 +28,8 @@ export default function App() {
           <Route path="/tarifler" element={<RecipePage />} /> 
           <Route path="/tavsiyeler/:postTitle" element={<PostDetail />} /> {/* Post detail route */}
           <Route path="/tarifler/:postTitle" element={<RecipeDetail />} /> {/* Post detail route */}
+          <Route path="/404" element={<Error />} /> {/* Post detail route */}
+          <Route path="/gizlilikpolitikasi" element={<Error />} /> {/* Post detail route */}
 
         </Routes>
         <Footer />
