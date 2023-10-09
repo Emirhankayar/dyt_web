@@ -29,7 +29,6 @@ export default function App() {
           <Route path="/tavsiyeler/:postTitle" element={<PostDetail />} /> {/* Post detail route */}
           <Route path="/tarifler/:postTitle" element={<RecipeDetail />} /> {/* Post detail route */}
           <Route path="/404" element={<Error />} /> {/* Post detail route */}
-          <Route path="/gizlilikpolitikasi" element={<Error />} /> {/* Post detail route */}
 
         </Routes>
         <Footer />

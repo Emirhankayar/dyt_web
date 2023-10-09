@@ -15,6 +15,7 @@ export default function Hero() {
       </Helmet>
         <LazyLoadImage
             src={DUMMY_IMAGE_URL}
+            alt="title image"
             className="object-cover overflow-hidden w-full h-full brightness-75"
             />
       <div>

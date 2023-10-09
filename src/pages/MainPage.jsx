@@ -20,7 +20,6 @@ export default function MainPage() {
           <About />
           <BlogSec />
           <RecipeSec />
-          <Contact/>
         
           <AlertComp/>
       </div>
