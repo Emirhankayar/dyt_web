@@ -8,9 +8,8 @@ const RecipePage = React.lazy(() => import('./pages/RecipePage'));
 const PostDetail = React.lazy(() => import('./pages/PostDetail'));
 const RecipeDetail = React.lazy(() => import('./pages/RecipeDetail'));
 const Error = React.lazy(() => import('./pages/Error'));
-
-
 const Footer = React.lazy(() => import('./components/Footer'));
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Spinner from './components/Spinner';

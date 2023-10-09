@@ -1,39 +1,33 @@
 .hidden-class{
     opacity: 0;
-    filter: blur(5px);
     transform: translateX(-10%);
     transition: all 0.9s;
 }
 
 .show{
     opacity: 1;
-    filter: blur(0px);
     transform: translateX(0);
 }
 
 
 .hidden-class-up{
     opacity: 0;
-    filter: blur(5px);
     transform: translateY(10%);
     transition: all 0.5s;
 }
 
 .show-up{
     opacity: 1;
-    filter: blur(0px);
     transform: translateY(0);
 }
 
 .hidden-class-l{
     opacity: 0;
-    filter: blur(5px);
     transform: translateX(10%);
     transition: all 0.5s;
 }
 
 .show-l{
     opacity: 1;
-    filter: blur(0px);
     transform: translateY(0);
 }
