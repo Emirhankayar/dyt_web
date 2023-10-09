@@ -15,3 +15,12 @@ for = "/*.js"
 for = "/*.css"
   [headers.values]
   Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+for = "/Images/*" 
+  [headers.values]
+  Cache-Control = "public, max-age=31536000"  
+[[headers]]
+for = "/Fetches/*" 
+  [headers.values]
+  Cache-Control = "public, max-age=31536000"  
