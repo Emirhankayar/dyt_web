@@ -36,7 +36,6 @@ export default function App() {
           <Route path="/tavsiyeler/:postTitle" element={<PostDetail />} />
           <Route path="/tarifler/:postTitle" element={<RecipeDetail />} /> 
 
-
           <Route path='/*' element={<PageNotFound />} />
 
         </Routes>
