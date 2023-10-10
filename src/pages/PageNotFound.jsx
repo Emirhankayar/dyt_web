@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { ThemeProvider } from '@material-tailwind/react';
-import ErrorComp from '../components/ErrorComp'
+import ErrorComp from '../components/PageNotFoundComp'
 
 export default function ErrorPage() {
 

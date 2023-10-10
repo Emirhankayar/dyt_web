@@ -85,7 +85,7 @@ const Banner = () => {
                     </div>
 
                     <a href="/iletisim" className='w-full lg:w-1/2'>
-                  <Button size='small' className="w-full lg:w-full"
+                  <Button className="w-full lg:w-full"
                     aria-label='Bize Ulaşın'>
                     Bize Ulaşın
                   </Button>
