@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchBlogPosts } from "../services/services";
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import { extractImageAndDate } from '../utils/utils';
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import Spinner from '../components/Spinner'
 import { Typography } from "@material-tailwind/react";
-
-
 
 export default function PostDetail() {
     const { postTitle } = useParams(); // Get the postTitle from the URL
@@ -65,6 +60,7 @@ export default function PostDetail() {
                 <div className="w-4/5 max-w-4xl flex flex-col items-center justify-center text-justify text-center">
                     <div className="w-full">
                         <div className="flex flex-row justify-center items-center">
+                            
                             <Typography variant='h4' className="p-4 w-full flex flex-col items-start">{post.title}</Typography>
                             <Typography
                                 variant="h6" className="p-4 w-full flex flex-col items-end">{post.formattedDate}</Typography>

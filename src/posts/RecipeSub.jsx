@@ -7,10 +7,16 @@ import { extractImageAndDate } from '../utils/utils';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from "react-router-dom";
+import { setupIntersectionObserver } from '../utils/utils';
+import "../components/Animations.css"
 
 export default function RecipeCard() {
     const [recipePosts, setRecipePosts] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    setupIntersectionObserver('.hidden-class', 'show');
+    setupIntersectionObserver('.hidden-class-l', 'show-l');
+    setupIntersectionObserver('.hidden-class-up', 'show-up');
 
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -33,12 +39,21 @@ export default function RecipeCard() {
         <>
             <div className="container flex flex-col justify-between w-5/6 items-center mb-10 mt-10 mx-auto">
                 <div className="max-w-lg text-justify">
+                  <div className="hidden-class">
+
                     <Typography className="text-2xl font-bold">Tüm Tarifler</Typography>
+                  </div>
+                  <div className="hidden-class-l">
+
                     <Typography className="text-md mt-2 leading-loose">Bu başlık altında, tarafımdan özenle hazırlanmış olan tüm sağlıklı ve fit tariflere göz atabilirsiniz. Sağlıklı yaşam tarzınıza katkıda bulunacak bu tarifler, lezzet ve besin değeri açısından zengindir. Aradığınız sağlıklı yemek seçeneklerini burada bulabilir ve daha sağlıklı bir yaşam tarzına adım atabilirsiniz.</Typography>
+                  </div>
                 </div>
                 </div>
 
                 <div className="container max-w-lg">
+                  <div className="hidden-class-up">
+
+
         <div className="grid grid-cols-1 mx-auto w-full">
           {loading ? (
             Array.from({ length: numItemsToDisplay }).map((_, index) => (
@@ -111,6 +126,7 @@ export default function RecipeCard() {
             })
 
           )}
+        </div>
         </div>
 
       </div>

@@ -7,10 +7,16 @@ import { extractImageAndDate } from '../utils/utils';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from "react-router-dom";
+import { setupIntersectionObserver } from '../utils/utils';
+import "../components/Animations.css"
 
 export default function PostCard() {
   const [advisePosts, setAdvisePosts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  setupIntersectionObserver('.hidden-class', 'show');
+  setupIntersectionObserver('.hidden-class-l', 'show-l');
+  setupIntersectionObserver('.hidden-class-up', 'show-up');
 
   useEffect(() => {
     setLoading(true)
@@ -27,19 +33,27 @@ export default function PostCard() {
     fetchPosts();
   }, []);
 
+
   const numItemsToDisplay = loading ? 4 : advisePosts.length;
 
   return (
     <>
+
       <div className="container flex flex-col justify-between w-5/6 items-center mb-10 mt-10 mx-auto">
+
         <div className="max-w-lg text-justify">
+          <div className="hidden-class">
           <Typography variant='h4'>Tüm Tavsiyeler</Typography>
+          </div>
+          <div className="hidden-class-l">
           <Typography variant="paragraph" className="mt-2">Bu başlık altında, bir beslenme uzmanı olarak hazırladığım tavsiye bloglarını inceleyebilirsiniz. İçeriklerim, sağlıklı bir yaşam tarzına geçişinizi kolaylaştırmayı ve sağlık konularında size rehberlik etmeyi amaçlıyor. Dengeli beslenme, kilo kontrolü, besin takviyeleri ve sağlıklı yaşam hakkında güncel bilgileri burada bulabilirsiniz. Sağlığınızı iyileştirmek ve bilinçli beslenme alışkanlıkları geliştirmek için bu kaynakları keşfedin.</Typography>
-        </div>
+          </div>
+      </div>
 
       </div>
 
       <div className="container max-w-lg">
+        <div className="hidden-class-up">
         <div className="grid grid-cols-1 mx-auto w-full">
           {loading ? (
             Array.from({ length: numItemsToDisplay }).map((_, index) => (
@@ -107,13 +121,16 @@ export default function PostCard() {
                   </div>
                 </div>
 
+
               );
             })
 
           )}
         </div>
+        </div>
+        </div>
 
-      </div>
+
 
     </>
   );

@@ -1,12 +1,12 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
-import { setupIntersectionObserver, setupIntersectionObserverL } from '../utils/utils'; // Import the utility function
+import { setupIntersectionObserver } from '../utils/utils'; // Import the utility function
 import './Animations.css'
 
 export default function HorizontalCard() {
 
-  setupIntersectionObserver('.hidden-class');
-  setupIntersectionObserverL('.hidden-class-l');
+  setupIntersectionObserver('.hidden-class', 'show');
+  setupIntersectionObserver('.hidden-class-l', 'show-l');
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function HorizontalCard() {
           <div className="w-full flex flex-col">
             <div className="flex flex-col items-center">
 
-               <div className="grid grid-cols-1 gap-10 md:grid-cols-1 lg:grid-cols-2 text-justify">
+               <div className="grid grid-cols-1 gap-10 md:grid-cols-1 lg:grid-cols-2 text-justify lg:px-12">
                 <div className="hidden-class">
                 <Typography variant='paragraph' className="col-span-2 sm:col-span-1">
                   {/* First column content */}

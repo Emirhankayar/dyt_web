@@ -8,7 +8,7 @@ import { extractImageAndDate, getNumCols, handleResize, useToggleShowAll } from 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from "react-router-dom";
-import { setupIntersectionObserver, setupIntersectionObserverUP } from '../utils/utils'; // Import the utility function
+import { setupIntersectionObserver, fetchIntersectionObserver } from '../utils/utils'; // Import the utility function
 import './Animations.css'
 
 export default function RecipeCard() {
@@ -16,11 +16,9 @@ export default function RecipeCard() {
   const [loading, setLoading] = useState(true); 
   const [numCols, setNumCols] = useState(getNumCols());
   const { showAll, expanded, toggleShowAll } = useToggleShowAll(false); 
-  const [inViewport, setInViewport] = useState(false);
-  const cardRef = useRef(null);
 
-  setupIntersectionObserver('.hidden-class');
-  setupIntersectionObserverUP('.hidden-class-up');
+  setupIntersectionObserver('.hidden-class', 'show');
+  setupIntersectionObserver('.hidden-class-up', 'show-up');
 
   useEffect(() => {
     const removeResizeListener = handleResize(setNumCols);
@@ -31,31 +29,13 @@ export default function RecipeCard() {
     };
   }, []);
 
-  useEffect(() => {
-    const options = {
-      root: null, // Use the viewport as the root
-      rootMargin: "0px", // No margin
-      threshold: 0.5, // Trigger when 50% of the element is in the viewport
-    };
-  
-    const observer = new IntersectionObserver(([entry]) => {
-      // Check if the entry is intersecting (in the viewport)
-      if (entry.isIntersecting) {
-        setInViewport(true);
-        // Disconnect the observer to stop observing once triggered
-        observer.disconnect();
-      }
-    }, options);
-  
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-  
-    return () => {
-      observer.disconnect(); // Clean up the observer when the component unmounts
-    };
-  }, []);
-  
+  const options = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.5,
+  };
+
+  const { inViewport, cardRef } = fetchIntersectionObserver(options);
 
   useEffect(() => {
     if (inViewport) {

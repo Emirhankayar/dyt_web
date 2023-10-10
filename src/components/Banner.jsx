@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Button } from '@material-tailwind/react';
-import { SkeletonSocial } from './Skeleton';
-import { setupIntersectionObserver, setupIntersectionObserverUP } from '../utils/utils'; 
+import { SkeletonBanner } from './Skeleton';
+import { setupIntersectionObserver, fetchIntersectionObserver } from '../utils/utils'; 
 const SocLinks = React.lazy(() => import('./SocLinks'));
 import images from '../images/banner.jpeg'
 
@@ -9,16 +9,25 @@ const DUMMY_IMAGE_URL = images
 
 const Banner = () => {
     const [Loading, setLoading] = useState(true);
+  
+    setupIntersectionObserver('.hidden-class', 'show');
+    setupIntersectionObserver('.hidden-class-up', 'show-up');
 
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.5,
+    };
+  
+    const { inViewport, cardRef } = fetchIntersectionObserver(options);
+  
     useEffect(() => {
+      if (inViewport) {
       setTimeout(() => {
         setLoading(false);
       }, 1000);
-    }, []);
-  
-    setupIntersectionObserver('.hidden-class');
-    setupIntersectionObserverUP('.hidden-class-up');
-
+    }
+    }, [inViewport]);
   return (
     <>
         <div className="hidden-class">
@@ -29,14 +38,14 @@ const Banner = () => {
             </div>
             </div>
 
-        <div className='hidden-class-up'>
 
       <div className="container mx-auto">
+        <div className='hidden-class-up' ref={cardRef}>
         <div className="w-full">
           <div className="text-left px-6">
             <div className="bg-gray-100 px-8 py-8 w-full max-w-4xl rounded-lg shadow-xl mx-auto">
             {Loading ? (
-                        <SkeletonSocial />
+                        <SkeletonBanner />
                     ) : (
               <div>
                 <div className="mb-2 lg:-mb-8">

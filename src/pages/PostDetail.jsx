@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchBlogPosts } from "../services/services";
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import { extractImageAndDate } from '../utils/utils';
 import { Typography } from "@material-tailwind/react";
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import Spinner from '../components/Spinner'
 
 export default function PostDetail() {

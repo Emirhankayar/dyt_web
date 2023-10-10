@@ -1,5 +1,5 @@
 // utils.js
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import he from "he";
 
 const extractImageAndDate = (html) => {
@@ -55,55 +55,50 @@ function useToggleShowAll(initialValue = false) {
 
 }
 
-function setupIntersectionObserver(className) {
+function setupIntersectionObserver(className, toggleClass) {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('show');
+          entry.target.classList.add(toggleClass);
         } else {
-          entry.target.classList.remove('show');
+          entry.target.classList.remove(toggleClass);
         }
       });
     });
 
     const hiddenElements = document.querySelectorAll(className);
     hiddenElements.forEach((el) => observer.observe(el));
-  }, [className]);
+  }, [className, toggleClass]);
 }
 
-function setupIntersectionObserverUP(className) {
+
+
+
+function fetchIntersectionObserver(options) {
+  const [inViewport, setInViewport] = useState(false);
+  const cardRef = useRef(null);
+
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show-up');
-        } else {
-          entry.target.classList.remove('show-up');
-        }
-      });
-    });
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setInViewport(true);
+        observer.disconnect();
+      }
+    }, options);
 
-    const hiddenElements = document.querySelectorAll(className);
-    hiddenElements.forEach((el) => observer.observe(el));
-  }, [className]);
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [options]);
+
+  return { inViewport, cardRef };
 }
 
-function setupIntersectionObserverL(className) {
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show-l');
-        } else {
-          entry.target.classList.remove('show-l');
-        }
-      });
-    });
 
-    const hiddenElements = document.querySelectorAll(className);
-    hiddenElements.forEach((el) => observer.observe(el));
-  }, [className]);
-}
 
-export { extractImageAndDate, getNumCols, handleResize, useToggleShowAll, setupIntersectionObserver, setupIntersectionObserverUP, setupIntersectionObserverL };
+export { extractImageAndDate, getNumCols, handleResize, useToggleShowAll, setupIntersectionObserver, fetchIntersectionObserver };

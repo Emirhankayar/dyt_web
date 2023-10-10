@@ -99,6 +99,41 @@ export function SkeletonSocial() {
     </div>
   );
 }
+export function SkeletonBanner() {
+  return (
+    <div className="mb-2 lg:-mb-8 animate-pulse">
+      <div className='w-1/3 lg:w-1/6 bg-gray-400 h-4 rounded-full mb-6'></div>
+      
+      <div className='flex flex-col lg:flex-row items-center gap-6 lg:mb-10'>
+      <div className='w-full lg:w-1/2 space-y-4'>
+      <div className='w-full bg-gray-400 h-4 rounded-full'></div>
+      <div className='w-full bg-gray-400 h-4 rounded-full'></div>
+      <div className='w-full hidden lg:block bg-gray-400 h-4 rounded-full'></div>
+      <div className='w-full hidden lg:block bg-gray-400 h-4 rounded-full'></div>
+      <div className='w-full hidden lg:block bg-gray-400 h-4 rounded-full'></div>
+      <div className='w-4/5 bg-gray-400 h-4 rounded-full'></div>
+      <div className='w-1/2 bg-gray-400 h-4 rounded-full'></div>
+
+      </div>
+      <div className='bg-gray-300 lg:w-1/2 w-full h-80 rounded-lg'>
+        
+      </div>
+
+      </div>
+      <div className='w-full flex flex-col lg:flex-row justify-center lg:justify-end items-center mb-6 gap-10 mt-10 lg:mt-4 lg:gap-20'>
+      <div className='lg:w-1/3 flex flex-row space-x-10 justify-end items-center'>
+        <div className='bg-gray-300 h-10 w-10 rounded-full'></div>
+        <div className='bg-gray-300 h-10 w-10 rounded-full'></div>
+        <div className='bg-gray-300 h-10 w-10 rounded-full'></div>
+      </div>
+        <div className='bg-gray-300 h-10 lg:w-1/2 w-full rounded-full'></div>
+      </div>
+
+    </div>
+
+
+  );
+}
 
 export function SkeletonBlog() {
   return (
@@ -150,4 +185,4 @@ export function SkeletonRecipe() {
 }
 
 
-export default { SkeletonBook, SkeletonReach, SkeletonEmail, SkeletonSocial, SkeletonBlog, SkeletonRecipe, SkeletonBlogSub };
+export default { SkeletonBook, SkeletonReach, SkeletonEmail, SkeletonSocial, SkeletonBlog, SkeletonRecipe, SkeletonBlogSub, SkeletonBanner };

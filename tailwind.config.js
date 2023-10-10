@@ -13,6 +13,7 @@ module.exports = withMT({
       animation: {
         'slide-in-left': 'slideInLeft 1s both',
         'slide-in-right': 'slideInRight 1s both',
+        'slide-in-down': 'slideInDown 2s infinite', 
         'shimmer': 'shimmer 1s infinite',
       },
 
@@ -34,6 +35,16 @@ module.exports = withMT({
           },
           '100%': {
             transform: 'translateX(0)',
+            opacity: 1,
+          },
+        },
+        slideInDown: { 
+          '0%': {
+            transform: 'translateY(-100%)',
+            opacity: 0,
+          },
+          '100%': {
+            transform: 'translateY(0)',
             opacity: 1,
           },
         },
