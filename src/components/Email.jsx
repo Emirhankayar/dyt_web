@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import emailjs from 'emailjs-com';
 import { SkeletonEmail } from './Skeleton';
 import { Button, Typography } from "@material-tailwind/react";
@@ -22,7 +22,6 @@ const emailNewsForm = () => {
     const [formData, setFormData] = useState({
         emailNews: '',
     });
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -75,14 +74,14 @@ const emailNewsForm = () => {
 
 
                             <div className="mb-2 text-left">
-                                <Typography htmlFor="name" className="block text-lg font-bold ">
+                                <Typography variant='h5'>
                                     Email Bülteni
                                 </Typography>
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="emailNews" className="block text-sm font-medium text-justify">
+                                <Typography variant='paragraph' htmlFor="emailNews" className="text-justify">
                                 En yeni bilgilere ulaşmak için bültenimize kaydolarak, güncellemelerden haberdar olabilirsiniz.
-                                </label>
+                                </Typography>
                                 <div className='flex flex-row items-center justify-center mt-4'>
                                 <input
                                     type="emailNews"

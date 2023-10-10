@@ -1,5 +1,7 @@
 
 import React, { Suspense } from 'react';
+import { ThemeProvider } from '@material-tailwind/react';
+import customTheme from './themes/customTheme'
 const Navbar = React.lazy(() => import('./components/Navbar'));
 const MainPage = React.lazy(() => import('./pages/MainPage'));
 const ContactPage = React.lazy(() => import('./pages/ContactPage'));
@@ -9,7 +11,6 @@ const PostDetail = React.lazy(() => import('./pages/PostDetail'));
 const RecipeDetail = React.lazy(() => import('./pages/RecipeDetail'));
 const PageNotFound = React.lazy(() => import('./pages/PageNotFound'));
 const Footer = React.lazy(() => import('./components/Footer'));
-const ErrorBoundary = React.lazy(() => import('./utils/ErrorBoundary'))
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -18,11 +19,12 @@ import Spinner from './components/Spinner';
 export default function App() {
   return (
     <>
+    <ThemeProvider value={customTheme}>
     <Router>
       <Suspense fallback={<Spinner />}>
         <Navbar />
 
-        <ErrorBoundary>
+
         <Routes>
 
           <Route path="/" element={<MainPage />} /> 
@@ -38,11 +40,12 @@ export default function App() {
           <Route path='/*' element={<PageNotFound />} />
 
         </Routes>
-        </ErrorBoundary>
+
         <Footer />
       </Suspense>
 
     </Router>
+    </ThemeProvider>
     </>
   );
 }

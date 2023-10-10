@@ -89,7 +89,7 @@ export default function CardDefault() {
     <div className="hidden-class">
 
       <div className="container flex flex-wrap justify-between w-5/6 items-center mb-10 mx-auto">
-        <Typography className="text-2xl font-bold">Tavsiyeler</Typography>
+        <Typography variant="h4" >Tavsiyeler</Typography>
 
           <a href="/tavsiyeler">
             <Button className="h-10 shadow-xl capitalize">Tüm Tavsiyeler</Button>
@@ -127,15 +127,15 @@ export default function CardDefault() {
                         </Link>
 
                       <CardHeader className="bg-transparent h-9 mt-4 shadow-none">
-                        <div className="text-xl text-gray-500 font-bold text-center">{post.title}</div>
+                        <Typography variant='h5' className=" text-center">{post.title}</Typography>
                       </CardHeader>
                       <CardBody>
-                        <Typography className="text-justify leading-normal -mt-6">{text.substring(0, 100)}...</Typography>
-                        <div className="font-regular text-center text-l">{post.formattedDate}</div>
+                        <Typography variant='paragraph' className="text-justify -mt-6">{text.substring(0, 100)}...</Typography>
+                        <Typography variant='small' className="text-center mt-2">{post.formattedDate}</Typography>
                       </CardBody>
                       <CardFooter className="text-center -mt-8">
                       <Link to={`/tavsiyeler/${encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-'))}`}>
-                          <Button className="bg-gray-500 shadow-xl capitalize">Devamını Oku</Button>
+                          <Button className="capitalize shadow-xl">Devamını Oku</Button>
                         </Link>
                       </CardFooter>
                     </div>

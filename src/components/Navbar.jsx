@@ -5,27 +5,9 @@ import {
   IconButton,
   Drawer,
 } from "@material-tailwind/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTwitter,
-  faFacebook,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
+const SocLinks = React.lazy(() => import('./SocLinks'));
 
-const socialMediaIcons = {
-  facebook: {
-    icon: faFacebook,
-    url: 'https://www.facebook.com/your-facebook-page',
-  },
-  twitter: {
-    icon: faTwitter,
-    url: 'https://twitter.com/your-twitter-account',
-  },
-  instagram: {
-    icon: faInstagram,
-    url: 'https://www.instagram.com/your-instagram-account',
-  },
-};
+
 
 export default function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -57,21 +39,7 @@ export default function StickyNavbar() {
   const socialMediaLinks = (
     <div className="flex gap-2">
 
-                    {Object.keys(socialMediaIcons).map((socialMedia) => (
-                      <a
-                        key={socialMedia}
-                        href={socialMediaIcons[socialMedia].url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className='py-2 px-2'
-                        aria-label={socialMedia}
-                      >
-                        <FontAwesomeIcon
-                          icon={socialMediaIcons[socialMedia].icon}
-                          className="text-black text-2xl mx-4 -mb-2"
-                        />
-                      </a>
-                    ))}
+          <SocLinks/>
 
     </div>
   );
@@ -82,7 +50,7 @@ export default function StickyNavbar() {
         as="li"
         variant='h6'
         color="blue-gray"
-        className="p-2 font-normal"
+        className="p-2 "
       >
         <a href="/" className="flex items-center">
           Anasayfa
@@ -92,7 +60,7 @@ export default function StickyNavbar() {
         as="li"
         variant='h6'
         color="blue-gray"
-        className="p-2 font-normal"
+        className="p-2 "
       >
         <a href="/tavsiyeler" className="flex items-center">
           Tavsiyeler
@@ -102,7 +70,7 @@ export default function StickyNavbar() {
         as="li"
         variant='h6'
         color="blue-gray"
-        className="p-2 font-normal"
+        className="p-2 "
       >
         <a href="/tarifler" className="flex items-center">
           Tarifler
@@ -112,7 +80,7 @@ export default function StickyNavbar() {
         as="li"
         variant='h6'
         color="blue-gray"
-        className="p-2 font-normal"
+        className="p-2 "
       >
         <a href="/iletisim" className="flex items-center">
           İletişim
@@ -122,7 +90,7 @@ export default function StickyNavbar() {
         as="li"
         variant='h6'
         color="gray"
-        className="p-2 font-normal block lg:hidden "
+        className="p-2  lg:hidden "
       >
         <div className="">
           {socialMediaLinks}
@@ -140,6 +108,7 @@ export default function StickyNavbar() {
           <Typography
             as="a"
             href="/"
+            variant="h3"
             className="mr-4 cursor-pointer py-1.5 font-bold"
           >
             Dyt. Zeynep
@@ -202,7 +171,7 @@ export default function StickyNavbar() {
         <div className="mb-6 flex flex-row items-center justify-between">
           <a href="/">
 
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h3" color="blue-gray">
             Dyt. Zeynep
           </Typography>
           </a>

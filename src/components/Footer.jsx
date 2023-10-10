@@ -43,7 +43,7 @@ export default function FooterWithSocialLinks() {
       <div className="mx-auto w-full max-w-7xl px-8">
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
           <a href="/">
-          <Typography variant="h5" className="mb-6">
+          <Typography variant="h3" className="mb-6">
             Dyt. Zeynep
           </Typography>
 
@@ -65,6 +65,7 @@ export default function FooterWithSocialLinks() {
       as="a"
       href={link} // Use the link from the object
       color="gray"
+      variant="small"
       className="py-1.5 font-normal transition-colors hover:text-blue-gray-900"
     >
       {/* Render the icon based on the social media name */}
@@ -92,7 +93,7 @@ export default function FooterWithSocialLinks() {
             variant="small"
             className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
           >
-            &copy; {currentYear} <a href="#">Dyt. Zeynep</a>, Tüm Hakları Saklıdır.
+            &copy; {currentYear} <a href="/">Dyt. Zeynep</a>, Tüm Hakları Saklıdır.
           </Typography>
         </div>
       </div>

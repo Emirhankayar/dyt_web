@@ -93,14 +93,14 @@ const ContactForm = () => {
                     ) : (
                         <form onSubmit={handleSubmit}>
                             <div className="mb-6 text-left">
-                                <Typography htmlFor="name" className="block text-lg font-bold ">
+                                <Typography variant='h5'>
                                     Soru Sor
                                 </Typography>
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="name" className="block text-sm font-medium ">
+                                <Typography variant='small' htmlFor="name" >
                                     İsim Soyisim:
-                                </label>
+                                </Typography>
                                 <input
                                     type="text"
                                     id="name"
@@ -116,9 +116,9 @@ const ContactForm = () => {
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="subject" className="block text-sm font-medium ">
+                                <Typography variant='small' htmlFor="subject" >
                                     Konu:
-                                </label>
+                                </Typography>
                                 <input
                                     type="text"
                                     id="subject"
@@ -133,9 +133,9 @@ const ContactForm = () => {
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="email" className="block text-sm font-medium ">
+                                <Typography variant='small' htmlFor="email" >
                                     Email:
-                                </label>
+                                </Typography>
                                 <input
                                     type="email"
                                     id="email"
@@ -150,9 +150,9 @@ const ContactForm = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="description" className="block text-sm font-medium ">
+                                <Typography variant='small' htmlFor="description" >
                                     Açıklama:
-                                </label>
+                                </Typography>
                                 <textarea
                                     id="description"
                                     name="description"

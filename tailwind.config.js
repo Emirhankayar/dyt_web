@@ -8,14 +8,14 @@ module.exports = withMT({
   theme: {
     extend: {
       fontFamily: {
-        // 'jet': ['"JetBrains Mono"'],
-        // 'orbitron': ["Orbitron"],
+        inter: ['Inter', 'sans'],
       },
       animation: {
         'slide-in-left': 'slideInLeft 1s both',
         'slide-in-right': 'slideInRight 1s both',
         'shimmer': 'shimmer 1s infinite',
       },
+
       keyframes: {
         slideInLeft: {
           '0%': {
@@ -46,9 +46,7 @@ module.exports = withMT({
           },
         },
       },
-      colors: {
-        // Define your custom colors here if needed.
-      },
+        
     },
   },
   plugins: [],

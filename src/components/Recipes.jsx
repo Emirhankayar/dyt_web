@@ -81,7 +81,7 @@ export default function RecipeCard() {
     <div className="hidden-class">
 
       <div className="container flex flex-wrap justify-between w-5/6 items-center mt-40 mb-10 mx-auto">
-        <Typography className="text-2xl font-bold">Fit Tarifler</Typography>
+        <Typography variant="h4" >Fit Tarifler</Typography>
         <a href="/tarifler">
           <Button className="h-10 shadow-xl capitalize">Tüm Tarifler</Button>
         </a>
@@ -98,7 +98,7 @@ export default function RecipeCard() {
             ))
           ) : (
             displayedPosts.map((post, index) => {
-              const { image, text } = extractImageAndDate(post.content);
+              const { image } = extractImageAndDate(post.content);
             return (
               <Card
                 key={index}
@@ -117,7 +117,7 @@ export default function RecipeCard() {
                         alt="card-image"
                         src={image}
                         effect="blur"
-                        className="w-screen h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500"
+                        className="w-screen h-[30vh] object-cover rounded-lg select-none hover:brightness-110 transition-all duration-500 shadow-xl"
                       />
 
                       
@@ -125,12 +125,12 @@ export default function RecipeCard() {
 
                     </Link>
                     <CardFooter className="w-full flex flex-row mt-1 p-1 justify-start text-sm">
-                      <div className="w-3/5 text-left font-bold">
+                      <Typography variant="small" className="w-3/5 text-left font-semibold">
                         {post.title.substring(0, 20)}
-                      </div>
-                      <div className="w-2/5 text-right">
+                      </Typography>
+                      <Typography variant='small' className="w-2/5 text-right">
                         {post.formattedDate}
-                      </div>
+                      </Typography>
                     </CardFooter>
                   </div>
                 </div>

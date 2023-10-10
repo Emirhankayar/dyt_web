@@ -6,6 +6,7 @@ import { extractImageAndDate } from '../utils/utils';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import Spinner from '../components/Spinner'
+import { Typography } from "@material-tailwind/react";
 
 
 
@@ -64,8 +65,9 @@ export default function PostDetail() {
                 <div className="w-4/5 max-w-4xl flex flex-col items-center justify-center text-justify text-center">
                     <div className="w-full">
                         <div className="flex flex-row justify-center items-center">
-                            <div className="p-4 w-full flex flex-col items-start text-xl font-bold">{post.title}</div>
-                            <div className="p-4 w-full flex flex-col items-end">{post.formattedDate}</div>
+                            <Typography variant='h4' className="p-4 w-full flex flex-col items-start">{post.title}</Typography>
+                            <Typography
+                                variant="h6" className="p-4 w-full flex flex-col items-end">{post.formattedDate}</Typography>
                         </div>
     
                         <div className="image-container rounded-lg shadow-xl my-10">
@@ -74,14 +76,14 @@ export default function PostDetail() {
     
                         <div className="columns flex flex-col md:flex-row justify-between gap-10">
                             <div className="column md:w-1/2">
-                                <p className="text-justify leading-loose hidden sm:hidden md:hidden lg:block">{column1Text}</p>
+                                <Typography variant='paragraph' className="hidden sm:hidden md:hidden lg:block">{column1Text}</Typography>
                             </div>
                             <div className="column md:w-1/2">
-                                <p className="text-justify leading-loose hidden sm:hidden md:hidden lg:block">{column2Text}</p>
+                                <Typography variant="paragraph" className="hidden sm:hidden md:hidden lg:block">{column2Text}</Typography>
                             </div>
                         </div>
                         
-                        <div className="text-justify leading-loose block sm:block md:block lg:hidden">{text}</div>
+                        <Typography variant="paragraph" className="block sm:block md:block lg:hidden">{text}</Typography>
 
                     </div>
                 </div>

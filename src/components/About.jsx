@@ -12,7 +12,7 @@ export default function HorizontalCard() {
     <>
     <div className="hidden-class">
       <div className="container flex flex-wrap justify-between w-5/6 items-center mt-32 mb-10 mx-auto">
-        <Typography className="text-2xl font-bold">Hakkımda</Typography>
+        <Typography variant="h4" >Hakkımda</Typography>
       </div>
     </div>
 
@@ -21,21 +21,21 @@ export default function HorizontalCard() {
           <div className="w-full flex flex-col">
             <div className="flex flex-col items-center">
 
-              <div className="grid grid-cols-1 gap-10 md:grid-cols-1 lg:grid-cols-2 leading-loose">
+               <div className="grid grid-cols-1 gap-10 md:grid-cols-1 lg:grid-cols-2 text-justify">
                 <div className="hidden-class">
-                <div className="col-span-2 sm:col-span-1 text-justify">
+                <Typography variant='paragraph' className="col-span-2 sm:col-span-1">
                   {/* First column content */}
                   Öğrenim hayatımın ilk dönemini Bursa'da tamamladıktan sonra, üniversite eğitimine başlamak amacıyla İzmir'e taşındım. İzmir'deki üniversite deneyimimde, Beslenme ve Diyetetik alanında dört yıl süren yoğun bir akademik formasyon aldım. Aynı dönemde Sağlık Kurumları İşletmeciliği alanında da başarıyla açıköğretim programını tamamladım.
 
                   Üniversite yıllarımda, ilgili bölümle ilişkilendirilen topluluk etkinliklerine katılarak ve eğitim çalışmalarına destek sağlayarak kendimi akademik anlamda geliştirmeye özen gösterdim. Son sınıfta, mesleki yetkinliklerimi artırmak ve farklı uzmanlık alanlarında deneyim kazanmak amacıyla çeşitli stajlar gerçekleştirdim.
-                </div>
+                </Typography>
                 </div>
                 <div className="hidden-class-l">
 
-                <div className="col-span-2 sm:col-span-1 text-justify">
+                <Typography variant='paragraph' className="col-span-2 sm:col-span-1">
                   {/* Second column content */}
                   Mezuniyetimin ardından diyetisyenlik kariyerime başladım ve şu an itibariyle Bariyatrik Cerrahi, Hastalıklarda Beslenme, Anne-Çocuk Beslenmesi, Sağlıklı Kilo Kaybı ve Sağlıklı Ağırlık Yönetimi konularında danışmanlık hizmetleri sunmaktayım. Bu sağlık alanındaki uzmanlık alanlarına yönelik, bireylerin sağlıklı yaşam biçimlerini ve beslenme gereksinimlerini profesyonel bir şekilde rehberlik etmek, benim için büyük bir tutku ve sorumluluk taşımaktadır. Her gün daha fazla insanın sağlığını desteklemek için çalışmak, büyük bir memnuniyet kaynağıdır.
-                </div>
+                </Typography>
                 </div>
               </div>
               </div>
