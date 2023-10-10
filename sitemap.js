@@ -1,16 +1,12 @@
-const sitemap = require("sitemap"); // Use CommonJS require
+import SitemapGenerator from 'sitemap-generator';
+import fs from 'fs';
 
-const sitemapInstance = sitemap.createSitemap({
-  hostname: "https://www.example.com", // Replace with your website's URL
-  urls: [
-    { url: "/", changefreq: "daily", priority: 1.0 },
-    { url: "/tavsiyeler", changefreq: "weekly", priority: 0.7 },
-    { url: "/tarifler", changefreq: "weekly", priority: 0.7 },
-    { url: "/iletisim", changefreq: "weekly", priority: 0.7 },
-    // Add more URLs here
-  ],
+const generator = SitemapGenerator('https://dytzeynep.netlify.app', {
+  stripQuerystring: false, // Adjust options as needed
 });
 
-const xml = sitemapInstance.toString();
+generator.on('done', (sitemap) => {
+  fs.writeFileSync('public/sitemap.xml', sitemap.toString());
+});
 
-fs.writeFileSync("public/sitemap.xml", xml); // Output the sitemap to the "public" directory
+generator.start();

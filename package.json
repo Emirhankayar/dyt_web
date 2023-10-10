@@ -29,7 +29,7 @@
     "react-lazy-load-image-component": "^1.6.0",
     "react-phone-number-input": "^3.3.6",
     "react-router-dom": "^6.16.0",
-    "sitemap": "^7.1.1"
+    "sitemap-generator": "^8.5.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
