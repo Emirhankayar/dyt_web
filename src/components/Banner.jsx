@@ -78,7 +78,7 @@ const Banner = () => {
                     >
                         <FontAwesomeIcon
                           icon={socialMediaIcons[socialMedia].icon}
-                          className="text-black text-2xl mx-8"
+                          className="text-black text-2xl mx-1 sm:mx-6 md:mx-8 lg:mx-10"
                           />
                       </a>
                     ))}

@@ -9,15 +9,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTwitter,
   faFacebook,
-  faYoutube,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 
 const socialMediaIcons = {
-  Twitter: faTwitter,
-  Facebook: faFacebook,
-  Youtube: faYoutube,
-  Instagram: faInstagram,
+  facebook: {
+    icon: faFacebook,
+    url: 'https://www.facebook.com/your-facebook-page',
+  },
+  twitter: {
+    icon: faTwitter,
+    url: 'https://twitter.com/your-twitter-account',
+  },
+  instagram: {
+    icon: faInstagram,
+    url: 'https://www.instagram.com/your-instagram-account',
+  },
 };
 
 export default function StickyNavbar() {
@@ -49,17 +56,23 @@ export default function StickyNavbar() {
 
   const socialMediaLinks = (
     <div className="flex gap-2">
-      {Object.keys(socialMediaIcons).map((socialMedia) => (
-        <IconButton
-          key={socialMedia}
-          variant="filled"
-          color="blue-gray"
-          ripple={false}
-          onClick={() => window.open(socialMediaLinks[socialMedia], "_blank")}
-        >
-          <FontAwesomeIcon icon={socialMediaIcons[socialMedia]} />
-        </IconButton>
-      ))}
+
+                    {Object.keys(socialMediaIcons).map((socialMedia) => (
+                      <a
+                        key={socialMedia}
+                        href={socialMediaIcons[socialMedia].url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className='py-2 px-2'
+                        aria-label={socialMedia}
+                      >
+                        <FontAwesomeIcon
+                          icon={socialMediaIcons[socialMedia].icon}
+                          className="text-black text-2xl mx-4 -mb-2"
+                        />
+                      </a>
+                    ))}
+
     </div>
   );
 
@@ -108,13 +121,10 @@ export default function StickyNavbar() {
       <Typography
         as="li"
         variant='h6'
-        color="blue-gray"
+        color="gray"
         className="p-2 font-normal block lg:hidden "
       >
-        <div className="flex-col">
-          <div className="flex items-center mb-8">
-            Sosyal Medya
-          </div>
+        <div className="">
           {socialMediaLinks}
         </div>
       </Typography>
@@ -141,6 +151,7 @@ export default function StickyNavbar() {
               color="gray"
               className="ml-auto h-6 w-6 text-inherit lg:hidden"
               ripple={false}
+              aria-label="navigasyon butonu aç ve kapat"
               onClick={openDrawerRight}
             >
               {openNav ? (

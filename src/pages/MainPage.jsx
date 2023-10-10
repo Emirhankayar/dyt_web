@@ -6,7 +6,7 @@ const About = React.lazy(() => import('../sections/AboutSec'));
 const BlogSec = React.lazy(() => import('../sections/BlogSec'));
 const RecipeSec = React.lazy(() => import('../sections/RecipeSec'));
 const BannerSec = React.lazy(() => import('../sections/BannerSec'));
-const AlertComp = React.lazy(() => import('../components/Alert'));
+//const AlertComp = React.lazy(() => import('../components/Alert'));
 
 export default function MainPage() {
 
@@ -22,7 +22,6 @@ export default function MainPage() {
           <RecipeSec />
           <BannerSec />
         
-          <AlertComp/>
       </div>
     </ThemeProvider>
     </>
