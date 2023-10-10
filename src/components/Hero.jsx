@@ -9,7 +9,7 @@ const DUMMY_IMAGE_URL = images
 
 export default function Hero() {
   return (
-    <div className="relative w-full h-[90vh] bg-black pointer-events-none border-b border-gray-50 shadow-xl">
+    <div className="relative w-full h-[90vh] pointer-events-none border-b border-gray-50 shadow-xl">
             <Helmet>
         <link rel="preload" as="image" href={DUMMY_IMAGE_URL} />
       </Helmet>
