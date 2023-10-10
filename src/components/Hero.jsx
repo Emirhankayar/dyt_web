@@ -53,7 +53,7 @@ export default function Hero() {
             </div>
           </div>
           <div className="absolute top-80 left-0 w-full h-full flex items-center justify-center">
-            <div className={`text-3xl font-bold text-center text-white-100 animated-text ${stopAnimation ? "" : "animate-slide-in-down"}`}>
+            <div className={`text-3xl font-bold text-center text-gray-100 animated-text ${stopAnimation ? "" : "animate-slide-in-down"}`}>
               <FontAwesomeIcon icon={faCaretDown} />
             </div>
           </div>
