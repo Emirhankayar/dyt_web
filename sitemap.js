@@ -1,7 +1,6 @@
-import { createSitemap } from "sitemap";
-import fs from "fs";
+const sitemap = require("sitemap"); // Use CommonJS require
 
-const sitemap = createSitemap({
+const sitemapInstance = sitemap.createSitemap({
   hostname: "https://www.example.com", // Replace with your website's URL
   urls: [
     { url: "/", changefreq: "daily", priority: 1.0 },
@@ -12,6 +11,6 @@ const sitemap = createSitemap({
   ],
 });
 
-const xml = sitemap.toString();
+const xml = sitemapInstance.toString();
 
 fs.writeFileSync("public/sitemap.xml", xml); // Output the sitemap to the "public" directory
