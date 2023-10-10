@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Helmet } from 'react-helmet';
-import images from '../images/hero.jpeg'
+import images from '../images/hero.webp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'; // Import the specific icon you need
 
@@ -39,7 +39,9 @@ export default function Hero() {
         src={DUMMY_IMAGE_URL}
         alt="title image"
         className="object-cover overflow-hidden w-full h-full brightness-50"
+        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
       />
+
       <div>
         <div className="flex flex-col items-center justify-center">
           <div className="absolute -top-10 left-0 w-full h-full flex items-center justify-center">
