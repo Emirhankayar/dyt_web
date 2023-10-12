@@ -4,7 +4,8 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Helmet } from 'react-helmet';
 import images from '../images/hero.webp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'; // Import the specific icon you need
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'; 
+import { Typography } from "@material-tailwind/react";
 
 const DUMMY_IMAGE_URL = images
 
@@ -13,7 +14,6 @@ export default function Hero() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Define a scroll threshold (e.g., 300 pixels) where you want to stop the animation
       const scrollThreshold = 300;
 
       if (window.scrollY >= scrollThreshold) {
@@ -38,24 +38,27 @@ export default function Hero() {
       <LazyLoadImage
         src={DUMMY_IMAGE_URL}
         alt="title image"
-        className="object-cover overflow-hidden w-full h-full brightness-50"
+        className="object-cover overflow-hidden object-center w-full h-full brightness-50"
         sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
       />
 
       <div>
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center mx-auto">
+          <div className="space-y-20 sm:space-y-0 md:space-y-0 lg:space-y-0">
+
           <div className="absolute -top-10 left-0 w-full h-full flex items-center justify-center">
-            <div className="text-5xl font-bold text-center text-gray-100 animated-text animate-slide-in-left">
+            <Typography variant='h1' color="white" className=" font-bold text-center max-w-md mx-auto animated-text animate-slide-in-left">
               Sağlıklı Yaşam İçin
-            </div>
+            </Typography>
           </div>
           <div className="absolute top-10 left-0 w-full h-full flex items-center justify-center">
-            <div className="text-3xl font-bold text-center text-gray-100 animated-text animate-slide-in-right">
+            <Typography variant='h2' color="white" className="font-bold text-center max-w-md mx-auto animated-text animate-slide-in-right">
               Doğru Yolu Keşfedin
-            </div>
+            </Typography>
+          </div>
           </div>
           <div className="absolute top-80 left-0 w-full h-full flex items-center justify-center">
-            <div className={`text-3xl font-bold text-center text-gray-100 animated-text ${stopAnimation ? "" : "animate-slide-in-down"}`}>
+            <div className={`!text-3xl font-bold text-center !text-gray-100 !animated-text ${stopAnimation ? "" : "animate-slide-in-down"}`}>
               <FontAwesomeIcon icon={faCaretDown} />
             </div>
           </div>

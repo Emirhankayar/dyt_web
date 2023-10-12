@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import emailjs from 'emailjs-com';
 import { SkeletonEmail } from './Skeleton';
-import { Button, Typography } from "@material-tailwind/react";
+import { Button, Spinner, Typography } from "@material-tailwind/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,6 +11,8 @@ const userID = import.meta.env.VITE_USER;
 
 const emailNewsForm = () => {
     const [Loading, setLoading] = useState(true); // State to track loading status
+    const [isSubmitting, setIsSubmitting] = useState(false); // State to track submit button disabled state
+
 
     useEffect(() => {
         // Simulate loading delay
@@ -32,23 +34,24 @@ const emailNewsForm = () => {
         e.preventDefault();
 
         try {
+            setIsSubmitting(true)
 
             const emailParams = {
-                emailNews: formData.emailNews,
+                email: formData.emailNews,
+                message: `Bir yeni email bülteni abonesi : ${formData.emailNews}`,
+                message_user: 'Email Bültenimize Kayıt Olduğunuz için Teşekkür Ederiz. İptal etmek için bize ulaşabilirsiniz.',
             };
 
             emailParams.emailNews = formData.emailNews;
 
-            if (formData.subject) {
-                emailParams.subject = formData.subject;
-            }
-
             await emailjs.send(serviceID, templateID, emailParams, userID);
 
             setFormData({
-                emailNews: '',
+                email: '',
             });
-
+            
+            setIsSubmitting(false)
+            
             alert('emailNews başarıyla gönderildi!');
         } catch (error) {
             console.error('Error sending emailNews:', error);
@@ -87,7 +90,7 @@ const emailNewsForm = () => {
                                     type="emailNews"
                                     id="emailNews"
                                     name="emailNews"
-                                    placeholder='emailNews@ornek.com'
+                                    placeholder='email@ornek.com'
                                     value={formData.emailNews}
                                     onChange={handleChange}
                                     required
@@ -97,14 +100,21 @@ const emailNewsForm = () => {
                                 />
 
                                 <Button
-                                disabled
                                     type="submit"
-                                    aria-label='email bültenine üye ol'
-                                    className="w-1/4 ml-2 rounded-md focus:outline-1 shadow-md"
-                                >
-                                    <FontAwesomeIcon icon={faEnvelope}/>
-                                    
-                                </Button>
+                                    variant="gradient"
+                                    color="light-blue"
+                                    aria-label="email bültenine üye ol"
+                                    required
+                                    className="w-1/4 ml-2 rounded-md focus:outline-1 shadow-md transition-all duration-300 flex items-center justify-center"
+                                    disabled={isSubmitting}
+                                    onClick={handleSubmit}
+                                    >
+                                    {isSubmitting ? (
+                                        <Spinner color='white' className='h-4 w-full m-0 p-0'></Spinner>
+                                    ) : (
+                                        <FontAwesomeIcon icon={faEnvelope} />
+                                    )}
+                                    </Button>
                             </div>
                             </div>
 

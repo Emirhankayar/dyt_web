@@ -32,13 +32,19 @@ export default function ContactPage() {
                 <Reach/>
             </div>
             <div className='hidden-class-l'>
+              <div className='z-10000'>
+
                 <Book/>
+              </div>
             </div>
             <div className='hidden-class'>
                 <Email/>
             </div>
             <div className='hidden-class-l'>
+              <div className='z-0'>
               <Social/>
+
+              </div>
             </div>
         </div>
         </div>

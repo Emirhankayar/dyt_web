@@ -11,7 +11,7 @@ export default function MainPage() {
 
   return (
     <>
-    <ThemeProvider>
+
 
       <div className='bg-gray-200 pb-20'>
 
@@ -22,7 +22,7 @@ export default function MainPage() {
           <BannerSec />
         
       </div>
-    </ThemeProvider>
+
     </>
   )
 }

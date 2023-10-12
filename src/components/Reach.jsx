@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import emailjs from 'emailjs-com';
 import ReCAPTCHA from 'react-google-recaptcha'
 import { SkeletonReach } from './Skeleton';
-import { Button, Typography } from "@material-tailwind/react";
+import { Button, Typography, Spinner } from "@material-tailwind/react";
 
 const serviceID = import.meta.env.VITE_SERVICE;
 const templateID = import.meta.env.VITE_TEMPLATEE;
@@ -13,6 +13,8 @@ const siteKey = import.meta.env.VITE_APP_SITE;
 
 const ContactForm = () => {
     const [Loading, setLoading] = useState(true); // State to track loading status
+    const [isSubmitting, setIsSubmitting] = useState(false); // State to track submit button disabled state
+
 
     useEffect(() => {
         // Simulate loading delay
@@ -40,6 +42,7 @@ const ContactForm = () => {
         e.preventDefault();
 
         try {
+            setIsSubmitting(true)
             // Execute the reCAPTCHA challenge and get the response value
             const recaptchaValue = await recaptchaRef.current.executeAsync();
             
@@ -54,6 +57,7 @@ const ContactForm = () => {
                 subject: formData.subject,
                 email: formData.email,
                 message: formData.description,
+                message_user : `Sayın danışanımız ${formData.name}, mesajınızı aldık. En kısa zamanda size geri dönüş yapacağız.`
             };
 
             emailParams.email = formData.email;
@@ -71,6 +75,8 @@ const ContactForm = () => {
                 description: '',
                 recaptchaValue: null,
             });
+
+            setIsSubmitting(false)
 
             alert('Email başarıyla gönderildi!');
         } catch (error) {
@@ -173,13 +179,19 @@ const ContactForm = () => {
                                     sitekey={siteKey}
                                     size="invisible"
                                 />
-                                <Button
-                                    type="submit"
-                                    className="px-4 py-2 h-12 w-full rounded-md focus:outline-1 shadow-md capitalize"
-                                    aria-label="Gönder"
-                                >
-                                    Gönder
-                                </Button>
+                            <Button
+                                        type="submit"
+                                        variant="gradient" color="light-blue"
+                                        className="w-full rounded-lg shadow-md capitalize font-light transition-all duration-300"
+                                        aria-label="Gönder"
+                                        disabled={isSubmitting} // Disable the button when isSubmitting is true
+                                    >
+                                                                           {isSubmitting ? (
+                                        <Spinner color='white' className='h-4 w-full m-0 p-0'></Spinner>
+                                    ) : (
+                                       <span>Gönder</span>  
+                                    )}
+                                    </Button>
                             </div>
                         </form>
                     )}

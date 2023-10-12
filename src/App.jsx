@@ -1,7 +1,5 @@
 
 import React, { Suspense } from 'react';
-import { ThemeProvider } from '@material-tailwind/react';
-import customTheme from './themes/customTheme'
 const Navbar = React.lazy(() => import('./components/Navbar'));
 const MainPage = React.lazy(() => import('./pages/MainPage'));
 const ContactPage = React.lazy(() => import('./pages/ContactPage'));
@@ -19,7 +17,6 @@ import Spinner from './components/Spinner';
 export default function App() {
   return (
     <>
-    <ThemeProvider value={customTheme}>
     <Router>
       <Suspense fallback={<Spinner />}>
         <Navbar />
@@ -44,7 +41,6 @@ export default function App() {
       </Suspense>
 
     </Router>
-    </ThemeProvider>
     </>
   );
 }

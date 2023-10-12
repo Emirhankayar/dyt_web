@@ -93,9 +93,10 @@ export default function PostCard() {
 
                         <Link to={`/tavsiyeler/${encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-'))}`}>
                           <Button
-                            variant="text"
+                            variant="text" color="light-blue"
                             aria-label="gözat"
-                            className="capitalize text-sm text-gray-100 flex flex-row items-center justify-center gap-2"
+                            
+                            className="capitalize font-light flex flex-row items-center justify-center gap-1 transition-all duration-300"
                           >
                             Gözat{" "}
                             <svg
@@ -104,7 +105,7 @@ export default function PostCard() {
                               viewBox="0 0 24 24"
                               strokeWidth={2}
                               stroke="currentColor"
-                              className="h-5 w-5"
+                              className="h-4 w-5"
                             >
                               <path
                                 strokeLinecap="round"

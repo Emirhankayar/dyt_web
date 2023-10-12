@@ -42,8 +42,10 @@ export default function RecipeCard() {
       setLoading(true);
       const fetchPosts = async () => {
         try {
-          const recipePostsData = await fetchBlogPosts("Recipe");
-          setRecipePosts(recipePostsData);
+          const advisePostsData = await fetchBlogPosts("Recipe");
+  
+          const maxPosts = 6;
+          setRecipePosts(advisePostsData.slice(0, maxPosts));
         } finally {
           setLoading(false);
         }
@@ -63,7 +65,7 @@ export default function RecipeCard() {
       <div className="container flex flex-wrap justify-between w-5/6 items-center mt-40 mb-10 mx-auto">
         <Typography variant="h4" >Fit Tarifler</Typography>
         <a href="/tarifler">
-          <Button className="h-10 shadow-xl capitalize">Tüm Tarifler</Button>
+          <Button variant="gradient" color="light-blue" className="h-10 shadow-xl capitalize font-light transition-all duration-300">Tüm Tarifler</Button>
         </a>
       </div>
     </div>

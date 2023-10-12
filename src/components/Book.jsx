@@ -7,11 +7,11 @@ import emailjs from 'emailjs-com';
 import 'react-phone-number-input/style.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import { registerLocale, setDefaultLocale } from 'react-datepicker';
-import { Button, Typography } from "@material-tailwind/react";
+import { Button, Typography, Spinner } from "@material-tailwind/react";
 import ReCAPTCHA from 'react-google-recaptcha';
 import { SkeletonBook } from './Skeleton';
 import { format, addDays } from 'date-fns';
-import { supabaseClient as supabase, useFetchAppointments } from '../utils/bookUtils';
+import { supabaseClient as supabase, useFetchAppointments, getPdfUrlFromSupabase } from '../utils/bookUtils';
 
 // TODO IMPLEMENT PDF SENDING LOGIC TO EMAIL
 
@@ -40,6 +40,7 @@ export default function Booking() {
   const [allAppointments, setAllAppointments] = useState([]);
   const [selectedDate, setSelectedDate] = useState(addDays(new Date(), 1));
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); // State to track submit button disabled state
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -59,6 +60,8 @@ export default function Booking() {
     e.preventDefault();
 
     try {
+      setIsSubmitting(true)
+
       // Execute the reCAPTCHA challenge and get the response value
       const recaptchaValue = await recaptchaRef.current.executeAsync();
 
@@ -89,31 +92,38 @@ export default function Booking() {
 
       const formattedDate = format(selectedDate, 'dd/MM/yyyy HH:mm');
 
-      const emailParamsOwner = {
-        user_name: formData.name,
-        user_email: formData.email,
-        user_phone: phoneNumber,
-        appointment_date: selectedDate,
-        message: `Bir yeni rezervasyonunuz var.\n\nDetaylar:\n\nİsim: ${formData.name}\n\nEmail: ${formData.email}\n\nTel No:${phoneNumber}\n\nRandevu Tarihi: ${formattedDate}\n\n`,
-        message_user: `Saygıdeğer Danışanımız ${formData.name},\n\nRandevunuz, "${formattedDate}" tarihi için başarıyla oluşturuldu!\n\n\nUYARI: FORMU ÖNCEDEN DOLDURMANIZI TAVSİYE EDERİZ...`,
-      };
+      const pdfUrl = await getPdfUrlFromSupabase(pdfFileName);
 
-      await emailjs.send(serviceID, templateID, emailParamsOwner, userID);
+      if (pdfUrl) {
+        const emailParamsOwner = {
+          user_name: formData.name,
+          user_email: formData.email,
+          user_phone: phoneNumber,
+          appointment_date: selectedDate,
+          message: `Bir yeni rezervasyonunuz var.\n\nDetaylar:\n\nİsim: ${formData.name}\n\nEmail: ${formData.email}\n\nTel No:${phoneNumber}\n\nRandevu Tarihi: ${formattedDate}\n\nPDF Link: ${pdfUrl}`, // Include the PDF link here
+          message_user: `Saygıdeğer Danışanımız ${formData.name},\n\nRandevunuz, "${formattedDate}" tarihi için başarıyla oluşturuldu!\n\nPDF Link: ${pdfUrl}\n\n UYARI: FORMU ÖNCEDEN DOLDURMANIZI TAVSİYE EDERİZ...`, // Include the PDF link here
+        };
+  
 
-      setFormData({
-        name: '',
-        email: '',
-        phoneNumber: '',
-        recaptchaValue: null,
-      });
+        await emailjs.send(serviceID, templateID, emailParamsOwner, userID);
 
-      setPhoneNumber('');
+        setFormData({
+          name: '',
+          email: '',
+          phoneNumber: '',
+          recaptchaValue: null,
+        });
+        setPhoneNumber('');
+        setIsSubmitting(false)
+
+      } else {
+        console.error('Invalid PDF URL. Email not sent.');
+      }
     } catch (error) {
       console.error('Error inserting booking or sending emails:', error);
       alert('Rezervasyonunuz oluşturulamadı.');
     }
   };
-
 
   const [finalDate, setFinalDate] = useState(null);
   useFetchAppointments(
@@ -285,13 +295,19 @@ export default function Booking() {
                       sitekey={siteKey}
                       size="invisible"
                     />
-                    <Button
-                      type="submit"
-                      className="px-4 py-2 h-12 w-full rounded-lg focus:outline-1 shadow-md capitalize"
-                      aria-label="Randevu Oluştur"
-                    >
-                      Randevu Oluştur
-                    </Button>
+                            <Button
+                                        type="submit"
+                                        variant="gradient" color="light-blue"
+                                        className="w-full rounded-lg shadow-md capitalize font-light transition-all duration-300"
+                                        aria-label="Oluştur"
+                                        disabled={isSubmitting} // Disable the button when isSubmitting is true
+                                    >
+                                                                                                                   {isSubmitting ? (
+                                        <Spinner color='white' className='h-4 w-full m-0 p-0'></Spinner>
+                                    ) : (
+                                       <span>Oluştur</span>  
+                                    )}
+                                    </Button>
                   </div>
                 </form>
               )}

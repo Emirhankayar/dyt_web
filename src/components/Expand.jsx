@@ -6,7 +6,7 @@ import { Button } from "@material-tailwind/react";
 export default function ExpandingButton({ expanded, onClick }) {
   return (
     <div className="mt-4 flex justify-center">
-       <Button onClick={onClick} className="bg-transparent text-black shadow-none hover:shadow-none capitalize text-sm">
+       <Button onClick={onClick} className="bg-transparent shadow-none hover:shadow-none capitalize text-sm text-blue-gray-800 hover:text-blue-gray-500">
         {expanded ? (
           <>
             Daha az Gör <FontAwesomeIcon icon={faChevronUp} />

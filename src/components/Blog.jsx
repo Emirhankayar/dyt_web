@@ -54,7 +54,10 @@ export default function CardDefault() {
       const fetchPosts = async () => {
         try {
           const advisePostsData = await fetchBlogPosts("Advise");
-          setAdvisePosts(advisePostsData);
+  
+          // Limit the number of posts to a maximum of 6
+          const maxPosts = 6;
+          setAdvisePosts(advisePostsData.slice(0, maxPosts));
         } finally {
           setLoading(false);
         }
@@ -63,6 +66,7 @@ export default function CardDefault() {
       fetchPosts();
     }
   }, [inViewport]);
+  
 
 
   const displayedPosts = showAll ? advisePosts : advisePosts.slice(0, expanded ? advisePosts.length : numCols);
@@ -75,7 +79,7 @@ export default function CardDefault() {
         <Typography variant="h4" >Tavsiyeler</Typography>
 
           <a href="/tavsiyeler">
-            <Button className="h-10 shadow-xl capitalize">Tüm Tavsiyeler</Button>
+            <Button variant="gradient" color="light-blue" className="h-10 shadow-xl capitalize font-light transition-all duration-300">Tüm Tavsiyeler</Button>
           </a>
   
       </div>
@@ -83,7 +87,7 @@ export default function CardDefault() {
 
           <div className="hidden-class-up" ref={cardRef}>
       <div className="container mx-auto h-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {loading ? (
             Array.from({ length: numCols }).map((_, index) => (
               <SkeletonBlog key={index} />
@@ -98,27 +102,27 @@ export default function CardDefault() {
                     <div className="block w-76 items-center ">
                     <Link to={`/tavsiyeler/${encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-'))}`}>
 
+                      <CardHeader className="bg-transparent rounded-lg shadow-xl grid grid-cols-1 place-content-center">
+
                       <LazyLoadImage
                         decoding="async"
                         fetchpriority="high"
                         useIntersectionObserver={true}
                         alt="card-image"
-                        className="w-screen h-[30vh] object-cover rounded-t-lg select-none hover:brightness-110 transition-all duration-500"
+                        className="w-screen h-[25vh] object-cover object-center rounded-lg select-none hover:brightness-110 transition-all duration-500"
                         src={image}
                         effect="blur"
                       />
-                        </Link>
-
-                      <CardHeader className="bg-transparent h-9 mt-4 shadow-none">
-                        <Typography variant='h5' className=" text-center">{post.title}</Typography>
                       </CardHeader>
-                      <CardBody>
-                        <Typography variant='paragraph' className="text-justify -mt-6">{text.substring(0, 100)}...</Typography>
-                        <Typography variant='small' className="text-center mt-2">{post.formattedDate}</Typography>
+                        </Link>
+                      <CardBody className="space-y-2">
+                        <Typography variant='h5' className=" text-left">{post.title}</Typography>
+                        <Typography variant='paragraph' className="text-justify">{text.substring(0, 130)}...</Typography>
+                        <Typography variant='h6' className="text-left">{post.formattedDate}</Typography>
                       </CardBody>
-                      <CardFooter className="text-center -mt-8">
+                      <CardFooter className="-mt-6">
                       <Link to={`/tavsiyeler/${encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-'))}`}>
-                          <Button className="capitalize shadow-xl">Devamını Oku</Button>
+                          <Button variant="outlined" color="light-blue" className="capitalize font-light h-5 flex flex-row justify-center items-center ">Devamını Oku</Button>
                         </Link>
                       </CardFooter>
                     </div>

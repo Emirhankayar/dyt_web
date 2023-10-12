@@ -21,7 +21,7 @@ const SocLinks = () => {
                       >
                         <FontAwesomeIcon
                           icon={socialMediaIcons[socialMedia].icon}
-                          className="text-black text-2xl mx-4 -mb-2"
+                          className="text-black text-2xl mx-4 -mb-2 text-light-blue-400 hover:text-blue-200 transition-all duration-300"
                         />
                       </a>
                     ))}

@@ -69,7 +69,7 @@ async function useFetchAppointments(
   }
   
 
-export function calculateStartDate(fullyBookedDatesArray) {
+  export function calculateStartDate(fullyBookedDatesArray) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
   
@@ -83,21 +83,30 @@ export function calculateStartDate(fullyBookedDatesArray) {
       .map((date) => new Date(date))
       .sort((a, b) => a - b);
   
+    // Function to check if a date is a weekend (Saturday or Sunday)
+    const isWeekend = (date) => {
+      const day = date.getDay();
+      return day === 0 || day === 6;
+    };
+  
     for (let i = 0; i < sortedBookedDates.length; i++) {
       const fullyBookedDate = sortedBookedDates[i];
-      // Check if fully booked date is the same as the current startDate
-      if (fullyBookedDate.getTime() === startDate.getTime()) {
-        // Date is fully booked, check the next day
+      
+      // Check if the date is a weekend or fully booked
+      while (fullyBookedDate.getTime() === startDate.getTime() || isWeekend(startDate)) {
         startDate.setDate(startDate.getDate() + 1);
-      } else if (fullyBookedDate > startDate) {
+      }
+      
+      if (fullyBookedDate > startDate) {
         // Found a fully booked day after tomorrow, setting startDate to that day
         startDate = fullyBookedDate;
-        break; 
+        break;
       }
     }
   
     return startDate;
   }
+  
 
 // Function to get the PDF URL from Supabase
 const getPdfUrlFromSupabase = async (fileName) => {
@@ -115,4 +124,4 @@ const getPdfUrlFromSupabase = async (fileName) => {
   };
 
 
-  export { supabaseClient, useFetchAppointments }
+  export { supabaseClient, useFetchAppointments, getPdfUrlFromSupabase }

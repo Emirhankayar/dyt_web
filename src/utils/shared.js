@@ -1,18 +1,18 @@
 // shared.js
-import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faXTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 const socialMediaIcons = {
-    facebook: {
-      icon: faFacebook,
-      url: 'https://www.facebook.com/your-facebook-page',
-    },
-    twitter: {
-      icon: faTwitter,
-      url: 'https://twitter.com/your-twitter-account',
-    },
     instagram: {
       icon: faInstagram,
-      url: 'https://www.instagram.com/your-instagram-account',
+      url: 'https://www.instagram.com/dyt.zeynepsekinpunar/',
+    },
+    twitter: {
+      icon: faXTwitter,
+      url: 'https://twitter.com/ZSekinpunar',
+    },
+    facebook: {
+      icon: faFacebook,
+      url: 'https://www.facebook.com/zeynep.sekinpunar/',
     },
   };
 

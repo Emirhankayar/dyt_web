@@ -6,12 +6,16 @@ import {
   Drawer,
 } from "@material-tailwind/react";
 const SocLinks = React.lazy(() => import('./SocLinks'));
+import { Link, useLocation } from "react-router-dom"; // Import Link and useLocation
+
 
 
 
 export default function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
   const [openRight, setOpenRight] = React.useState(false);
+  const location = useLocation(); // Get the current route
+
 
   const openDrawerRight = () => setOpenRight(true);
   const closeDrawerRight = () => setOpenRight(false);
@@ -37,7 +41,7 @@ export default function StickyNavbar() {
   }, []);
 
   const socialMediaLinks = (
-    <div className="flex gap-2">
+    <div className="flex gap-2 hover:underline transition-all duration-300">
 
           <SocLinks/>
 
@@ -48,49 +52,41 @@ export default function StickyNavbar() {
     <ul className="mb-10 mt-10 flex flex-col items-start gap-10 lg:mb-0 lg:mt-0 lg:h-max lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
-        variant='h6'
+        variant="paragraph"
         color="blue-gray"
-        className="p-2 "
+        className={`p-2 hover:underline transition-all duration-300 ${location.pathname === "/" ? "text-blue-500 " : ""}`} // Check if the current route is '/'
       >
-        <a href="/" className="flex items-center">
-          Anasayfa
-        </a>
+        <Link to="/" className="flex items-center">Anasayfa</Link> {/* Use Link instead of <a> */}
       </Typography>
       <Typography
         as="li"
-        variant='h6'
+        variant="paragraph"
         color="blue-gray"
-        className="p-2 "
+        className={`p-2 hover:underline transition-all duration-300 ${location.pathname === "/tavsiyeler" ? "text-blue-500 " : ""}`} // Check if the current route is '/tavsiyeler'
       >
-        <a href="/tavsiyeler" className="flex items-center">
-          Tavsiyeler
-        </a>
+        <Link to="/tavsiyeler" className="flex items-center">Tavsiyeler</Link> {/* Use Link instead of <a> */}
       </Typography>
       <Typography
         as="li"
-        variant='h6'
+        variant="paragraph"
         color="blue-gray"
-        className="p-2 "
+        className={`p-2 hover:underline transition-all duration-300 ${location.pathname === "/tarifler" ? "text-blue-500 " : ""}`} // Check if the current route is '/tarifler'
       >
-        <a href="/tarifler" className="flex items-center">
-          Tarifler
-        </a>
+        <Link to="/tarifler" className="flex items-center">Tarifler</Link> {/* Use Link instead of <a> */}
       </Typography>
       <Typography
         as="li"
-        variant='h6'
+        variant="paragraph"
         color="blue-gray"
-        className="p-2 "
+        className={`p-2 hover:underline transition-all duration-300 ${location.pathname === "/iletisim" ? "text-blue-500 " : ""}`} // Check if the current route is '/iletisim'
       >
-        <a href="/iletisim" className="flex items-center">
-          İletişim
-        </a>
+        <Link to="/iletisim" className="flex items-center">İletişim</Link> {/* Use Link instead of <a> */}
       </Typography>
       <Typography
         as="li"
-        variant='h6'
+        variant="paragraph"
         color="gray"
-        className="p-2  lg:hidden "
+        className="p-2 hover:underline transition-all duration-300 lg:hidden"
       >
         <div className="">
           {socialMediaLinks}
@@ -108,10 +104,10 @@ export default function StickyNavbar() {
           <Typography
             as="a"
             href="/"
-            variant="h3"
-            className="mr-4 cursor-pointer py-1.5 font-bold"
+            variant="paragraph"
+            className="mr-4 cursor-pointer py-1.5 !"
           >
-            Dyt. Zeynep
+            Diyetisyen Zeynep
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
@@ -169,12 +165,12 @@ export default function StickyNavbar() {
         }}
       >
         <div className="mb-6 flex flex-row items-center justify-between">
-          <a href="/">
 
-          <Typography variant="h3" color="blue-gray">
-            Dyt. Zeynep
+
+          <Typography variant="lead" color="blue-gray">
+            Menü
           </Typography>
-          </a>
+
           <IconButton
             variant="text"
             color="gray"
