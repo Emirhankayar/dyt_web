@@ -22,7 +22,7 @@ const emailNewsForm = () => {
     }, []);
 
     const [formData, setFormData] = useState({
-        emailNews: '',
+        email: '',
     });
 
     const handleChange = (e) => {
@@ -30,34 +30,33 @@ const emailNewsForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        try {
-            setIsSubmitting(true)
+    try {
+        setIsSubmitting(true);
 
-            const emailParams = {
-                email: formData.emailNews,
-                message: `Bir yeni email bülteni abonesi : ${formData.emailNews}`,
-                message_user: 'Email Bültenimize Kayıt Olduğunuz için Teşekkür Ederiz. İptal etmek için bize ulaşabilirsiniz.',
-            };
+        const emailParams = {
+            email: formData.email,
+            message: `Bir yeni email bülteni abonesi : ${formData.email}`,
+            message_user: 'Email Bültenimize Kayıt Olduğunuz için Teşekkür Ederiz. İptal etmek için bize ulaşabilirsiniz.',
+        };
 
-            emailParams.emailNews = formData.emailNews;
+        await emailjs.send(serviceID, templateID, emailParams, userID);
 
-            await emailjs.send(serviceID, templateID, emailParams, userID);
+        setFormData({
+            email: '',
+        });
+        
+        setIsSubmitting(false);
+        
+        alert('Email bültenine başarıyla abone olundu!');
+    } catch (error) {
+        console.error('Error sending emailNews:', error);
+        alert('Email bültenine abone olunamadı, lütfen daha sonra tekrar deneyiniz.');
+    }
+};
 
-            setFormData({
-                email: '',
-            });
-            
-            setIsSubmitting(false)
-            
-            alert('emailNews başarıyla gönderildi!');
-        } catch (error) {
-            console.error('Error sending emailNews:', error);
-            alert('emailNews gönderilemedi, lütfen daha sonra tekrar deneyiniz.');
-        }
-    };
 
     return (
 
@@ -87,11 +86,11 @@ const emailNewsForm = () => {
                                 </Typography>
                                 <div className='flex flex-row items-center justify-center mt-4'>
                                 <input
-                                    type="emailNews"
-                                    id="emailNews"
-                                    name="emailNews"
+                                    type="email"
+                                    id="email"
+                                    name="email"
                                     placeholder='email@ornek.com'
-                                    value={formData.emailNews}
+                                    value={formData.email}
                                     onChange={handleChange}
                                     required
                                     aria-label='eposta'
@@ -104,10 +103,8 @@ const emailNewsForm = () => {
                                     variant="gradient"
                                     color="light-blue"
                                     aria-label="email bültenine üye ol"
-                                    required
                                     className="w-1/4 ml-2 rounded-md focus:outline-1 shadow-md transition-all duration-300 flex items-center justify-center"
                                     disabled={isSubmitting}
-                                    onClick={handleSubmit}
                                     >
                                     {isSubmitting ? (
                                         <Spinner color='white' className='h-4 w-full m-0 p-0'></Spinner>

@@ -105,7 +105,7 @@ export default function StickyNavbar() {
             as="a"
             href="/"
             variant="paragraph"
-            className="mr-4 cursor-pointer py-1.5 !"
+            className="mr-4 cursor-pointer py-1.5 !font-semibold hover:text-gray-600 transition-color duration-300"
           >
             Diyetisyen Zeynep
           </Typography>

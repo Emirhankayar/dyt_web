@@ -13,8 +13,6 @@ import { SkeletonBook } from './Skeleton';
 import { format, addDays } from 'date-fns';
 import { supabaseClient as supabase, useFetchAppointments, getPdfUrlFromSupabase } from '../utils/bookUtils';
 
-// TODO IMPLEMENT PDF SENDING LOGIC TO EMAIL
-
 export default function Booking() {
   const serviceID = import.meta.env.VITE_SERVICE;
   const templateID = import.meta.env.VITE_TEMPLATE;

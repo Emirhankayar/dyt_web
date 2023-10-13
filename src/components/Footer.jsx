@@ -40,7 +40,7 @@ export default function FooterWithSocialLinks() {
       <div className="mx-auto w-full max-w-7xl px-8">
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
           <a href="/">
-            <Typography variant="h6" className="mb-6 !font-semibold">
+            <Typography variant="h6" className="mb-6 !font-semibold hover:text-gray-600 transition-color duration-300">
               Diyetisyen Zeynep
             </Typography>
 
